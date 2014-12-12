@@ -65,3 +65,5 @@ crashlytics-build.properties
 /sujet2/target/
 
 
+
+sujet2/src/main/setup/glassfish-resources.xml
