@@ -21,14 +21,18 @@ USE `sujet2` ;
 DROP TABLE IF EXISTS `sujet2`.`Member` ;
 
 CREATE TABLE IF NOT EXISTS `sujet2`.`Member` (
-  `memberId` INT(11) NOT NULL,
+  `memberId` INT(11) NOT NULL AUTO_INCREMENT,
   `memberEmail` VARCHAR(45) NOT NULL,
   `memberPassword` VARCHAR(45) NOT NULL,
+  `memberIsAdmin` TINYINT(1) NULL,
   `memberJoiningDate` DATE NOT NULL,
   `memberName` VARCHAR(45) NOT NULL,
   `memberSurname` VARCHAR(45) NOT NULL,
   `memberBirthday` DATE NOT NULL,
   `memberNationality` VARCHAR(45) NOT NULL,
+  `memberSex` VARCHAR(45) NULL,
+  `memberProfession` VARCHAR(45) NULL,
+  `memberIsSuppressed` TINYINT(1) NULL,
   PRIMARY KEY (`memberId`))
 ENGINE = InnoDB;
 
@@ -39,7 +43,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `sujet2`.`ProjectCategory` ;
 
 CREATE TABLE IF NOT EXISTS `sujet2`.`ProjectCategory` (
-  `categoryId` INT(11) NOT NULL,
+  `categoryId` INT(11) NOT NULL AUTO_INCREMENT,
   `categoryName` VARCHAR(255) NOT NULL,
   `categoryDescription` VARCHAR(45) NULL,
   PRIMARY KEY (`categoryId`))
@@ -59,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `sujet2`.`Project` (
   `projectEndDate` DATE NOT NULL,
   `projectDescription` VARCHAR(2000) NOT NULL,
   `projectCategory` INT(11) NOT NULL,
+  `projectIsSuppressed` TINYINT(1) NULL,
   PRIMARY KEY (`projectId`),
   INDEX `fk_Project_ProjectCategory1_idx` (`projectCategory` ASC),
   CONSTRAINT `fk_Project_ProjectCategory1`
@@ -75,15 +80,15 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `sujet2`.`Media` ;
 
 CREATE TABLE IF NOT EXISTS `sujet2`.`Media` (
-  `mediaId` INT(11) NOT NULL,
+  `mediaId` INT(11) NOT NULL AUTO_INCREMENT,
   `mediaURL` VARCHAR(255) NOT NULL,
   `mediaName` VARCHAR(45) NULL,
   `mediaDescription` VARCHAR(45) NULL,
-  `Project_projectId` INT(11) NOT NULL,
+  `mediaProjectId` INT(11) NOT NULL,
   PRIMARY KEY (`mediaId`),
-  INDEX `fk_Media_Project1_idx` (`Project_projectId` ASC),
+  INDEX `fk_Media_Project1_idx` (`mediaProjectId` ASC),
   CONSTRAINT `fk_Media_Project1`
-    FOREIGN KEY (`Project_projectId`)
+    FOREIGN KEY (`mediaProjectId`)
     REFERENCES `sujet2`.`Project` (`projectId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -96,7 +101,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `sujet2`.`Reward` ;
 
 CREATE TABLE IF NOT EXISTS `sujet2`.`Reward` (
-  `rewardId` INT(11) NOT NULL,
+  `rewardId` INT(11) NOT NULL AUTO_INCREMENT,
   `rewardName` VARCHAR(45) NOT NULL,
   `rewardDescription` VARCHAR(45) NOT NULL,
   `rewardMinPrice` VARCHAR(45) NULL,
@@ -116,7 +121,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `sujet2`.`PaymentData` ;
 
 CREATE TABLE IF NOT EXISTS `sujet2`.`PaymentData` (
-  `paymentDataID` INT(11) NOT NULL,
+  `paymentDataID` INT(11) NOT NULL AUTO_INCREMENT,
   `paypalAuthorization` VARCHAR(45) NULL,
   `creditcard` VARCHAR(45) NULL,
   PRIMARY KEY (`paymentDataID`))
@@ -129,7 +134,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `sujet2`.`Member_backs_Project` ;
 
 CREATE TABLE IF NOT EXISTS `sujet2`.`Member_backs_Project` (
-  `backerId` INT(11) NOT NULL,
+  `backerId` INT(11) NOT NULL AUTO_INCREMENT,
   `projectId` INT(11) NOT NULL,
   `Reward_rewardId` INT(11) NULL,
   `pledgedEuros` INT(11) NOT NULL,
@@ -162,7 +167,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `sujet2`.`Member_creates_Project` ;
 
 CREATE TABLE IF NOT EXISTS `sujet2`.`Member_creates_Project` (
-  `creatorId` INT(11) NOT NULL,
+  `creatorId` INT(11) NOT NULL AUTO_INCREMENT,
   `projectId` INT(11) NOT NULL,
   PRIMARY KEY (`creatorId`, `projectId`),
   INDEX `fk_Member_has_Project_Project1_idx` (`projectId` ASC),
