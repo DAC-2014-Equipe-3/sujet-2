@@ -9,13 +9,19 @@ package com.dac2014equipe3.sujet2.model.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.*;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  *
  * @author Jummartinezro
  */
+@Entity
 public class Member implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue (strategy = IDENTITY)
     private Integer memberId;
     private String memberEmail;
     private String memberPassword;
@@ -24,7 +30,9 @@ public class Member implements Serializable {
     private String memberSurname;
     private Date memberBirthday;
     private String memberNationality;
+    @ElementCollection
     private List<Project> projectList;
+    @ElementCollection
     private List<MemberbacksProject> memberbacksProjectList;
 
     public Member() {
