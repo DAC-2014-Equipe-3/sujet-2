@@ -7,6 +7,8 @@ package com.dac2014equipe3.sujet2.presentation.controller;
 
 import com.dac2014equipe3.sujet2.model.dao.MemberDAO;
 import com.dac2014equipe3.sujet2.model.entity.Member;
+
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -25,6 +27,8 @@ public class LoginBean {
     private String password;
     @ManagedProperty(value = "#{memberBean}")
     private MemberBean user;
+    @EJB
+    private MemberDAO memberDAO;
     
     /**
      * Creates a new instance of LoginBean
@@ -66,7 +70,12 @@ public class LoginBean {
         member.setMemberEmail(getMail());
         member.setMemberPassword(getPassword());
 
-        Member login = MemberDAO.login(member);
+        Member login = null;
+        try {
+            login = memberDAO.login(member);
+        } catch (MemberDAO.DAOException e) {
+            e.printStackTrace();
+        }
 
         if (login != null) {
             user.setEmail(login.getMemberEmail());
