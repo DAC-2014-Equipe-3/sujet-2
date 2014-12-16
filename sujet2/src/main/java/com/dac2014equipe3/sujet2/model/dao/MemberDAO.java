@@ -51,7 +51,7 @@ public class MemberDAO {
         return member;
     }
 
-    private class DAOException extends Throwable {
+    public class DAOException extends Throwable {
         public DAOException(Exception e) {
             //TODO
             System.out.println("DAO Exception");
