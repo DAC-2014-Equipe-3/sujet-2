@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 package com.dac2014equipe3.sujet2.presentation.controller;
-
 import com.dac2014equipe3.sujet2.model.dao.MemberDAO;
 import com.dac2014equipe3.sujet2.model.entity.Member;
-
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -19,17 +17,18 @@ import javax.faces.context.FacesContext;
  *
  * @author juanmanuelmartinezromero
  */
+
 @ManagedBean(name = "loginBean")
 @RequestScoped
 public class LoginBean {
 
+    @ManagedProperty(value = "#{memberBean}")
+    private MemberBean user = new MemberBean();
     private String username;
     private String password;
-    @ManagedProperty(value = "#{memberBean}")
-    private MemberBean user;
     @EJB
     private MemberDAO memberDAO;
-    
+
     /**
      * Creates a new instance of LoginBean
      */
@@ -51,6 +50,29 @@ public class LoginBean {
     }
 
     /**
+     * @return
+     */
+    public MemberDAO getMemberDAO() {
+        return memberDAO;
+    }
+
+    /**
+     * @return
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     *
+     * @param memberDAO
+     */
+    public void setMemberDAO(MemberDAO memberDAO) {
+        this.memberDAO = memberDAO;
+    }
+
+
+    /**
      * @param username the username to set
      */
     public void setUsername(String username) {
@@ -63,7 +85,23 @@ public class LoginBean {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+    /**
+     *
+     * @return the user connected
+     */
+    public MemberBean getUser() {
+        return user;
+    }
+
+    /**
+     *
+     * @param user
+     */
+    public void setUser(MemberBean user) {
+        this.user = user;
+    }
+
     public String login() {
         Member member = new Member();
 

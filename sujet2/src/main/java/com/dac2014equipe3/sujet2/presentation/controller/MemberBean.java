@@ -12,6 +12,7 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Jummartinezro
  */
+
 @ManagedBean(name = "memberBean")
 @SessionScoped
 public class MemberBean {
