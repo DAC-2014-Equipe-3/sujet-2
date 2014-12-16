@@ -25,9 +25,11 @@ public class Member implements Serializable {
     private Integer memberId;
     private String memberEmail;
     private String memberPassword;
+    @Temporal(TemporalType.DATE)
     private Date memberJoiningDate;
     private String memberName;
     private String memberSurname;
+    @Temporal(TemporalType.DATE)
     private Date memberBirthday;
     private String memberNationality;
     @ElementCollection
