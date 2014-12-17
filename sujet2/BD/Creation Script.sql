@@ -23,11 +23,12 @@ DROP TABLE IF EXISTS `sujet2`.`Member` ;
 CREATE TABLE IF NOT EXISTS `sujet2`.`Member` (
   `memberId` INT(11) NOT NULL AUTO_INCREMENT,
   `memberEmail` VARCHAR(45) NOT NULL,
+  `memberLogin` VARCHAR(45) NOT NULL,
   `memberPassword` VARCHAR(45) NOT NULL,
   `memberIsAdmin` TINYINT(1) NULL,
   `memberJoiningDate` DATE NOT NULL,
-  `memberName` VARCHAR(45) NOT NULL,
-  `memberSurname` VARCHAR(45) NOT NULL,
+  `memberLastname` VARCHAR(45) NOT NULL,
+  `memberFirstname` VARCHAR(45) NOT NULL,
   `memberBirthday` DATE NOT NULL,
   `memberNationality` VARCHAR(45) NOT NULL,
   `memberSex` VARCHAR(45) NULL,
@@ -84,11 +85,11 @@ CREATE TABLE IF NOT EXISTS `sujet2`.`Media` (
   `mediaURL` VARCHAR(255) NOT NULL,
   `mediaName` VARCHAR(45) NULL,
   `mediaDescription` VARCHAR(45) NULL,
-  `mediaProjectId` INT(11) NOT NULL,
+  `Project_projectId` INT(11) NOT NULL,
   PRIMARY KEY (`mediaId`),
-  INDEX `fk_Media_Project1_idx` (`mediaProjectId` ASC),
+  INDEX `fk_Media_Project1_idx` (`Project_projectId` ASC),
   CONSTRAINT `fk_Media_Project1`
-    FOREIGN KEY (`mediaProjectId`)
+    FOREIGN KEY (`Project_projectId`)
     REFERENCES `sujet2`.`Project` (`projectId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
