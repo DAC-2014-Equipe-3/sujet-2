@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 package com.dac2014equipe3.sujet2.presentation.controller;
+
+import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
+import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
 import com.dac2014equipe3.sujet2.model.dao.MemberDAO;
 import com.dac2014equipe3.sujet2.model.entity.Member;
+import com.dac2014equipe3.sujet2.vo.MemberVo;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,7 +21,6 @@ import javax.faces.context.FacesContext;
  *
  * @author juanmanuelmartinezromero
  */
-
 @ManagedBean(name = "loginBean")
 @RequestScoped
 public class LoginBean {
@@ -26,7 +29,6 @@ public class LoginBean {
     private MemberBean user = new MemberBean();
     private String username;
     private String password;
-    @EJB
     private MemberDAO memberDAO;
 
     /**
@@ -71,7 +73,6 @@ public class LoginBean {
         this.memberDAO = memberDAO;
     }
 
-
     /**
      * @param username the username to set
      */
@@ -101,34 +102,30 @@ public class LoginBean {
     public void setUser(MemberBean user) {
         this.user = user;
     }
-
+    
     public String login() {
-        Member member = new Member();
+        MemberVo memberVo = new MemberVo();
+        MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
 
-        member.setMemberEmail(getMail());
-        member.setMemberPassword(getPassword());
+        memberVo.setMemberLogin(getUsername());
+        memberVo.setMemberPassword(getPassword());
 
-        Member login = null;
-        try {
-            login = memberDAO.login(member);
-        } catch (MemberDAO.DAOException e) {
-            e.printStackTrace();
-        }
+        MemberVo login = memberFacade.login(memberVo);
 
         if (login != null) {
             user.setEmail(login.getMemberEmail());
             user.setId(login.getMemberId());
             user.setLoggedIn(true);
             return "success";
-        } else {        
+        } else {
             FacesContext.getCurrentInstance().addMessage(
                     "loginForm:username", new FacesMessage(
-                    "Membre email ou mot de passe incorrects"));
+                            "Membre email ou mot de passe incorrects"));
             FacesContext.getCurrentInstance().addMessage(
                     "loginForm:password", new FacesMessage(
-                    "Membre email ou mot de passe incorrects"));
+                            "Membre email ou mot de passe incorrects"));
             return "failure";
         }
     }
-    
+
 }

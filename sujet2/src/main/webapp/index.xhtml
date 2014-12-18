@@ -38,14 +38,14 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <p:password id="password" required="true" value="{loginBean.password}"
+                            <p:password id="password" required="true" value="#{loginBean.password}"
                                         requiredMessage="Veuillez compléter le champ"/>
                             <p:watermark for="password" value="Mot de passe"/>
                             <p:message id="passwordMessage" for="password"/>
                         </div>
                     </div>
                     <div class="form-actions">
-                        <h:commandButton action="{loginBean.login()}" value="Accéder" class="btn btn-danger"/>
+                        <h:commandButton action="#{loginBean.login()}" value="Accéder" class="btn btn-danger"/>
                     </div>
                 </div>
             </p:layoutUnit>
