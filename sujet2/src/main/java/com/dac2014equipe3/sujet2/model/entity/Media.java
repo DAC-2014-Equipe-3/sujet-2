@@ -7,17 +7,52 @@
 package com.dac2014equipe3.sujet2.model.entity;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author Jummartinezro
  */
+@Entity
+@Table(name = "Media", catalog = "sujet2", schema = "")
+@NamedQueries({
+    @NamedQuery(name = "Media.findAll", query = "SELECT m FROM Media m"),
+    @NamedQuery(name = "Media.findByMediaId", query = "SELECT m FROM Media m WHERE m.mediaId = :mediaId"),
+    @NamedQuery(name = "Media.findByMediaURL", query = "SELECT m FROM Media m WHERE m.mediaURL = :mediaURL"),
+    @NamedQuery(name = "Media.findByMediaName", query = "SELECT m FROM Media m WHERE m.mediaName = :mediaName"),
+    @NamedQuery(name = "Media.findByMediaDescription", query = "SELECT m FROM Media m WHERE m.mediaDescription = :mediaDescription")})
 public class Media implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "mediaId")
     private Integer mediaId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "mediaURL")
     private String mediaURL;
+    @Size(max = 45)
+    @Column(name = "mediaName")
     private String mediaName;
+    @Size(max = 45)
+    @Column(name = "mediaDescription")
     private String mediaDescription;
+    @JoinColumn(name = "Project_projectId", referencedColumnName = "projectId")
+    @ManyToOne(optional = false)
     private Project projectprojectId;
 
     public Media() {

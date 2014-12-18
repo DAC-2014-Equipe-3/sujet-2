@@ -8,18 +8,53 @@ package com.dac2014equipe3.sujet2.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author Jummartinezro
  */
+@Entity
+@Table(name = "Member_backs_Project", catalog = "sujet2", schema = "")
+@NamedQueries({
+    @NamedQuery(name = "MemberbacksProject.findAll", query = "SELECT m FROM MemberbacksProject m"),
+    @NamedQuery(name = "MemberbacksProject.findByBackerId", query = "SELECT m FROM MemberbacksProject m WHERE m.memberbacksProjectPK.backerId = :backerId"),
+    @NamedQuery(name = "MemberbacksProject.findByProjectId", query = "SELECT m FROM MemberbacksProject m WHERE m.memberbacksProjectPK.projectId = :projectId"),
+    @NamedQuery(name = "MemberbacksProject.findByRewardrewardId", query = "SELECT m FROM MemberbacksProject m WHERE m.memberbacksProjectPK.rewardrewardId = :rewardrewardId"),
+    @NamedQuery(name = "MemberbacksProject.findByPledgedEuros", query = "SELECT m FROM MemberbacksProject m WHERE m.pledgedEuros = :pledgedEuros"),
+    @NamedQuery(name = "MemberbacksProject.findByBackingDate", query = "SELECT m FROM MemberbacksProject m WHERE m.backingDate = :backingDate")})
 public class MemberbacksProject implements Serializable {
     private static final long serialVersionUID = 1L;
+    @EmbeddedId
     protected MemberbacksProjectPK memberbacksProjectPK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "pledgedEuros")
     private int pledgedEuros;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "backingDate")
+    @Temporal(TemporalType.DATE)
     private Date backingDate;
+    @JoinColumn(name = "backerId", referencedColumnName = "memberId", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private Member member1;
+    @JoinColumn(name = "projectId", referencedColumnName = "projectId", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private Project project;
+    @JoinColumn(name = "Reward_rewardId", referencedColumnName = "rewardId", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private Reward reward;
 
     public MemberbacksProject() {

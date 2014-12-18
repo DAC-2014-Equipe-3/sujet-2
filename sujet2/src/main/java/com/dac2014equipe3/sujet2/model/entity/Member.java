@@ -3,38 +3,116 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.dac2014equipe3.sujet2.model.entity;
 
+import com.dac2014equipe3.sujet2.vo.MemberVo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author Jummartinezro
  */
 @Entity
-public class Member implements Serializable {
+@Table(name = "Member", catalog = "sujet2", schema = "")
+@NamedQueries({
+    @NamedQuery(name = "Member.findAll", query = "SELECT m FROM Member m"),
+    @NamedQuery(name = "Member.findByMemberId", query = "SELECT m FROM Member m WHERE m.memberId = :memberId"),
+    @NamedQuery(name = "Member.findByMemberEmail", query = "SELECT m FROM Member m WHERE m.memberEmail = :memberEmail"),
+    @NamedQuery(name = "Member.findByMemberLogin", query = "SELECT m FROM Member m WHERE m.memberLogin = :memberLogin"),
+    @NamedQuery(name = "Member.findByMemberPassword", query = "SELECT m FROM Member m WHERE m.memberPassword = :memberPassword"),
+    @NamedQuery(name = "Member.findByMemberIsAdmin", query = "SELECT m FROM Member m WHERE m.memberIsAdmin = :memberIsAdmin"),
+    @NamedQuery(name = "Member.findByMemberJoiningDate", query = "SELECT m FROM Member m WHERE m.memberJoiningDate = :memberJoiningDate"),
+    @NamedQuery(name = "Member.findByMemberLastname", query = "SELECT m FROM Member m WHERE m.memberLastname = :memberLastname"),
+    @NamedQuery(name = "Member.findByMemberFirstname", query = "SELECT m FROM Member m WHERE m.memberFirstname = :memberFirstname"),
+    @NamedQuery(name = "Member.findByMemberBirthday", query = "SELECT m FROM Member m WHERE m.memberBirthday = :memberBirthday"),
+    @NamedQuery(name = "Member.findByMemberNationality", query = "SELECT m FROM Member m WHERE m.memberNationality = :memberNationality"),
+    @NamedQuery(name = "Member.findByMemberSex", query = "SELECT m FROM Member m WHERE m.memberSex = :memberSex"),
+    @NamedQuery(name = "Member.findByMemberProfession", query = "SELECT m FROM Member m WHERE m.memberProfession = :memberProfession"),
+    @NamedQuery(name = "Member.findByMemberIsSuppressed", query = "SELECT m FROM Member m WHERE m.memberIsSuppressed = :memberIsSuppressed")})
+public class Member implements Serializable, IEntity<MemberVo> {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue (strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "memberId")
     private Integer memberId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "memberEmail")
     private String memberEmail;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "memberLogin")
+    private String memberLogin;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "memberPassword")
     private String memberPassword;
+    @Column(name = "memberIsAdmin")
+    private Boolean memberIsAdmin;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "memberJoiningDate")
     @Temporal(TemporalType.DATE)
     private Date memberJoiningDate;
-    private String memberName;
-    private String memberSurname;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "memberLastname")
+    private String memberLastname;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "memberFirstname")
+    private String memberFirstname;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "memberBirthday")
     @Temporal(TemporalType.DATE)
     private Date memberBirthday;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "memberNationality")
     private String memberNationality;
-    @ElementCollection
+    @Size(max = 45)
+    @Column(name = "memberSex")
+    private String memberSex;
+    @Size(max = 45)
+    @Column(name = "memberProfession")
+    private String memberProfession;
+    @Column(name = "memberIsSuppressed")
+    private Boolean memberIsSuppressed;
+    @JoinTable(name = "Member_creates_Project", joinColumns = {
+        @JoinColumn(name = "creatorId", referencedColumnName = "memberId")}, inverseJoinColumns = {
+        @JoinColumn(name = "projectId", referencedColumnName = "projectId")})
+    @ManyToMany
     private List<Project> projectList;
-    @ElementCollection
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "member1")
     private List<MemberbacksProject> memberbacksProjectList;
 
     public Member() {
@@ -44,13 +122,14 @@ public class Member implements Serializable {
         this.memberId = memberId;
     }
 
-    public Member(Integer memberId, String memberEmail, String memberPassword, Date memberJoiningDate, String memberName, String memberSurname, Date memberBirthday, String memberNationality) {
+    public Member(Integer memberId, String memberEmail, String memberLogin, String memberPassword, Date memberJoiningDate, String memberLastname, String memberFirstname, Date memberBirthday, String memberNationality) {
         this.memberId = memberId;
         this.memberEmail = memberEmail;
+        this.memberLogin = memberLogin;
         this.memberPassword = memberPassword;
         this.memberJoiningDate = memberJoiningDate;
-        this.memberName = memberName;
-        this.memberSurname = memberSurname;
+        this.memberLastname = memberLastname;
+        this.memberFirstname = memberFirstname;
         this.memberBirthday = memberBirthday;
         this.memberNationality = memberNationality;
     }
@@ -71,12 +150,28 @@ public class Member implements Serializable {
         this.memberEmail = memberEmail;
     }
 
+    public String getMemberLogin() {
+        return memberLogin;
+    }
+
+    public void setMemberLogin(String memberLogin) {
+        this.memberLogin = memberLogin;
+    }
+
     public String getMemberPassword() {
         return memberPassword;
     }
 
     public void setMemberPassword(String memberPassword) {
         this.memberPassword = memberPassword;
+    }
+
+    public Boolean getMemberIsAdmin() {
+        return memberIsAdmin;
+    }
+
+    public void setMemberIsAdmin(Boolean memberIsAdmin) {
+        this.memberIsAdmin = memberIsAdmin;
     }
 
     public Date getMemberJoiningDate() {
@@ -87,20 +182,20 @@ public class Member implements Serializable {
         this.memberJoiningDate = memberJoiningDate;
     }
 
-    public String getMemberName() {
-        return memberName;
+    public String getMemberLastname() {
+        return memberLastname;
     }
 
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
+    public void setMemberLastname(String memberLastname) {
+        this.memberLastname = memberLastname;
     }
 
-    public String getMemberSurname() {
-        return memberSurname;
+    public String getMemberFirstname() {
+        return memberFirstname;
     }
 
-    public void setMemberSurname(String memberSurname) {
-        this.memberSurname = memberSurname;
+    public void setMemberFirstname(String memberFirstname) {
+        this.memberFirstname = memberFirstname;
     }
 
     public Date getMemberBirthday() {
@@ -117,6 +212,30 @@ public class Member implements Serializable {
 
     public void setMemberNationality(String memberNationality) {
         this.memberNationality = memberNationality;
+    }
+
+    public String getMemberSex() {
+        return memberSex;
+    }
+
+    public void setMemberSex(String memberSex) {
+        this.memberSex = memberSex;
+    }
+
+    public String getMemberProfession() {
+        return memberProfession;
+    }
+
+    public void setMemberProfession(String memberProfession) {
+        this.memberProfession = memberProfession;
+    }
+
+    public Boolean getMemberIsSuppressed() {
+        return memberIsSuppressed;
+    }
+
+    public void setMemberIsSuppressed(Boolean memberIsSuppressed) {
+        this.memberIsSuppressed = memberIsSuppressed;
     }
 
     public List<Project> getProjectList() {
@@ -158,6 +277,27 @@ public class Member implements Serializable {
     @Override
     public String toString() {
         return "com.dac2014equipe3.sujet2.model.entity.Member[ memberId=" + memberId + " ]";
+    }
+
+    @Override
+    public MemberVo toVo() {
+        MemberVo vo = new MemberVo();
+        
+        vo.setMemberId(memberId);
+        vo.setMemberEmail(memberEmail);
+        vo.setMemberLogin(memberLogin);
+        vo.setMemberPassword(memberPassword);
+        vo.setMemberIsAdmin(memberIsAdmin);
+        vo.setMemberJoiningDate(memberJoiningDate);
+        vo.setMemberBirthday(memberBirthday);
+        vo.setMemberFirstname(memberFirstname);
+        vo.setMemberLastname(memberLastname);
+        vo.setMemberNationality(memberNationality);
+        vo.setMemberSex(memberSex);
+        vo.setMemberProfession(memberProfession);
+        vo.setMemberIsSuppressed(memberIsSuppressed);
+        
+        return vo;
     }
 
 }

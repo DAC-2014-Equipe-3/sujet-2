@@ -1,0 +1,8 @@
+INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
+	VALUES ('Jmmartinezro@gmail.com', 'Jmmr', '1234', true, CURRENT_DATE, 'Martinez', 'Juan', CURRENT_DATE, 'Colombia', 'Male', 'Student', false);
+INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
+	VALUES ('jeanaymard@gmail.com', 'jeanaymard', 'test', true, '2014-12-01', 'Aymard', 'Jean', '1990-10-10', 'France', 'Male', 'Jobless', false);
+INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
+	VALUES ('mrcchambon@gmail.com', 'chambonm', 'bobby', true, '2014-12-18', 'Chambon', 'Marc', '1982-03-26', 'France', 'Male', 'Chemist', false);
+INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
+	VALUES ('marypoppins@gmail.com', 'mary', '', true, '2012-12-12', 'Poppins', 'Mary', '1870-11-9', 'France', 'Female', 'Actress', false);
