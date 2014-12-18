@@ -7,14 +7,27 @@
 package com.dac2014equipe3.sujet2.model.entity;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author Jummartinezro
  */
+@Embeddable
 public class MemberbacksProjectPK implements Serializable {
+    @Basic(optional = false)
+    @Column(name = "backerId")
     private int backerId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "projectId")
     private int projectId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Reward_rewardId")
     private int rewardrewardId;
 
     public MemberbacksProjectPK() {

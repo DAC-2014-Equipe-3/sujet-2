@@ -9,23 +9,84 @@ package com.dac2014equipe3.sujet2.model.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author Jummartinezro
  */
+@Entity
+@Table(name = "Project", catalog = "sujet2", schema = "")
+@NamedQueries({
+    @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
+    @NamedQuery(name = "Project.findByProjectId", query = "SELECT p FROM Project p WHERE p.projectId = :projectId"),
+    @NamedQuery(name = "Project.findByProjectTitle", query = "SELECT p FROM Project p WHERE p.projectTitle = :projectTitle"),
+    @NamedQuery(name = "Project.findByProjectFundingGoal", query = "SELECT p FROM Project p WHERE p.projectFundingGoal = :projectFundingGoal"),
+    @NamedQuery(name = "Project.findByProjectCreationDate", query = "SELECT p FROM Project p WHERE p.projectCreationDate = :projectCreationDate"),
+    @NamedQuery(name = "Project.findByProjectEndDate", query = "SELECT p FROM Project p WHERE p.projectEndDate = :projectEndDate"),
+    @NamedQuery(name = "Project.findByProjectDescription", query = "SELECT p FROM Project p WHERE p.projectDescription = :projectDescription"),
+    @NamedQuery(name = "Project.findByProjectIsSuppressed", query = "SELECT p FROM Project p WHERE p.projectIsSuppressed = :projectIsSuppressed")})
 public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "projectId")
     private Integer projectId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "ProjectTitle")
     private String projectTitle;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "projectFundingGoal")
     private int projectFundingGoal;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "projectCreationDate")
+    @Temporal(TemporalType.DATE)
     private Date projectCreationDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "projectEndDate")
+    @Temporal(TemporalType.DATE)
     private Date projectEndDate;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2000)
+    @Column(name = "projectDescription")
     private String projectDescription;
+    @Column(name = "projectIsSuppressed")
+    private Boolean projectIsSuppressed;
+    @ManyToMany(mappedBy = "projectList")
     private List<Member> member1List;
+    @JoinColumn(name = "projectCategory", referencedColumnName = "categoryId")
+    @ManyToOne(optional = false)
     private ProjectCategory projectCategory;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectprojectId")
     private List<Media> mediaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private List<MemberbacksProject> memberbacksProjectList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "project")
     private Reward reward;
 
     public Project() {
@@ -90,6 +151,14 @@ public class Project implements Serializable {
 
     public void setProjectDescription(String projectDescription) {
         this.projectDescription = projectDescription;
+    }
+
+    public Boolean getProjectIsSuppressed() {
+        return projectIsSuppressed;
+    }
+
+    public void setProjectIsSuppressed(Boolean projectIsSuppressed) {
+        this.projectIsSuppressed = projectIsSuppressed;
     }
 
     public List<Member> getMember1List() {
