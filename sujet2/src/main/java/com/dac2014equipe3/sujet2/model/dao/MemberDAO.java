@@ -39,8 +39,8 @@ public class MemberDAO implements IDAO<Member> {
     @Override
     public Member find(Object idA, EntityManager em) {
         Integer id = (Integer) idA;
-        Query query = em.createNamedQuery("User.findByIdUser")
-                .setParameter("idUser", id);
+        Query query = em.createNamedQuery("Member.findByMemberId")
+                .setParameter("memberId", id);
         return (Member) query.getSingleResult();
     }
 
