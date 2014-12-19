@@ -19,7 +19,7 @@ import javax.persistence.Query;
 public class MemberDAO implements IDAO<Member> {
 
     private static MemberDAO instance;
-    private static final String JPQL_SELECT_PAR_LOGIN_AND_PASS
+    private static final String JPQL_SELECT_BY_LOGIN_AND_PASS
             = "SELECT m FROM Member m WHERE m.memberLogin LIKE :username AND m.memberPassword LIKE :password";
     private static final String PARAM_LOGIN = "username";
     private static final String PARAM_PASS = "password";
@@ -65,7 +65,7 @@ public class MemberDAO implements IDAO<Member> {
     // Recherche d'un utilisateur à partir de son surname
     public Member login(Member entity, EntityManager em) {
         Member member;
-        Query q = em.createQuery(JPQL_SELECT_PAR_LOGIN_AND_PASS);
+        Query q = em.createQuery(JPQL_SELECT_BY_LOGIN_AND_PASS);
         q.setParameter(PARAM_LOGIN, entity.getMemberLogin());
         q.setParameter(PARAM_PASS, entity.getMemberPassword());
 

@@ -52,8 +52,8 @@ public class MemberService implements IService<MemberVo> {
     @Override
     public MemberVo find(Object id, EntityManager em) {
         MemberDAO dao = DAOFactory.getInstance().getMemberDAO();
-        MemberVo personvo = dao.find(id, em).toVo();
-        return personvo;
+        MemberVo memberVo = dao.find(id, em).toVo();
+        return memberVo;
     }
 
     @Override

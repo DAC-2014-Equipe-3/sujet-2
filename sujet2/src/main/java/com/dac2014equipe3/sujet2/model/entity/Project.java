@@ -6,6 +6,8 @@
 
 package com.dac2014equipe3.sujet2.model.entity;
 
+import com.dac2014equipe3.sujet2.vo.ProjectVo;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -38,13 +40,20 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
     @NamedQuery(name = "Project.findByProjectId", query = "SELECT p FROM Project p WHERE p.projectId = :projectId"),
-    @NamedQuery(name = "Project.findByProjectTitle", query = "SELECT p FROM Project p WHERE p.projectTitle = :projectTitle"),
-    @NamedQuery(name = "Project.findByProjectFundingGoal", query = "SELECT p FROM Project p WHERE p.projectFundingGoal = :projectFundingGoal"),
-    @NamedQuery(name = "Project.findByProjectCreationDate", query = "SELECT p FROM Project p WHERE p.projectCreationDate = :projectCreationDate"),
-    @NamedQuery(name = "Project.findByProjectEndDate", query = "SELECT p FROM Project p WHERE p.projectEndDate = :projectEndDate"),
-    @NamedQuery(name = "Project.findByProjectDescription", query = "SELECT p FROM Project p WHERE p.projectDescription = :projectDescription"),
-    @NamedQuery(name = "Project.findByProjectIsSuppressed", query = "SELECT p FROM Project p WHERE p.projectIsSuppressed = :projectIsSuppressed")})
-public class Project implements Serializable {
+    @NamedQuery(name = "Project.findByProjectTitle", query = "SELECT p FROM Project p " +
+            "WHERE p.projectTitle = :projectTitle"),
+    @NamedQuery(name = "Project.findByProjectFundingGoal", query = "SELECT p FROM Project p " +
+            "WHERE p.projectFundingGoal = :projectFundingGoal"),
+    @NamedQuery(name = "Project.findByProjectCreationDate", query = "SELECT p FROM Project p " +
+            "WHERE p.projectCreationDate = :projectCreationDate"),
+    @NamedQuery(name = "Project.findByProjectEndDate", query = "SELECT p FROM Project p " +
+            "WHERE p.projectEndDate = :projectEndDate"),
+    @NamedQuery(name = "Project.findByProjectDescription", query = "SELECT p FROM Project p " +
+            "WHERE p.projectDescription = :projectDescription"),
+    @NamedQuery(name = "Project.findByProjectIsSuppressed", query = "SELECT p FROM Project p " +
+            "WHERE p.projectIsSuppressed = :projectIsSuppressed")})
+
+public class Project implements Serializable, IEntity<ProjectVo> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,7 +87,7 @@ public class Project implements Serializable {
     @Column(name = "projectIsSuppressed")
     private Boolean projectIsSuppressed;
     @ManyToMany(mappedBy = "projectList")
-    private List<Member> member1List;
+    private List<Member> memberList;
     @JoinColumn(name = "projectCategory", referencedColumnName = "categoryId")
     @ManyToOne(optional = false)
     private ProjectCategory projectCategory;
@@ -96,7 +105,8 @@ public class Project implements Serializable {
         this.projectId = projectId;
     }
 
-    public Project(Integer projectId, String projectTitle, int projectFundingGoal, Date projectCreationDate, Date projectEndDate, String projectDescription) {
+    public Project(Integer projectId, String projectTitle, int projectFundingGoal, Date projectCreationDate,
+                   Date projectEndDate, String projectDescription) {
         this.projectId = projectId;
         this.projectTitle = projectTitle;
         this.projectFundingGoal = projectFundingGoal;
@@ -161,12 +171,12 @@ public class Project implements Serializable {
         this.projectIsSuppressed = projectIsSuppressed;
     }
 
-    public List<Member> getMember1List() {
-        return member1List;
+    public List<Member> getMemberList() {
+        return memberList;
     }
 
-    public void setMember1List(List<Member> member1List) {
-        this.member1List = member1List;
+    public void setMemberList(List<Member> memberList) {
+        this.memberList = memberList;
     }
 
     public ProjectCategory getProjectCategory() {
@@ -215,7 +225,8 @@ public class Project implements Serializable {
             return false;
         }
         Project other = (Project) object;
-        if ((this.projectId == null && other.projectId != null) || (this.projectId != null && !this.projectId.equals(other.projectId))) {
+        if ((this.projectId == null && other.projectId != null) ||
+                (this.projectId != null && !this.projectId.equals(other.projectId))) {
             return false;
         }
         return true;
@@ -226,4 +237,24 @@ public class Project implements Serializable {
         return "com.dac2014equipe3.sujet2.model.entity.Project[ projectId=" + projectId + " ]";
     }
 
+    @Override
+    public ProjectVo toVo() {
+        ProjectVo vo = new ProjectVo();
+
+        //TODO a finir
+        /*vo.setMediaList();
+        vo.setMemberList();
+        vo.setMemberbacksProjectList();
+        vo.setProjectCategory();
+        vo.setProjectCreationDate();
+        vo.setProjectDescription();
+        vo.setProjectEndDate();
+        vo.setProjectFundingGoal();
+        vo.setProjectId();
+        vo.setProjectIsSuppressed();
+        vo.setProjectTitle();
+        vo.setReward();*/
+
+        return vo;
+    }
 }

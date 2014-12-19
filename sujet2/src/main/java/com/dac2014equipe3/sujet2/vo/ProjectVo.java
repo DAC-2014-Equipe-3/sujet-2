@@ -10,6 +10,6 @@ package com.dac2014equipe3.sujet2.vo;
  *
  * @author Jummartinezro
  */
-class ProjectVo implements IValueObject{
+public class ProjectVo implements IValueObject{
 
 }
