@@ -28,26 +28,26 @@ public class MembercreatesProjectDAO implements IDAO<MembercreatesProject> {
 
     @Override
     public MembercreatesProject find(Object idA, EntityManager em) {
-        MemberbacksProjectPK id = ((MemberbacksProject)idA).getMemberbacksProjectPK();
-        Query query = em.createNamedQuery("MemberbacksProject.findByMemberbacksProjectPK")
-                .setParameter("backerId", id.getBackerId())
+        MembercreatesProjectPK id = ((MembercreatesProject)idA).getMembercreatesProjectPK();
+        Query query = em.createNamedQuery("MembercreatesProject.findByMembercreatesProjectPK")
+                .setParameter("creatorId", id.getCreatorId())
                 .setParameter("projectId", id.getProjectId());
-        return (MemberbacksProject) query.getSingleResult();
+        return (MembercreatesProject) query.getSingleResult();
     }
 
     @Override
-    public void update(MemberbacksProject entity, EntityManager em)  { em.merge(entity); }
+    public void update(MembercreatesProject entity, EntityManager em)  { em.merge(entity); }
 
     @Override
     public void delete(Object id, EntityManager em) {
-        MemberbacksProject mbp = find(id, em);
-        em.remove(mbp);
+        MembercreatesProject mcp = find(id, em);
+        em.remove(mcp);
     }
 
     @Override
-    public List<MemberbacksProject> getList(EntityManager em) {
+    public List<MembercreatesProject> getList(EntityManager em) {
         Query query = em.createNamedQuery("MemberbacksProject.findAll");
-        List<MemberbacksProject> listMbP = query.getResultList();
-        return listMbP;
+        List<MembercreatesProject> listMcP = query.getResultList();
+        return listMcP;
     }
 }
