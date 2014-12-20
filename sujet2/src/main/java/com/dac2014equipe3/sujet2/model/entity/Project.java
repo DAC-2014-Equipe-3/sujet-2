@@ -241,19 +241,18 @@ public class Project implements Serializable, IEntity<ProjectVo> {
     public ProjectVo toVo() {
         ProjectVo vo = new ProjectVo();
 
-        //TODO a finir
-        /*vo.setMediaList();
-        vo.setMemberList();
-        vo.setMemberbacksProjectList();
-        vo.setProjectCategory();
-        vo.setProjectCreationDate();
-        vo.setProjectDescription();
-        vo.setProjectEndDate();
-        vo.setProjectFundingGoal();
-        vo.setProjectId();
-        vo.setProjectIsSuppressed();
-        vo.setProjectTitle();
-        vo.setReward();*/
+        vo.setMediaList(mediaList);
+        vo.setMemberList(memberList);
+        vo.setMemberbacksProjectList(memberbacksProjectList);
+        vo.setProjectCategory(projectCategory);
+        vo.setProjectCreationDate(projectCreationDate);
+        vo.setProjectDescription(projectDescription);
+        vo.setProjectEndDate(projectEndDate);
+        vo.setProjectFundingGoal(projectFundingGoal);
+        vo.setProjectId(projectId);
+        vo.setProjectIsSuppressed(projectIsSuppressed);
+        vo.setProjectTitle(projectTitle);
+        vo.setReward(reward);
 
         return vo;
     }

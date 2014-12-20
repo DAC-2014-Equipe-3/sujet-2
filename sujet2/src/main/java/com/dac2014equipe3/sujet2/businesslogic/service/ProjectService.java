@@ -24,22 +24,21 @@ public class ProjectService implements IService<ProjectVo>{
     }
 
     @Override
-    public void persist(ProjectVo projectVo, EntityManager em) {
+    public void persist(ProjectVo vo, EntityManager em) {
         Project entity = new Project();
 
-        //TODO manquant
-        /*entity.setMediaList();
-        entity.setMemberList();
-        entity.setMemberbacksProjectList();
-        entity.setProjectCategory();
-        entity.setProjectCreationDate();
-        entity.setProjectDescription();
-        entity.setProjectEndDate();
-        entity.setProjectFundingGoal();
-        entity.setProjectId();
-        entity.setProjectIsSuppressed();
-        entity.setProjectTitle();
-        entity.setReward();*/
+        entity.setMediaList(vo.getMediaList());
+        entity.setMemberList(vo.getMemberList());
+        entity.setMemberbacksProjectList(vo.getMemberbacksProjectList());
+        entity.setProjectCategory(vo.getProjectCategory());
+        entity.setProjectCreationDate(vo.getProjectCreationDate());
+        entity.setProjectDescription(vo.getProjectDescription());
+        entity.setProjectEndDate(vo.getProjectEndDate());
+        entity.setProjectFundingGoal(vo.getProjectFundingGoal());
+        entity.setProjectId(vo.getProjectId());
+        entity.setProjectIsSuppressed(vo.getProjectIsSuppressed());
+        entity.setProjectTitle(vo.getProjectTitle());
+        entity.setReward(vo.getReward());
 
         DAOFactory.getInstance().getProjectDAO().persist(entity, em);
 
@@ -53,23 +52,22 @@ public class ProjectService implements IService<ProjectVo>{
     }
 
     @Override
-    public void update(ProjectVo projectVo, EntityManager em) {
+    public void update(ProjectVo vo, EntityManager em) {
         Project entity = new Project();
         ProjectDAO dao = DAOFactory.getInstance().getProjectDAO();
 
-        //TODO manquant
-        /*entity.setMediaList();
-        entity.setMemberList();
-        entity.setMemberbacksProjectList();
-        entity.setProjectCategory();
-        entity.setProjectCreationDate();
-        entity.setProjectDescription();
-        entity.setProjectEndDate();
-        entity.setProjectFundingGoal();
-        entity.setProjectId();
-        entity.setProjectIsSuppressed();
-        entity.setProjectTitle();
-        entity.setReward();*/
+        entity.setMediaList(vo.getMediaList());
+        entity.setMemberList(vo.getMemberList());
+        entity.setMemberbacksProjectList(vo.getMemberbacksProjectList());
+        entity.setProjectCategory(vo.getProjectCategory());
+        entity.setProjectCreationDate(vo.getProjectCreationDate());
+        entity.setProjectDescription(vo.getProjectDescription());
+        entity.setProjectEndDate(vo.getProjectEndDate());
+        entity.setProjectFundingGoal(vo.getProjectFundingGoal());
+        entity.setProjectId(vo.getProjectId());
+        entity.setProjectIsSuppressed(vo.getProjectIsSuppressed());
+        entity.setProjectTitle(vo.getProjectTitle());
+        entity.setReward(vo.getReward());
 
         dao.update(entity, em);
     }
