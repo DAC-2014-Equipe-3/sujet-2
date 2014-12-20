@@ -5,6 +5,7 @@
     <class>com.dac2014equipe3.sujet2.model.entity.Member</class>
     <class>com.dac2014equipe3.sujet2.model.entity.Media</class>
     <class>com.dac2014equipe3.sujet2.model.entity.MemberbacksProject</class>
+    <class>com.dac2014equipe3.sujet2.model.entity.MembercreatesProject</class>
     <class>com.dac2014equipe3.sujet2.model.entity.PaymentData</class>
     <class>com.dac2014equipe3.sujet2.model.entity.Project</class>
     <class>com.dac2014equipe3.sujet2.model.entity.ProjectCategory</class>
