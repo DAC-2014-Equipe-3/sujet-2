@@ -28,12 +28,14 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "Member_backs_Project", catalog = "sujet2", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "MemberbacksProject.findAll", query = "SELECT m FROM MemberbacksProject m"),
-    @NamedQuery(name = "MemberbacksProject.findByBackerId", query = "SELECT m FROM MemberbacksProject m WHERE m.memberbacksProjectPK.backerId = :backerId"),
-    @NamedQuery(name = "MemberbacksProject.findByProjectId", query = "SELECT m FROM MemberbacksProject m WHERE m.memberbacksProjectPK.projectId = :projectId"),
-    @NamedQuery(name = "MemberbacksProject.findByRewardrewardId", query = "SELECT m FROM MemberbacksProject m WHERE m.memberbacksProjectPK.rewardrewardId = :rewardrewardId"),
-    @NamedQuery(name = "MemberbacksProject.findByPledgedEuros", query = "SELECT m FROM MemberbacksProject m WHERE m.pledgedEuros = :pledgedEuros"),
-    @NamedQuery(name = "MemberbacksProject.findByBackingDate", query = "SELECT m FROM MemberbacksProject m WHERE m.backingDate = :backingDate")})
+        @NamedQuery(name = "MemberbacksProject.findAll", query = "SELECT m FROM MemberbacksProject m"),
+        @NamedQuery(name = "MemberbacksProject.findByMemberbacksProjectPK", query = "SELECT m FROM MemberbacksProject m WHERE (m.memberbacksProjectPK.backerId = :backerId) AND (m.memberbacksProjectPK.projectId = :projectId)"),
+        @NamedQuery(name = "MemberbacksProject.findByBackerId", query = "SELECT m FROM MemberbacksProject m WHERE m.memberbacksProjectPK.backerId = :backerId"),
+        @NamedQuery(name = "MemberbacksProject.findByProjectId", query = "SELECT m FROM MemberbacksProject m WHERE m.memberbacksProjectPK.projectId = :projectId"),
+        @NamedQuery(name = "MemberbacksProject.findByRewardId", query = "SELECT m FROM MemberbacksProject m WHERE m.memberbacksProjectPK.rewardrewardId = :rewardrewardId"),
+        @NamedQuery(name = "MemberbacksProject.findByPledgedEuros", query = "SELECT m FROM MemberbacksProject m WHERE m.pledgedEuros = :pledgedEuros"),
+        @NamedQuery(name = "MemberbacksProject.findByBackingDate", query = "SELECT m FROM MemberbacksProject m WHERE m.backingDate = :backingDate")})
+
 public class MemberbacksProject implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

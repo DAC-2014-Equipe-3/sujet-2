@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <div id="shareModal" class="modal hide fade">
+        <div class="modal-header">
+            <!--<button type="button" class="close" data-dismiss="modal">×</button>-->
+            <h2>Se connecter:</h2>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <p:inputText id="username" required="true" value="#{loginBean.username}"
+                             requiredMessage="Veuillez compléter le champ"/>
+                <p:watermark for="username" value="Utilisateur"/>
+                <p:message id="usernameMessage" for="username"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <p:password id="password" required="true" value="{loginBean.password}"
+                            requiredMessage="Veuillez compléter le champ"/>
+                <p:watermark for="password" value="Mot de passe"/>
+                <p:message id="passwordMessage" for="password"/>
+            </div>
+        </div>
+        <div class="form-actions">
+            <h:commandButton action="{loginBean.login()}" value="Accéder" class="btn btn-danger"/>
+        </div>
+    </div>
+</ui:composition>
