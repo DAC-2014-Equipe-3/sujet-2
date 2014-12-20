@@ -35,9 +35,7 @@ public class MediaDAO implements IDAO<Media> {
     }
 
     @Override
-    public void update(Media entity, EntityManager em)   {
-        em.persist(entity);
-    }
+    public void update(Media entity, EntityManager em)   { em.merge(entity); }
 
     @Override
     public void delete(Object id, EntityManager em) {
