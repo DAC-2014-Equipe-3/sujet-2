@@ -22,4 +22,6 @@ public class DAOFactory {
     public MemberDAO getMemberDAO() {
         return MemberDAO.getInstance();
     }
+
+    public ProjectDAO getProjectDAO(){ return ProjectDAO.getInstance(); }
 }
