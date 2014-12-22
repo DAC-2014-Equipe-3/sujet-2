@@ -7,7 +7,7 @@
 <h:head>
     <title>Facelet Title</title>
 </h:head>
-<h:form>
+
     <h:body>
         Hello from Facelets
         <br/>
@@ -23,7 +23,8 @@
                 </p:menubar>
             </p:layoutUnit>
             <p:layoutUnit position="west">
-                <div id="shareModal" class="modal hide fade">
+                <h:form>
+                    <div id="shareModal" class="modal hide fade">
                     <div class="modal-header">
                         <!--<button type="button" class="close" data-dismiss="modal">×</button>-->
                         <h2>Se connecter:</h2>
@@ -48,6 +49,7 @@
                         <h:commandButton action="#{loginBean.login()}" value="Accéder" class="btn btn-danger"/>
                     </div>
                 </div>
+                </h:form>
             </p:layoutUnit>
             <p:layoutUnit position="center">
             </p:layoutUnit>
@@ -56,5 +58,5 @@
             </p:layoutUnit>
         </p:layout>
     </h:body>
-</h:form>
+
 </html>

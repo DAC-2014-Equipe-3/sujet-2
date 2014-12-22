@@ -5,9 +5,15 @@
       xmlns:h="http://java.sun.com/jsf/html">
 
 <h:body>
-    <ui:composition template="./template.xhtml">
+    <ui:composition template="./template/template.xhtml">
         <ui:define name="content">
-            CONTENT
+            <h2>This is index content</h2>
+        </ui:define>
+        <ui:define name="leftPanel">
+            <h:form>
+            <ui:include src="./template/connection.xhtml">
+            </ui:include>
+            </h:form>
         </ui:define>
     </ui:composition>
 </h:body>

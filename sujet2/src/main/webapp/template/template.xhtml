@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+    <p:layout fullPage="true">
+            <p:layoutUnit position="north" resizable="true">
+                <ui:insert name="header" >
+                    <ui:include src="header.xhtml"/>
+                </ui:insert>
+                <ui:insert name="menu">
+                    <ui:include src="menu.xhtml"/>
+                </ui:insert>
+            </p:layoutUnit>
+        <p:layoutUnit position="west" resizable="true">
+            <ui:insert name="leftPanel" >
+            </ui:insert>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center" resizable="true">
+            <ui:insert name="content">
+            </ui:insert>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="south">
+            <ui:insert name="footer" >
+                <ui:include src="footer.xhtml"/>
+            </ui:insert>
+        </p:layoutUnit>
+
+    </p:layout>
+</h:body>
+</html>
