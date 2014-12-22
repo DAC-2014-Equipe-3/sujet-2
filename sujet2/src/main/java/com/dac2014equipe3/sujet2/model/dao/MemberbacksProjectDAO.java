@@ -36,9 +36,7 @@ public class MemberbacksProjectDAO implements IDAO<MemberbacksProject> {
     }
 
     @Override
-    public void update(MemberbacksProject entity, EntityManager em)  {
-        em.persist(entity);
-    }
+    public void update(MemberbacksProject entity, EntityManager em)  { em.merge(entity); }
 
     @Override
     public void delete(Object id, EntityManager em) {
@@ -49,7 +47,7 @@ public class MemberbacksProjectDAO implements IDAO<MemberbacksProject> {
     @Override
     public List<MemberbacksProject> getList(EntityManager em) {
         Query query = em.createNamedQuery("MemberbacksProject.findAll");
-        List<MemberbacksProject> listMembers = query.getResultList();
-        return listMembers;
+        List<MemberbacksProject> listMbP = query.getResultList();
+        return listMbP;
     }
 }
