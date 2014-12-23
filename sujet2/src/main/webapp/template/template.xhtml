@@ -7,31 +7,46 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+        <!--<h:outputStylesheet name="" library=""/>-->
 </h:head>
 
 <h:body>
+    <div id="page">
     <p:layout fullPage="true">
-            <p:layoutUnit position="north" resizable="true">
+        <p:layoutUnit position="north">
+            <div id="header">
+                <!--<img alt="header" src="./img/header.jpg" style="background-repeat: repeat-x"/>-->
                 <ui:insert name="header" >
                     <ui:include src="header.xhtml"/>
                 </ui:insert>
+            </div>
+            <div id="menu">
                 <ui:insert name="menu">
                     <ui:include src="menu.xhtml"/>
                 </ui:insert>
+            </div>
             </p:layoutUnit>
-        <p:layoutUnit position="west" resizable="true">
+        <p:layoutUnit position="west">
+            <div id="leftPanel">
             <ui:insert name="leftPanel" >
             </ui:insert>
+            </div>
         </p:layoutUnit>
-        <p:layoutUnit position="center" resizable="true">
+        <p:layoutUnit position="center">
+            <div id="content">
             <ui:insert name="content">
             </ui:insert>
+            </div>
         </p:layoutUnit>
         <p:layoutUnit position="south">
-            <ui:insert name="footer" >
-                <ui:include src="footer.xhtml"/>
-            </ui:insert>
+            <div id="footer">
+                <img alt="footer" src="./img/footer.jpg" style="background-repeat: repeat-x;"/>
+                <ui:insert name="footer">
+                    <ui:include src="footer.xhtml"/>
+                </ui:insert>
+            </div>
         </p:layoutUnit>
     </p:layout>
+    </div>
 </h:body>
 </html>

@@ -1,0 +1,22 @@
+
+body{
+    font-size: small;
+}
+
+.logo_footer{
+
+}
+
+#page{
+    background-color: green;
+}
+
+#header{
+    background-color:red;
+    /*background-image: url("../../webapp/img/header.jpg"); background-repeat: repeat-y;*/
+}
+
+#footer{
+    background-color: blue;
+    /*background-image: url("../../webapp/img/footer.jpg"); background-repeat: repeat-y;*/
+}

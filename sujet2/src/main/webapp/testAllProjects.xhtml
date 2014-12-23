@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Facelet Title</title>
+</h:head>
+
+<h:body>
+<h:form>
+    <h:commandButton value="afficher tous les projets" action="#{projectsBean.getAllProjects()}"/>
+    <p:accordionPanel value="#{projectsBean.listProjects}" var="project">
+        <p:tab title="Project - #{project.projectId} [Catégorie:#{project.projectCategory.categoryName}]">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputText value="Description:" style="font-weight: bold" />
+                <h:outputText value="#{project.projectDescription}" />
+                <h:outputText value="Title:" style="font-weight: bold" />
+                <h:outputText value="#{project.projectTitle}" />
+            </h:panelGrid>
+        </p:tab>
+    </p:accordionPanel>
+
+</h:form>
+
+</h:body>
+</html>

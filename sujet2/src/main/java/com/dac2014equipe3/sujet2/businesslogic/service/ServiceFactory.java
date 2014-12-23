@@ -22,4 +22,8 @@ public class ServiceFactory {
     public MemberService getMemberService() {
         return MemberService.getInstance();
     }
+
+    public ProjectService getProjectService() {
+        return ProjectService.getInstance();
+    }
 }
