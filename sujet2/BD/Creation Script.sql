@@ -135,8 +135,8 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `sujet2`.`Member_backs_Project` ;
 
 CREATE TABLE IF NOT EXISTS `sujet2`.`Member_backs_Project` (
-  `backerId` INT(11) NOT NULL AUTO_INCREMENT,
-  `projectId` INT(11) NOT NULL,
+  `backerId` INT(11) NOT NULL,
+  `projectId` INT(11) NULL,
   `Reward_rewardId` INT(11) NULL,
   `pledgedEuros` INT(11) NOT NULL,
   `backingDate` DATE NOT NULL,
@@ -168,8 +168,8 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `sujet2`.`Member_creates_Project` ;
 
 CREATE TABLE IF NOT EXISTS `sujet2`.`Member_creates_Project` (
-  `creatorId` INT(11) NOT NULL AUTO_INCREMENT,
-  `projectId` INT(11) NOT NULL,
+  `creatorId` INT(11) NOT NULL,
+  `projectId` INT(11) NULL,
   PRIMARY KEY (`creatorId`, `projectId`),
   INDEX `fk_Member_has_Project_Project1_idx` (`projectId` ASC),
   INDEX `fk_Member_has_Project_Member1_idx` (`creatorId` ASC),
