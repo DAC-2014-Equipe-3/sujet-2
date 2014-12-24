@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+    <h:head/>
+    <h:body>
+        <h:form>
+            <div id="shareModal" class="modal hide fade">
+                <div class="modal-header">
+                    <!--<button type="button" class="close" data-dismiss="modal">×</button>-->
+                    <h2>S'inscrire:</h2>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p:outputLabel for="login" value="Login : "/>
+                        <p:inputText id="login" required="true" value="#{memberBean.login}"
+                                     requiredMessage="Veuillez compléter le champ"/>
+                        <p:watermark for="login" value="Login"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p:outputLabel for="mail" value="Mail : "/>
+                        <p:inputText id="mail" required="true" value="#{memberBean.email}"
+                                     requiredMessage="Veuillez compléter le champ"/>
+                        <p:watermark for="mail" value="Mail"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p:outputLabel for="password" value="Password : "/>
+                        <p:password id="password" required="true" value="#{memberBean.password}"
+                                    requiredMessage="Veuillez compléter le champ"/>
+                        <p:watermark for="password" value="Mot de passe"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p:outputLabel for="fname" value="First name : "/>
+                        <p:inputText id="fname" required="true" value="#{memberBean.firstName}"
+                                     requiredMessage="Veuillez compléter le champ"/>
+                        <p:watermark for="fname" value="First name"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p:outputLabel for="lname" value="Last name : "/>
+                        <p:inputText id="lname" required="true" value="#{memberBean.lastName}"
+                                     requiredMessage="Veuillez compléter le champ"/>
+                        <p:watermark for="lname" value="Last name"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p:outputLabel for="birthdate" value="Birthdate : "/>
+                        <p:calendar id="birthdate" required="true" value="#{memberBean.birthday}"
+                                    requiredMessage="Veuillez compléter le champ"/>
+                        <p:watermark for="birthdate" value="Date of birth"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p:outputLabel for="nationality" value="Nationality : "/>
+                        <p:inputText id="nationality" required="true" value="#{memberBean.nationality}"
+                                     requiredMessage="Veuillez compléter le champ"/>
+                        <p:watermark for="nationality" value="Nationality"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p:outputLabel for="gender" value="Gender : "/>
+                        <h:selectOneRadio id="gender" value="#{memberBean.sex}">
+                            <f:selectItem itemValue="Male" itemLabel="Male"/>
+                            <f:selectItem itemValue="Female" itemLabel="Female"/>
+                        </h:selectOneRadio>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p:outputLabel for="profession" value="Profession : "/>
+                        <p:inputText id="profession" required="true" value="#{memberBean.profession}"
+                                     requiredMessage="Veuillez compléter le champ"/>
+                        <p:watermark for="profession" value="Profession"/>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <h:commandButton action="#{memberBean.inscrire()}" value="Valider" class="btn btn-danger"/>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

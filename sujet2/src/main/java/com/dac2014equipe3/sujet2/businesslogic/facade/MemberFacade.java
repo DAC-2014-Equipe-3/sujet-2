@@ -7,12 +7,7 @@ package com.dac2014equipe3.sujet2.businesslogic.facade;
 
 import com.dac2014equipe3.sujet2.businesslogic.service.IService;
 import com.dac2014equipe3.sujet2.businesslogic.service.MemberService;
-import com.dac2014equipe3.sujet2.businesslogic.service.ProjectService;
 import com.dac2014equipe3.sujet2.vo.MemberVo;
-import com.dac2014equipe3.sujet2.vo.ProjectVo;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -34,6 +29,15 @@ public class MemberFacade extends Facade<MemberVo> {
                 em.clear();
                 em.close();
             }
+        }
+    }
+
+    public void inscrire(MemberVo memberVo){
+        em = emf.createEntityManager();
+        MemberService.getInstance().persist(memberVo, em);
+        if (em != null) {
+            em.clear();
+            em.close();
         }
     }
 
