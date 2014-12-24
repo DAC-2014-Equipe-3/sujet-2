@@ -32,13 +32,12 @@ public class MemberFacade extends Facade<MemberVo> {
         }
     }
 
+    /**
+     * Register the member in the database
+     * @param memberVo
+     */
     public void inscrire(MemberVo memberVo){
-        em = emf.createEntityManager();
-        MemberService.getInstance().persist(memberVo, em);
-        if (em != null) {
-            em.clear();
-            em.close();
-        }
+        persist(memberVo);
     }
 
 }
