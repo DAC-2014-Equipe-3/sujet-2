@@ -10,7 +10,7 @@
     <ui:composition template="template/template.xhtml">
         <ui:define name="content">
             <h:form>
-        <h:commandButton value="afficher tous les projets" action="#{projectsBean.getAllProjects()}"/>
+        <<h:commandButton value="afficher tous les projets" action="#{projectsBean.getAllProjects()}"/>
         <p:accordionPanel value="#{projectsBean.listProjects}" var="project">
             <p:tab title="Project - #{project.projectId} [Catégorie:#{project.projectCategory.categoryName}]">
                 <h:panelGrid columns="2" cellpadding="5">

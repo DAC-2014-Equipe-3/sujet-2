@@ -4,10 +4,10 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:form>
     <p:menubar>
-        <p:menuitem id="accueil" value="Accueil" icon="ui-icon-home" />
-        <p:menuitem id="nosprojets" value="Nos projets" icon="ui-icon-folder-open" actionListener="#{projectsBean.getAllProjects()}"/>
-        <p:menuitem id="nosinvest" value="Vos investissements" icon="ui-icon-cart"/>
-        <p:menuitem id="nousvous" value="Nous et vous" icon="ui-icon-person"/>
+        <p:menuitem id="accueil" value="Accueil" icon="ui-icon-home" action="home" url="/faces/index.xhtml"/>
+        <p:menuitem id="nosprojets" value="Nos projets" icon="ui-icon-folder-open" action="#{projectsBean.getAllProjects()}" />
+        <p:menuitem id="nosinvest" value="Vos investissements" icon="ui-icon-cart" action="invests" url="/faces/invests.xhtml"/>
+        <p:menuitem id="nousvous" value="Nous et vous" icon="ui-icon-person" action="youandwe" url="/faces/youandwe.xhtml"/>
     </p:menubar>
 </h:form>
 </ui:composition>
