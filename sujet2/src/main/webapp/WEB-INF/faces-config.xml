@@ -24,18 +24,11 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/testAllProjects.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{projectsBean.getAllProjects()}</from-action>
-            <to-view-id>/testAllProjects.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
         <from-view-id>/inscription.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{memberBean.inscrire()}</from-action>
             <from-outcome>success</from-outcome>
-            <to-view-id>/indexMember.xhtml</to-view-id>
+            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-action>#{memberBean.inscrire()}</from-action>
