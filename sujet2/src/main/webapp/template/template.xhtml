@@ -4,12 +4,10 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsf/composite">
 <h:head>
         <!--<h:outputStylesheet name="" library=""/>-->
 </h:head>
-
 <h:body>
     <div id="page">
     <p:layout fullPage="true">
@@ -29,6 +27,15 @@
         <p:layoutUnit position="west">
             <div id="leftPanel">
             <ui:insert name="leftPanel" >
+                <h:panelGroup id="includeContainer">
+                    <h:panelGroup rendered="#{memberBean.loggedIn == false}">
+                        <ui:include src="connection.xhtml"/>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{memberBean.loggedIn == true}">
+                        <h3>Bievenue #{memberBean.firstName} #{memberBean.lastName}</h3>
+                        <ui:include src="optionmember.xhtml"/>
+                    </h:panelGroup>
+                </h:panelGroup>
             </ui:insert>
             </div>
         </p:layoutUnit>

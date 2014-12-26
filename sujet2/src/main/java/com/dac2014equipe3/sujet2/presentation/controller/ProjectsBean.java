@@ -3,6 +3,7 @@ package com.dac2014equipe3.sujet2.presentation.controller;
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
 import com.dac2014equipe3.sujet2.businesslogic.facade.ProjectFacade;
+import com.dac2014equipe3.sujet2.model.entity.Project;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
 import javax.faces.bean.ManagedBean;
@@ -22,14 +23,25 @@ public class ProjectsBean {
     public ProjectsBean() {
     }
 
+    /**
+     *
+     * @return
+     */
     public List<ProjectVo> getListProjects() {
         return listProjects;
     }
 
+    /**
+     *
+     * @param listProjects
+     */
     public void setListProjects(ArrayList<ProjectVo> listProjects) {
         this.listProjects = listProjects;
     }
 
+    /**
+     * Recupere tous les projets
+     */
     public void getAllProjects(){
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
         listProjects.addAll(projectFacade.getAllProjects());

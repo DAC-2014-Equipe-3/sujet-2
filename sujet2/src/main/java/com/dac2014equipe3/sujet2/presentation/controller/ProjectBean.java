@@ -1,10 +1,11 @@
 package com.dac2014equipe3.sujet2.presentation.controller;
-
+import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
+import com.dac2014equipe3.sujet2.businesslogic.facade.ProjectFacade;
 import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
+import com.dac2014equipe3.sujet2.vo.ProjectVo;
+
 import java.util.Date;
-/**
- * Created by lepeteil on 23/12/14.
- */
+
 public class ProjectBean {
 
     private int id;
@@ -82,4 +83,22 @@ public class ProjectBean {
     public void setSuppressed(boolean isSuppressed) {
         this.isSuppressed = isSuppressed;
     }
+
+    /**
+     * Cree un nouveau projet
+     * @return
+     */
+    public String addProject() {
+        ProjectVo projectVo = new ProjectVo();
+        ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
+
+        //TODO A finir (penser à lier le projet avec le créateur)
+        return "success";
+    }
+
+    public String deleteProject(){
+        //TODO Supprimer projet en flagant isSuppressed
+        return "success";
+    }
+
 }

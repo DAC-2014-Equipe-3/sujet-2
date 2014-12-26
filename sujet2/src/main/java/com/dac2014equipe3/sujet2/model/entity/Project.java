@@ -6,6 +6,8 @@
 
 package com.dac2014equipe3.sujet2.model.entity;
 
+import com.dac2014equipe3.sujet2.vo.MemberVo;
+import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
 import java.io.Serializable;

@@ -2,20 +2,20 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:form>
     <div id="shareModal" class="modal hide fade">
         <div class="modal-header">
-            <h:form>
                 <p:menu>
                     <p:submenu label="Projet">
                         <p:menuitem value="Ajouter" icon="ui-icon-plus" />
-                        <p:menuitem value="Rechercher" icon="ui-icon-search" action="#{projectsBean.}"/>
+                        <p:menuitem value="Rechercher" icon="ui-icon-search"/>
                     </p:submenu>
                     <p:submenu label="Membre">
                         <p:menuitem value="Mes informations" icon="ui-icon-wrench"/>
                         <p:menuitem value="Déconnexion" icon="ui-icon-power"/>
                     </p:submenu>
                 </p:menu>
-            </h:form>
         </div>
     </div>
+    </h:form>
 </ui:composition>

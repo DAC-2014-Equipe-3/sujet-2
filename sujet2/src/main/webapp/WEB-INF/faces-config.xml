@@ -15,7 +15,13 @@
             <from-outcome>failure</from-outcome>
             <to-view-id>/template/error.xhtml</to-view-id>
         </navigation-case>
-
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{projectsBean.getAllProjects()}</from-action>
+            <to-view-id>/projects.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/testAllProjects.xhtml</from-view-id>
@@ -28,7 +34,13 @@
         <from-view-id>/inscription.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{memberBean.inscrire()}</from-action>
-            <to-view-id>/index.xhtml</to-view-id>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/indexMember.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{memberBean.inscrire()}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/template/error.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

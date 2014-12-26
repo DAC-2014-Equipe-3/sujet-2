@@ -1,16 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dac2014equipe3.sujet2.vo;
-
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author germanpinerosm
- */
 public class MemberVo implements IValueObject {
 
     private Integer memberId;

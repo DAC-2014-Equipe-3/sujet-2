@@ -3,6 +3,7 @@ package com.dac2014equipe3.sujet2.businesslogic.service;
 import com.dac2014equipe3.sujet2.model.dao.DAOFactory;
 import com.dac2014equipe3.sujet2.model.dao.ProjectDAO;
 import com.dac2014equipe3.sujet2.model.entity.Project;
+import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
 import java.util.ArrayList;

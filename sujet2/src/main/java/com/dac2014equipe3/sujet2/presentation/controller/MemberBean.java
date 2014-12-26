@@ -7,11 +7,16 @@ package com.dac2014equipe3.sujet2.presentation.controller;
 
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
+import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
+import com.dac2014equipe3.sujet2.model.entity.Project;
 import com.dac2014equipe3.sujet2.vo.MemberVo;
+import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
+import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -25,7 +30,6 @@ public class MemberBean {
 	private int id;
 	private boolean loggedIn;
 	private String email;
-
 	private String login;
 	private String password;
 	private boolean isAdmin;
@@ -37,9 +41,8 @@ public class MemberBean {
 	private String sex;
 	private String profession;
 	private boolean isSuppressed;
-
-	// private list<Project> createdProjects;
-	// private list<Project> boughtProjects;
+    private List<Project> projectList;
+    private List<MemberbacksProject> memberbacksProjectList;
 
 	/**
 	 * @return the id
@@ -262,27 +265,94 @@ public class MemberBean {
 		this.password = password;
 	}
 
+    /**
+     *
+     * @return
+     */
+    public List<MemberbacksProject> getMemberbacksProjectList() {
+        return memberbacksProjectList;
+    }
+
+    /**
+     *
+     * @param memberbacksProjectList
+     */
+    public void setMemberbacksProjectList(List<MemberbacksProject> memberbacksProjectList) {
+        this.memberbacksProjectList = memberbacksProjectList;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<Project> getProjectList() {
+        return projectList;
+    }
+
+    /**
+     *
+     * @param projectList
+     */
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
+    }
+
 	/**
-	 *
+	 * Cree un nouveau membre
 	 * @return
 	 */
-    public void inscrire() {
-		MemberVo memberVo = new MemberVo();
-		MemberFacade memberFacade = FacadeFactory.getInstance()
-				.getMemberFacade();
+    public String inscrire() {
+    //TODO gérer la redirection
+    //TODO Valider côté serveur la validité des champs !
+    //TODO Ouvrir session membre
 
-		memberVo.setMemberLogin(getLogin());
-		memberVo.setMemberPassword(getPassword());
-		memberVo.setMemberEmail(getEmail());
-		memberVo.setMemberNationality(getNationality());
-		memberVo.setMemberBirthday(getBirthday());
-		memberVo.setMemberFirstname(getFirstName());
-		memberVo.setMemberLastname(getLastName());
-		memberVo.setMemberSex(getSex());
-		memberVo.setMemberProfession(getProfession());
-		memberVo.setMemberJoiningDate(new Date());
-		memberFacade.inscrire(memberVo);
+        if (loggedIn){
+            return "failure";
+        }else{
+            MemberVo memberVo = new MemberVo();
+            MemberFacade memberFacade = FacadeFactory.getInstance()
+                    .getMemberFacade();
+
+            memberVo.setMemberLogin(getLogin());
+            memberVo.setMemberPassword(getPassword());
+            memberVo.setMemberEmail(getEmail());
+            memberVo.setMemberNationality(getNationality());
+            memberVo.setMemberBirthday(getBirthday());
+            memberVo.setMemberFirstname(getFirstName());
+            memberVo.setMemberLastname(getLastName());
+            memberVo.setMemberSex(getSex());
+            memberVo.setMemberProfession(getProfession());
+            memberVo.setMemberJoiningDate(new Date());
+            memberFacade.inscrire(memberVo);
+            return "success";
+        }
 
 	}
+
+    /**
+     * Mettre à jour les informations de l'utilisateur
+     * @return
+     */
+    public String update(){
+        //TODO Modification profil
+        return "success";
+    }
+
+    /**
+     * Supprimer compte membre
+     * @return
+     */
+    public String deleteAccount(){
+        //TODO Supprimer le compte en mettant le flag à 1
+        return "success";
+    }
+
+    /**
+     * Deconnecter membre
+     * @return
+     */
+    public String disconnect(){
+        return "success";
+    }
 
 }

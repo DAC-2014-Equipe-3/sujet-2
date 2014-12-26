@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -102,20 +103,27 @@ public class LoginBean {
     public void setUser(MemberBean user) {
         this.user = user;
     }
-    
+
+    private void openSession(){
+        /*HttpSession session = request.getSession();
+        String exemple = "abc";
+        session.setAttribute( "chaine", exemple );
+        String chaine = (String) session.getAttribute( "chaine" );*/
+    }
+
     public String login() {
         MemberVo memberVo = new MemberVo();
         MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
-
         memberVo.setMemberLogin(getUsername());
         memberVo.setMemberPassword(getPassword());
-
         MemberVo login = memberFacade.login(memberVo);
 
         if (login != null) {
             user.setEmail(login.getMemberEmail());
             user.setId(login.getMemberId());
             user.setLoggedIn(true);
+
+            //TODO Ouvrir session membre
             return "success";
         } else {
             FacesContext.getCurrentInstance().addMessage(
