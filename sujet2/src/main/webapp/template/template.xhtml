@@ -4,16 +4,20 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsf/composite">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-        <!--<h:outputStylesheet name="" library=""/>-->
+    <!--<f:facet name="last">
+        <h:outputStylesheet library="css" name=""/>
+    </f:facet>-->
 </h:head>
 <h:body>
+    <!--<h:outputStylesheet library="css" name="style.css" />-->
     <div id="page">
     <p:layout fullPage="true">
         <p:layoutUnit position="north">
-            <div id="header">
-                <!--<img alt="header" src="./img/header.jpg" style="background-repeat: repeat-x"/>-->
+            <div id="header" class="img_template">
+                <!--<img alt="header" src="./img/header.jpg"/>-->
                 <ui:insert name="header" >
                     <ui:include src="header.xhtml"/>
                 </ui:insert>
@@ -32,7 +36,7 @@
                         <ui:include src="connection.xhtml"/>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{memberBean.loggedIn == true}">
-                        <h3>Bievenue #{memberBean.firstName} #{memberBean.lastName}</h3>
+                        <h3>Bienvenue #{memberBean.firstName} #{memberBean.lastName}</h3>
                         <ui:include src="optionmember.xhtml"/>
                     </h:panelGroup>
                 </h:panelGroup>
@@ -46,8 +50,8 @@
             </div>
         </p:layoutUnit>
         <p:layoutUnit position="south">
-            <div id="footer">
-                <img alt="footer" src="./img/footer.jpg" style="background-repeat: repeat-x;"/>
+            <div id="footer" class="img_template">
+                <!--<img alt="footer" src="./img/footer.jpg"/>-->
                 <ui:insert name="footer">
                     <ui:include src="footer.xhtml"/>
                 </ui:insert>

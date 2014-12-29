@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view contentType="text/html">
+    <h:head/>
+    <h:body>
+        <ui:composition template="template/template.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    #{memberBean.getDataMember()}
+                    <div id="shareModal" class="modal hide fade">
+                        <div class="modal-header">
+                            <h2>Mes informations personnelles</h2>
+                        </div>
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <p:outputLabel for="login" value="Login : "/>
+                            <p:inputText id="login" disabled="true" value="#{memberBean.login}"/>
+                            <p:message for="login" value="login"/>
+
+                            <p:outputLabel for="mail" value="Email : "/>
+                            <p:inputText id="mail" required="true" value="#{memberBean.email}"
+                                         requiredMessage="Veuillez compléter le champ">
+                                <!-- TODO Format email a verifier -->
+                            </p:inputText>
+                            <p:message for="mail" value="Mail"/>
+
+                            <p:outputLabel for="password" value="Mot de passe : "/>
+                            <p:password id="password" required="true" value="#{memberBean.password}"
+                                        requiredMessage="Veuillez compléter le champ"/>
+                            <p:message for="password" value="Mot de passe"/>
+
+                            <p:outputLabel for="fname" value="Prénom : "/>
+                            <p:inputText id="fname" required="true" value="#{memberBean.firstName}"
+                                         requiredMessage="Veuillez compléter le champ"/>
+                            <p:message for="fname" value="First name"/>
+
+                            <p:outputLabel for="lname" value="Nom : "/>
+                            <p:inputText id="lname" required="true" value="#{memberBean.lastName}"
+                                         requiredMessage="Veuillez compléter le champ"/>
+                            <p:message for="lname" value="Last name"/>
+
+                            <p:outputLabel for="birthdate" value="Date de naissance : "/>
+                            <p:calendar id="birthdate" required="true" value="#{memberBean.birthday}"
+                                        requiredMessage="Veuillez compléter le champ"/>
+                            <p:message for="birthdate" value="Date of birth"/>
+
+                            <p:outputLabel for="nationality" value="Nationalité : "/>
+                            <p:selectOneMenu id="nationality" required="true" value="#{memberBean.nationality}"
+                                             requiredMessage="Veuillez sélectionner votre nationalité">
+                                <f:selectItem itemLabel="----" itemValue="" />
+                                <f:selectItem itemLabel="France" itemValue="France" />
+                                <f:selectItem itemLabel="Allemagne" itemValue="Allemagne" />
+                                <f:selectItem itemLabel="Suisse" itemValue="Suisse" />
+                            </p:selectOneMenu>
+                            <p:message for="nationality" value="Nationality"/>
+
+                            <p:outputLabel for="gender" value="Sexe : "/>
+                            <p:selectOneRadio id="gender" required="true" value="#{memberBean.sex}"
+                                              requiredMessage="Veuillez compléter le champ">
+                                <f:selectItem itemValue="Male" itemLabel="Male"/>
+                                <f:selectItem itemValue="Female" itemLabel="Female"/>
+                            </p:selectOneRadio>
+                            <p:message for="gender" value="Gender"/>
+
+                            <p:outputLabel for="profession" value="Profession : "/>
+                            <p:inputText id="profession" required="true" value="#{memberBean.profession}"
+                                         requiredMessage="Veuillez compléter le champ"/>
+                            <p:message for="profession" value="Profession"/>
+                        </h:panelGrid>
+                        <div class="form-actions">
+                            <h:commandButton action="#{memberBean.updateAccount()}" value="Modifier" class="btn btn-danger"/>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</f:view>
+</html>

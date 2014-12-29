@@ -7,12 +7,12 @@
         <div class="modal-header">
                 <p:menu>
                     <p:submenu label="Projet">
-                        <p:menuitem value="Ajouter" icon="ui-icon-plus" />
+                        <p:menuitem value="Ajouter" icon="ui-icon-plus" action="addproject" url="/faces/form_newproject.xhtml"/>
                         <p:menuitem value="Rechercher" icon="ui-icon-search"/>
                     </p:submenu>
                     <p:submenu label="Membre">
-                        <p:menuitem value="Mes informations" icon="ui-icon-wrench"/>
-                        <p:menuitem value="Déconnexion" icon="ui-icon-power"/>
+                        <p:menuitem value="Mes informations" icon="ui-icon-wrench" action="infomember" url="/faces/form_updatemember.xhtml"/>
+                        <p:menuitem value="Déconnexion" icon="ui-icon-power" action="#{memberBean.disconnect()}" />
                     </p:submenu>
                 </p:menu>
         </div>

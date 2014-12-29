@@ -4,8 +4,12 @@ import com.dac2014equipe3.sujet2.businesslogic.facade.ProjectFacade;
 import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import java.util.Date;
 
+@ManagedBean(name = "projectBean")
+@RequestScoped
 public class ProjectBean {
 
     private int id;

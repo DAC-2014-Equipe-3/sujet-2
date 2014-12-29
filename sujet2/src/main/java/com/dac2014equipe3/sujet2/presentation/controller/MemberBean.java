@@ -301,7 +301,7 @@ public class MemberBean {
 	 * Cree un nouveau membre
 	 * @return
 	 */
-    public String inscrire() {
+    public String addNewMember() {
     //TODO gérer la redirection
     //TODO Valider côté serveur la validité des champs !
     //TODO Ouvrir session membre
@@ -333,7 +333,7 @@ public class MemberBean {
      * Mettre à jour les informations de l'utilisateur
      * @return
      */
-    public String update(){
+    public String updateAccount(){
         //TODO Modification profil
         return "success";
     }
@@ -352,7 +352,29 @@ public class MemberBean {
      * @return
      */
     public String disconnect(){
+        //TODO Gerer session ??
+
+        this.loggedIn = false;
         return "success";
+    }
+
+    /**
+     * Recuperer les infos personnelles du membre connecté
+     */
+    public void getDataMember(){
+        MemberFacade memberFacade = FacadeFactory.getInstance()
+                .getMemberFacade();
+        //TODO recuperer session membre pour recuperer l'utilisateur courant
+        MemberVo memberVo = memberFacade.find(2);
+        setBirthday(memberVo.getMemberBirthday());
+        setEmail(memberVo.getMemberEmail());
+        setFirstName(memberVo.getMemberFirstname());
+        setLastName(memberVo.getMemberLastname());
+        setId(memberVo.getMemberId());
+        setJoiningDate(memberVo.getMemberJoiningDate());
+        setNationality(memberVo.getMemberNationality());
+        setSex(memberVo.getMemberSex());
+        setProfession(memberVo.getMemberProfession());
     }
 
 }

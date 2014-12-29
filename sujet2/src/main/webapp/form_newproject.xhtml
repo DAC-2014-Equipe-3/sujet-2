@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view contentType="text/html">
+    <h:head/>
+    <h:body>
+        <ui:composition template="template/template.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <div id="shareModal" class="modal hide fade">
+                        <div class="modal-header">
+                            <h2>Proposer un nouveau projet</h2>
+                        </div>
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <p:outputLabel for="title" value="Titre : "/>
+                            <p:inputText id="title" required="true" value="#{projectBean.title}"
+                                         requiredMessage="Veuillez compléter le champ"/>
+                            <p:message for="title" value="Titre"/>
+
+                            <p:outputLabel for="enddate" value="Date de clôture : "/>
+                            <p:calendar id="enddate" required="true" value="#{projectBean.endDate}"
+                                        requiredMessage="Veuillez compléter le champ"/>
+                            <p:message for="enddate" value="Date de clôture"/>
+
+                            <p:outputLabel for="description" value="Description : "/>
+                            <p:inputTextarea id="description" required="true" value="#{projectBean.description}"
+                                         requiredMessage="Veuillez compléter le champ"/>
+                            <p:message for="description" value="Description"/>
+                        </h:panelGrid>
+                        <div class="form-actions">
+                            <h:commandButton value="Valider" class="btn btn-danger"/>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</f:view>
+</html>
