@@ -26,4 +26,8 @@ public class ServiceFactory {
     public ProjectService getProjectService() {
         return ProjectService.getInstance();
     }
+
+    public ProjectCategoryService getProjectCategoryServices() {
+        return ProjectCategoryService.getInstance();
+    }
 }

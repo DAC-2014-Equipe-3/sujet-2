@@ -30,4 +30,8 @@ public class FacadeFactory {
     public ProjectFacade getProjectFacade() {
         return new ProjectFacade(PU, ServiceFactory.getInstance().getProjectService());
     }
+
+    public ProjectCategoryFacade getProjectCategoryFacade(){
+        return new ProjectCategoryFacade(PU, ServiceFactory.getInstance().getProjectCategoryServices());
+    }
 }

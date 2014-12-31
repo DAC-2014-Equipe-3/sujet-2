@@ -24,4 +24,8 @@ public class DAOFactory {
     }
 
     public ProjectDAO getProjectDAO(){ return ProjectDAO.getInstance(); }
+
+    public ProjectCategoryDAO getProjectCategoryDAO(){
+        return ProjectCategoryDAO.getInstance();
+    }
 }

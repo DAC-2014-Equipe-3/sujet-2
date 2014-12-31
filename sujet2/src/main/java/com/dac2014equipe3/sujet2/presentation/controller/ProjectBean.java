@@ -2,6 +2,7 @@ package com.dac2014equipe3.sujet2.presentation.controller;
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.ProjectFacade;
 import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
+import com.dac2014equipe3.sujet2.vo.ProjectCategoryVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
 import javax.faces.bean.ManagedBean;
@@ -20,6 +21,16 @@ public class ProjectBean {
     private String description;
     private ProjectCategory category;
     private boolean isSuppressed;
+
+    public ProjectCategoryVo getCategoryVo() {
+        return categoryVo;
+    }
+
+    public void setCategoryVo(ProjectCategoryVo categoryVo) {
+        this.categoryVo = categoryVo;
+    }
+
+    private ProjectCategoryVo categoryVo;
 
     public ProjectBean() {
     }
@@ -93,8 +104,23 @@ public class ProjectBean {
      * @return
      */
     public String addProject() {
+        //TODO Vérification que l'utilisateur est loggé
+
         ProjectVo projectVo = new ProjectVo();
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
+
+        projectVo.setProjectId(getId());
+        projectVo.setProjectTitle(getTitle());
+        projectVo.setProjectFundingGoal(getFundingGoal());
+        projectVo.setProjectCreationDate(getCreationDate());
+        projectVo.setProjectEndDate(getEndDate());
+        projectVo.setProjectDescription(getDescription());
+        projectVo.setProjectIsSuppressed(false);
+        projectVo.setMemberList(null); //TODO
+        projectVo.setProjectCategory(getCategory());
+        projectVo.setMediaList(null); //TODO
+        projectVo.setMemberbacksProjectList(null); //TODO
+        projectVo.setReward(null);//TODO
 
         //TODO A finir (penser à lier le projet avec le créateur)
         return "success";
