@@ -33,6 +33,8 @@ public class ProjectCategoriesBean {
      */
     public void getAllProjectCategories(){
         ProjectCategoryFacade projectCategoryFacade = FacadeFactory.getInstance().getProjectCategoryFacade();
+        //Clear list
+        listProjectCategories.clear();
         listProjectCategories.addAll(projectCategoryFacade.getAllProjectCategories());
     }
 
