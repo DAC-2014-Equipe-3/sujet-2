@@ -36,7 +36,7 @@ public class MemberFacade extends Facade<MemberVo> {
      * Register the member in the database
      * @param memberVo
      */
-    public void inscrire(MemberVo memberVo){
+    public void addMember(MemberVo memberVo){
         persist(memberVo);
     }
 
@@ -44,8 +44,8 @@ public class MemberFacade extends Facade<MemberVo> {
      * update the member in the database
      * @param memberVo
      */
-    public void updateMember (MemberVo memberVo){
-        update(memberVo);
+    public boolean updateMember (MemberVo memberVo){
+        return update(memberVo);
     }
 
 }

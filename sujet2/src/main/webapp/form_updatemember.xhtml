@@ -16,30 +16,34 @@
                             <h2> Mes informations </h2>
                         </div>
                         <h:panelGrid columns="3" cellpadding="5">
+                            <!--TODO Modifier mot de passe-->
                             <p:outputLabel for="login" value="Login : "/>
-                            <p:inputText id="login" required="true" value="#{memberBean.login}"
+                            <p:inputText id="login" required="true" disabled="true" value="#{memberBean.login}"
                                          requiredMessage="Veuillez compléter le champ"/>
                             <p:message for="login" value="Login"/>
 
                             <p:outputLabel for="mail" value="Email : "/>
-                            <p:inputText id="mail" required="true" value="#{memberBean.email}"
-                                         requiredMessage="Veuillez compléter le champ">
-                                <!-- TODO Format email a verifier -->
+                            <p:inputText id="mail" required="true" label="email" size="40"
+                                         requiredMessage="Veuillez compléter le champ"
+                                         validatorMessage="Format de l'email invalide"
+                                         value="#{memberBean.email}">
+                                <f:validateRegex
+                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </p:inputText>
-                            <p:message for="mail" value="Mail"/>
+                            <p:message for="mail"/>
 
                             <p:outputLabel for="fname" value="Prénom : "/>
-                            <p:inputText id="fname" required="true" value="#{memberBean.firstName}"
+                            <p:inputText id="fname" required="true" disabled="true" value="#{memberBean.firstName}"
                                          requiredMessage="Veuillez compléter le champ"/>
                             <p:message for="fname" value="First name"/>
 
                             <p:outputLabel for="lname" value="Nom : "/>
-                            <p:inputText id="lname" required="true" value="#{memberBean.lastName}"
+                            <p:inputText id="lname" required="true" disabled="true" value="#{memberBean.lastName}"
                                          requiredMessage="Veuillez compléter le champ"/>
                             <p:message for="lname" value="Last name"/>
 
                             <p:outputLabel for="birthdate" value="Date de naissance : "/>
-                            <p:calendar id="birthdate" required="true" value="#{memberBean.birthday}"
+                            <p:calendar id="birthdate" required="true" disabled="true" value="#{memberBean.birthday}"
                                         requiredMessage="Veuillez compléter le champ"/>
                             <p:message for="birthdate" value="Date of birth"/>
 
@@ -54,10 +58,10 @@
                             <p:message for="nationality" value="Nationality"/>
 
                             <p:outputLabel for="gender" value="Sexe : "/>
-                            <p:selectOneRadio id="gender" required="true" value="#{memberBean.sex}"
-                                              requiredMessage="Veuillez compléter le champ">
-                                <f:selectItem itemValue="Male" itemLabel="Male"/>
-                                <f:selectItem itemValue="Female" itemLabel="Female"/>
+                            <p:selectOneRadio id="gender" required="true" disabled="true" value="#{memberBean.sex}"
+                                              requiredMessage="Veuillez choisir le sexe">
+                                <f:selectItem itemValue="M" itemLabel="Male"/>
+                                <f:selectItem itemValue="F" itemLabel="Female"/>
                             </p:selectOneRadio>
                             <p:message for="gender" value="Gender"/>
 
