@@ -52,7 +52,7 @@ public class Facade<VO> {
     }
 
     public boolean update(VO vo) {
-        EntityManager em = null;
+       // EntityManager em = null;
         EntityTransaction tx = null;
         boolean ret = false;
         try {
@@ -76,7 +76,7 @@ public class Facade<VO> {
     }
 
     public boolean delete(Object id) {
-        EntityManager em = null;
+       // EntityManager em = null;
         EntityTransaction tx = null;
         boolean ret = false;
         try {

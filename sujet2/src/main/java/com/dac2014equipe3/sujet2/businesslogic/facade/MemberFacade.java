@@ -40,4 +40,12 @@ public class MemberFacade extends Facade<MemberVo> {
         persist(memberVo);
     }
 
+    /**
+     * update the member in the database
+     * @param memberVo
+     */
+    public void updateMember (MemberVo memberVo){
+        update(memberVo);
+    }
+
 }

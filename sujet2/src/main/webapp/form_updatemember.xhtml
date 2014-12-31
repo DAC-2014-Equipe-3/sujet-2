@@ -8,16 +8,18 @@
     <h:body>
         <ui:composition template="template/template.xhtml">
             <ui:define name="content">
+
+                #{memberBean.getDataMember()}
                 <h:form>
-                    #{memberBean.getDataMember()}
                     <div id="shareModal" class="modal hide fade">
                         <div class="modal-header">
-                            <h2>Mes informations personnelles</h2>
+                            <h2> Mes informations </h2>
                         </div>
                         <h:panelGrid columns="3" cellpadding="5">
                             <p:outputLabel for="login" value="Login : "/>
-                            <p:inputText id="login" disabled="true" value="#{memberBean.login}"/>
-                            <p:message for="login" value="login"/>
+                            <p:inputText id="login" required="true" value="#{memberBean.login}"
+                                         requiredMessage="Veuillez compléter le champ"/>
+                            <p:message for="login" value="Login"/>
 
                             <p:outputLabel for="mail" value="Email : "/>
                             <p:inputText id="mail" required="true" value="#{memberBean.email}"
@@ -25,11 +27,6 @@
                                 <!-- TODO Format email a verifier -->
                             </p:inputText>
                             <p:message for="mail" value="Mail"/>
-
-                            <p:outputLabel for="password" value="Mot de passe : "/>
-                            <p:password id="password" required="true" value="#{memberBean.password}"
-                                        requiredMessage="Veuillez compléter le champ"/>
-                            <p:message for="password" value="Mot de passe"/>
 
                             <p:outputLabel for="fname" value="Prénom : "/>
                             <p:inputText id="fname" required="true" value="#{memberBean.firstName}"
@@ -73,6 +70,9 @@
                             <h:commandButton action="#{memberBean.updateAccount()}" value="Modifier" class="btn btn-danger"/>
                         </div>
                     </div>
+                </h:form>
+                <h:form>
+                    <h:commandButton action="#{memberBean.deleteAccount()}" value="Supprimer le compte"/>
                 </h:form>
             </ui:define>
         </ui:composition>

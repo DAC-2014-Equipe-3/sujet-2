@@ -13,8 +13,10 @@ import com.dac2014equipe3.sujet2.vo.MemberVo;
 import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.util.Date;
 import java.util.List;
 
@@ -335,7 +337,34 @@ public class MemberBean {
      */
     public String updateAccount(){
         //TODO Modification profil
-        return "success";
+        //TODO gérer la redirection
+        //TODO Valider côté serveur la validité des champs !
+
+        if (loggedIn) {
+            return "failure";
+        } else {
+
+            MemberFacade memberFacade = FacadeFactory.getInstance()
+                    .getMemberFacade();
+
+            MemberVo memberVo = new MemberVo();
+
+            //TODO Recuperation de l'id  membre dans la session
+
+            memberVo.setMemberId(id);
+            memberVo.setMemberLogin(getLogin());
+            memberVo.setMemberEmail(getEmail());
+            memberVo.setMemberPassword(getPassword());
+            memberVo.setMemberNationality(getNationality());
+            memberVo.setMemberBirthday(getBirthday());
+            memberVo.setMemberFirstname(getFirstName());
+            memberVo.setMemberLastname(getLastName());
+            memberVo.setMemberSex(getSex());
+            memberVo.setMemberProfession(getProfession());
+            memberFacade.updateMember(memberVo);
+
+            return "success";
+        }
     }
 
     /**
@@ -344,7 +373,24 @@ public class MemberBean {
      */
     public String deleteAccount(){
         //TODO Supprimer le compte en mettant le flag à 1
-        return "success";
+
+        if (loggedIn) {
+            return "failure";
+        } else {
+
+            MemberFacade memberFacade = FacadeFactory.getInstance()
+                    .getMemberFacade();
+
+            MemberVo memberVo = new MemberVo();
+
+            //TODO Recuperation de l'id  membre dans la session
+            //TODO Verifier si l'utilisateur n'a pas un projet
+
+            memberVo.setMemberId(2);
+            memberVo.setMemberIsSuppressed(true);
+            memberFacade.update(memberVo);
+            return "success";
+        }
     }
 
     /**
@@ -375,6 +421,7 @@ public class MemberBean {
         setNationality(memberVo.getMemberNationality());
         setSex(memberVo.getMemberSex());
         setProfession(memberVo.getMemberProfession());
+        setPassword(memberVo.getMemberPassword());
     }
 
 }
