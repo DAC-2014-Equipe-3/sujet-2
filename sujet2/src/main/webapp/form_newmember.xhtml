@@ -20,11 +20,14 @@
                                 <p:message for="login" value="Login"/>
 
                                 <p:outputLabel for="mail" value="Email : "/>
-                                <p:inputText id="mail" required="true" value="#{memberBean.email}"
-                                             requiredMessage="Veuillez compléter le champ">
-                                    <!-- TODO Format email a verifier -->
+                                <p:inputText id="mail" required="true" label="email" size="40"
+                                             requiredMessage="Veuillez compléter le champ"
+                                             validatorMessage="Format de l'email invalide"
+                                             value="#{memberBean.email}">
+                                    <f:validateRegex
+                                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                 </p:inputText>
-                                <p:message for="mail" value="Mail"/>
+                                <p:message for="mail"/>
 
                                 <p:outputLabel for="password" value="Mot de passe : "/>
                                 <p:password id="password" required="true" value="#{memberBean.password}"
@@ -59,8 +62,8 @@
                                 <p:outputLabel for="gender" value="Sexe : "/>
                                 <p:selectOneRadio id="gender" required="true" value="#{memberBean.sex}"
                                                   requiredMessage="Veuillez compléter le champ">
-                                    <f:selectItem itemValue="Male" itemLabel="Male"/>
-                                    <f:selectItem itemValue="Female" itemLabel="Female"/>
+                                    <f:selectItem itemValue="M" itemLabel="Male"/>
+                                    <f:selectItem itemValue="F" itemLabel="Female"/>
                                 </p:selectOneRadio>
                                 <p:message for="gender" value="Gender"/>
 

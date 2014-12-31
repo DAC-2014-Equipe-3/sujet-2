@@ -1,14 +1,14 @@
 /**CREATION DE MEMBRES**/
 INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
-	VALUES ('Jmmartinezro@gmail.com', 'Jmmr', '1234', true, CURRENT_DATE, 'Martinez', 'Juan', CURRENT_DATE, 'Colombia', 'Male', 'Student', false);
+	VALUES ('Jmmartinezro@gmail.com', 'Jmmr', '1234', true, CURRENT_DATE, 'Martinez', 'Juan', CURRENT_DATE, 'Colombie', 'M', 'Student', false);
 INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
-	VALUES ('jeanaymard@gmail.com', 'jeanaymard', 'test', true, '2014-12-01', 'Aymard', 'Jean', '1990-10-10', 'France', 'Male', 'Jobless', false);
+	VALUES ('jeanaymard@gmail.com', 'jeanaymard', 'test', true, '2014-12-01', 'Aymard', 'Jean', '1990-10-10', 'France', 'M', 'Jobless', false);
 INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
-	VALUES ('mrcchambon@gmail.com', 'chambonm', 'bobby', true, '2014-12-18', 'Chambon', 'Marc', '1982-03-26', 'France', 'Male', 'Chemist', false);
+	VALUES ('mrcchambon@gmail.com', 'chambonm', 'bobby', true, '2014-12-18', 'Chambon', 'Marc', '1982-03-26', 'France', 'M', 'Chemist', false);
 INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
-	VALUES ('marypoppins@gmail.com', 'mary', '', true, '2012-12-12', 'Poppins', 'Mary', '1870-11-9', 'France', 'Female', 'Actress', false);
+	VALUES ('marypoppins@gmail.com', 'mary', '', true, '2012-12-12', 'Poppins', 'Mary', '1870-11-9', 'France', 'F', 'Actress', false);
 INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
-VALUES ('toto@gmail.com', 'toto', '1234', false, '2012-12-14', 'toto', 'titi', '1999-11-9', 'France', 'Female', 'Teacher', false);
+VALUES ('toto@gmail.com', 'toto', '1234', false, '2012-12-14', 'toto', 'titi', '1999-11-9', 'France', 'F', 'Teacher', false);
 
 /**CREATION DE CATEGORIES**/
 INSERT INTO sujet2.ProjectCategory(categoryName, categoryDescription)

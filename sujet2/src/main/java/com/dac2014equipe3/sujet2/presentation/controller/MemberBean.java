@@ -10,8 +10,6 @@ import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
 import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
 import com.dac2014equipe3.sujet2.model.entity.Project;
 import com.dac2014equipe3.sujet2.vo.MemberVo;
-import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
-import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -299,14 +297,12 @@ public class MemberBean {
 
 	/**
 	 * Cree un nouveau membre
-	 * @return
 	 */
     public String addNewMember() {
-    //TODO gérer la redirection
     //TODO Valider côté serveur la validité des champs !
     //TODO Ouvrir session membre
 
-        if (loggedIn){
+        if (!isLoggedIn()){
             return "failure";
         }else{
             MemberVo memberVo = new MemberVo();
@@ -323,28 +319,84 @@ public class MemberBean {
             memberVo.setMemberSex(getSex());
             memberVo.setMemberProfession(getProfession());
             memberVo.setMemberJoiningDate(new Date());
-            memberFacade.inscrire(memberVo);
+            memberFacade.addMember(memberVo);
             return "success";
         }
 
 	}
 
     /**
+     * Recuperer les infos personnelles du membre connecté
+     */
+    public void getDataMember(){
+
+        if (isLoggedIn()) {
+            MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
+            MemberVo memberVo = memberFacade.find(id);
+            setLogin(memberVo.getMemberLogin());
+            setBirthday(memberVo.getMemberBirthday());
+            setEmail(memberVo.getMemberEmail());
+            setFirstName(memberVo.getMemberFirstname());
+            setLastName(memberVo.getMemberLastname());
+            setId(memberVo.getMemberId());
+            setJoiningDate(memberVo.getMemberJoiningDate());
+            setNationality(memberVo.getMemberNationality());
+            setSex(memberVo.getMemberSex());
+            setProfession(memberVo.getMemberProfession());
+            setPassword(memberVo.getMemberPassword());
+        }
+    }
+
+    /**
      * Mettre à jour les informations de l'utilisateur
-     * @return
      */
     public String updateAccount(){
-        //TODO Modification profil
-        return "success";
+    //TODO Valider côté serveur la validité des champs !
+
+        if (!isLoggedIn()) {
+            return "failure";
+        } else {
+            MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
+            MemberVo memberVo = new MemberVo();
+            memberVo.setMemberId(id);
+            memberVo.setMemberLogin(getLogin());
+            memberVo.setMemberEmail(getEmail());
+            memberVo.setMemberPassword(getPassword());
+            memberVo.setMemberNationality(getNationality());
+            memberVo.setMemberBirthday(getBirthday());
+            memberVo.setMemberFirstname(getFirstName());
+            memberVo.setMemberLastname(getLastName());
+            memberVo.setMemberSex(getSex());
+            memberVo.setMemberProfession(getProfession());
+            if(memberFacade.updateMember(memberVo))
+                return "success";
+            return "failure";
+        }
     }
+
+
+
 
     /**
      * Supprimer compte membre
      * @return
      */
     public String deleteAccount(){
-        //TODO Supprimer le compte en mettant le flag à 1
-        return "success";
+
+        if (!isLoggedIn()) {
+            return "failure";
+        } else {
+            MemberFacade memberFacade = FacadeFactory.getInstance()
+                    .getMemberFacade();
+            MemberVo memberVo = memberFacade.find(id);
+            if(memberVo.getProjectList().size() > 0){
+                return "failure";
+            }
+            memberVo.setMemberId(id);
+            memberVo.setMemberIsSuppressed(true);
+            memberFacade.update(memberVo);
+            return "success";
+        }
     }
 
     /**
@@ -353,28 +405,18 @@ public class MemberBean {
      */
     public String disconnect(){
         //TODO Gerer session ??
-
-        this.loggedIn = false;
+        setLoggedIn(false);
         return "success";
     }
 
-    /**
-     * Recuperer les infos personnelles du membre connecté
-     */
-    public void getDataMember(){
-        MemberFacade memberFacade = FacadeFactory.getInstance()
-                .getMemberFacade();
-        //TODO recuperer session membre pour recuperer l'utilisateur courant
-        MemberVo memberVo = memberFacade.find(2);
-        setBirthday(memberVo.getMemberBirthday());
-        setEmail(memberVo.getMemberEmail());
-        setFirstName(memberVo.getMemberFirstname());
-        setLastName(memberVo.getMemberLastname());
-        setId(memberVo.getMemberId());
-        setJoiningDate(memberVo.getMemberJoiningDate());
-        setNationality(memberVo.getMemberNationality());
-        setSex(memberVo.getMemberSex());
-        setProfession(memberVo.getMemberProfession());
+    private boolean checkDataMember(MemberVo mVo){
+    //TODO a completer
+
+        if(mVo != null){
+            return true;
+        }
+
+        return false;
     }
 
 }

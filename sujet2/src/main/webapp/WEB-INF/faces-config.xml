@@ -46,6 +46,7 @@
             <to-view-id>/template/error.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+
     <navigation-rule>
         <from-view-id>/form_newproject.xhtml</from-view-id>
         <navigation-case>
@@ -55,6 +56,20 @@
         </navigation-case>
         <navigation-case>
             <from-action>#{projectBean.addProject()}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/template/error.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/form_updatemember.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{memberBean.updateAccount()}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{memberBean.updateAccount()}</from-action>
             <from-outcome>failure</from-outcome>
             <to-view-id>/template/error.xhtml</to-view-id>
         </navigation-case>
