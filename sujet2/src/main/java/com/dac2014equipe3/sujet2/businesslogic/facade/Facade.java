@@ -20,14 +20,14 @@ public class Facade<VO> {
         this.service = service;
     }
 
-    public void persist(VO vo) throws DatabaseException {
+    public void persist(VO vo) throws DatabaseException {      
         EntityTransaction tx = null;
         try {
             tx = em.getTransaction();
             tx.begin();
             service.persist(vo, em);
             tx.commit();
-        } catch (Exception e) {
+        } catch (Exception e) {            
             if (em != null && tx != null) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class Facade<VO> {
     }
 
     public boolean update(VO vo) {
-        EntityManager em = null;
+        //EntityManager em = null;
         EntityTransaction tx = null;
         boolean ret = false;
         try {
@@ -76,7 +76,7 @@ public class Facade<VO> {
     }
 
     public boolean delete(Object id) {
-        EntityManager em = null;
+        //EntityManager em = null;
         EntityTransaction tx = null;
         boolean ret = false;
         try {

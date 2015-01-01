@@ -1,4 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.dac2014equipe3.sujet2.presentation.controller;
+
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
 import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
@@ -9,6 +15,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.Date;
 import java.util.List;
+
+/**
+ *
+ * @author Jummartinezro
+ */
 
 @ManagedBean(name = "memberBean")
 @SessionScoped
@@ -291,6 +302,9 @@ public class MemberBean {
     //TODO Valider côté serveur la validité des champs !
     //TODO Ouvrir session membre
 
+        if (!isLoggedIn()){
+            return "failure";
+        }else{
             MemberVo memberVo = new MemberVo();
             MemberFacade memberFacade = FacadeFactory.getInstance()
                     .getMemberFacade();
@@ -307,6 +321,8 @@ public class MemberBean {
             memberVo.setMemberJoiningDate(new Date());
             memberFacade.addMember(memberVo);
             return "success";
+        }
+
 	}
 
     /**
@@ -358,6 +374,9 @@ public class MemberBean {
         }
     }
 
+
+
+
     /**
      * Supprimer compte membre
      * @return
@@ -399,5 +418,25 @@ public class MemberBean {
 
         return false;
     }
+
+	public MemberVo getMemberVo(){
+		MemberVo vo = new MemberVo();
+
+		vo.setMemberId(id);
+		vo.setMemberEmail(email);
+		vo.setMemberLogin(login);
+		vo.setMemberPassword(password);
+		vo.setMemberIsAdmin(isAdmin);
+		vo.setMemberJoiningDate(joiningDate);
+		vo.setMemberBirthday(birthday);
+		vo.setMemberFirstname(firstName);
+		vo.setMemberLastname(lastName);
+		vo.setMemberNationality(nationality);
+		vo.setMemberSex(sex);
+		vo.setMemberProfession(profession);
+		vo.setMemberIsSuppressed(isSuppressed);
+
+		return vo;
+	}
 
 }

@@ -1,4 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.dac2014equipe3.sujet2.model.entity;
+
 import com.dac2014equipe3.sujet2.vo.MemberVo;
 import java.io.Serializable;
 import java.util.Date;
@@ -22,6 +28,10 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author Jummartinezro
+ */
 @Entity
 @Table(name = "Member", catalog = "sujet2", schema = "")
 @NamedQueries({
@@ -100,7 +110,7 @@ public class Member implements Serializable, IEntity<MemberVo> {
     @JoinTable(name = "Member_creates_Project", joinColumns = {
         @JoinColumn(name = "creatorId", referencedColumnName = "memberId")}, inverseJoinColumns = {
         @JoinColumn(name = "projectId", referencedColumnName = "projectId")})
-    @ManyToMany
+    @OneToMany
     private List<Project> projectList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "member1")
     private List<MemberbacksProject> memberbacksProjectList;

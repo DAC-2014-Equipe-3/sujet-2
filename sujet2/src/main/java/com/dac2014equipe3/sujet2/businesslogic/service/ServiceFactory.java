@@ -1,5 +1,16 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.dac2014equipe3.sujet2.businesslogic.service;
 
+import com.dac2014equipe3.sujet2.model.dao.MembercreatesProjectDAO;
+import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
+
+/**
+ *
+ * @author juanmanuelmartinezromero
+ */
 public class ServiceFactory {
 
     private static ServiceFactory instance;
@@ -21,5 +32,9 @@ public class ServiceFactory {
 
     public ProjectCategoryService getProjectCategoryServices() {
         return ProjectCategoryService.getInstance();
+    }
+
+    public MembercreatesProjectService getMembercreateProjectServices() {
+        return MembercreatesProjectService.getInstance();
     }
 }

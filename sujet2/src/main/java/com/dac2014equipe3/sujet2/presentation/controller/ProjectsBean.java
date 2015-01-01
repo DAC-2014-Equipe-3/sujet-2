@@ -1,4 +1,5 @@
 package com.dac2014equipe3.sujet2.presentation.controller;
+
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
 import com.dac2014equipe3.sujet2.businesslogic.facade.ProjectFacade;
@@ -10,6 +11,9 @@ import javax.faces.bean.RequestScoped;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by lepeteil on 23/12/14.
+ */
 @ManagedBean(name = "projectsBean")
 @RequestScoped
 public class ProjectsBean {

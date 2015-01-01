@@ -1,4 +1,5 @@
 package com.dac2014equipe3.sujet2.businesslogic.service;
+
 import com.dac2014equipe3.sujet2.model.dao.DAOFactory;
 import com.dac2014equipe3.sujet2.model.dao.ProjectDAO;
 import com.dac2014equipe3.sujet2.model.entity.Project;
@@ -9,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
+/**
+ * Created by lepeteil on 19/12/14.
+ */
 public class ProjectService implements IService<ProjectVo>{
 
     private static ProjectService instance;
@@ -38,7 +42,7 @@ public class ProjectService implements IService<ProjectVo>{
         entity.setReward(vo.getReward());
 
         DAOFactory.getInstance().getProjectDAO().persist(entity, em);
-
+        vo.setProjectId(entity.getProjectId());
     }
 
     @Override

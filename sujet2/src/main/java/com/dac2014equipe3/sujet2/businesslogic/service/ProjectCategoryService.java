@@ -1,4 +1,5 @@
 package com.dac2014equipe3.sujet2.businesslogic.service;
+
 import com.dac2014equipe3.sujet2.model.dao.DAOFactory;
 import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
 import com.dac2014equipe3.sujet2.vo.ProjectCategoryVo;
@@ -7,6 +8,9 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by guilherme on 30/12/14.
+ */
 public class ProjectCategoryService implements IService<ProjectCategoryVo> {
 
     private static ProjectCategoryService instance;

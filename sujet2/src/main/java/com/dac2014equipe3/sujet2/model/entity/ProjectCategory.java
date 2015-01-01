@@ -1,4 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package com.dac2014equipe3.sujet2.model.entity;
+
 import com.dac2014equipe3.sujet2.vo.ProjectCategoryVo;
 
 import java.io.Serializable;
@@ -17,6 +24,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author Jummartinezro
+ */
 @Entity
 @Table(name = "ProjectCategory", catalog = "sujet2", schema = "")
 @NamedQueries({
@@ -25,7 +36,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProjectCategory.findByCategoryName", query = "SELECT p FROM ProjectCategory p WHERE p.categoryName = :categoryName"),
     @NamedQuery(name = "ProjectCategory.findByCategoryDescription", query = "SELECT p FROM ProjectCategory p WHERE p.categoryDescription = :categoryDescription")})
 public class ProjectCategory implements Serializable, IEntity<ProjectCategoryVo> {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +63,13 @@ public class ProjectCategory implements Serializable, IEntity<ProjectCategoryVo>
     public ProjectCategory(Integer categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+    }
+
+    public ProjectCategory(ProjectCategoryVo projectCategoryVo){
+        this.setCategoryDescription(projectCategoryVo.getCategoryDescription());
+        this.setCategoryId(projectCategoryVo.getCategoryId());
+        this.setCategoryName(projectCategoryVo.getCategoryName());
+        this.setProjectList(projectCategoryVo.getProjectList());
     }
 
     public Integer getCategoryId() {

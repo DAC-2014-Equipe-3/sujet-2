@@ -1,4 +1,5 @@
 package com.dac2014equipe3.sujet2.presentation.controller;
+
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.ProjectCategoryFacade;
 import com.dac2014equipe3.sujet2.vo.ProjectCategoryVo;
@@ -8,6 +9,9 @@ import javax.faces.bean.ViewScoped;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by lepeteil on 23/12/14.
+ */
 @ManagedBean(name = "projectCategoriesBean")
 @ViewScoped
 public class ProjectCategoriesBean {

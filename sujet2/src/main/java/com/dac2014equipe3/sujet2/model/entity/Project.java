@@ -1,4 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package com.dac2014equipe3.sujet2.model.entity;
+
 import com.dac2014equipe3.sujet2.vo.MemberVo;
 import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
@@ -26,6 +33,10 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author Jummartinezro
+ */
 @Entity
 @Table(name = "Project", catalog = "sujet2", schema = "")
 @NamedQueries({
@@ -47,7 +58,7 @@ import javax.validation.constraints.Size;
 public class Project implements Serializable, IEntity<ProjectVo> {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "projectId")
     private Integer projectId;
@@ -104,6 +115,21 @@ public class Project implements Serializable, IEntity<ProjectVo> {
         this.projectCreationDate = projectCreationDate;
         this.projectEndDate = projectEndDate;
         this.projectDescription = projectDescription;
+    }
+
+    public Project(ProjectVo projectVo){
+        this.setMediaList(projectVo.getMediaList());
+        this.setMemberList(projectVo.getMemberList());
+        this.setMemberbacksProjectList(projectVo.getMemberbacksProjectList());
+        this.setProjectCategory(projectVo.getProjectCategory());
+        this.setProjectCreationDate(projectVo.getProjectCreationDate());
+        this.setProjectDescription(projectVo.getProjectDescription());
+        this.setProjectEndDate(projectVo.getProjectEndDate());
+        this.setProjectFundingGoal(projectVo.getProjectFundingGoal());
+        this.setProjectId(projectVo.getProjectId());
+        this.setProjectIsSuppressed(projectVo.getProjectIsSuppressed());
+        this.setProjectTitle(projectVo.getProjectTitle());
+        this.setReward(projectVo.getReward());
     }
 
     public Integer getProjectId() {

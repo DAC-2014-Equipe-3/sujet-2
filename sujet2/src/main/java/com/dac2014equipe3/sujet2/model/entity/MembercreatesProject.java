@@ -1,19 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package com.dac2014equipe3.sujet2.model.entity;
+
+import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
+
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ *
+ * @author Jummartinezro, chambon for the copy/paste...
+ */
 @Entity
 @Table(name = "Member_creates_Project", catalog = "sujet2", schema = "")
 @NamedQueries({
@@ -22,8 +25,7 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = "MembercreatesProject.findByCreatorId", query = "SELECT m FROM MembercreatesProject m WHERE m.membercreatesProjectPK.creatorId = :creatorId"),
         @NamedQuery(name = "MembercreatesProject.findByProjectId", query = "SELECT m FROM MembercreatesProject m WHERE m.membercreatesProjectPK.projectId = :projectId")})
 
-public class MembercreatesProject implements Serializable {
-
+public class MembercreatesProject implements Serializable, IEntity<MembercreatesProjectVo> {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MembercreatesProjectPK membercreatesProjectPK;
@@ -49,7 +51,7 @@ public class MembercreatesProject implements Serializable {
         return membercreatesProjectPK;
     }
 
-    public void setMemberbacksProjectPK(MemberbacksProjectPK memberbacksProjectPK) {
+    public void setMembercreatesProjectPK(MembercreatesProjectPK membercreatesProjectPK) {
         this.membercreatesProjectPK = membercreatesProjectPK;
     }
 
@@ -94,4 +96,10 @@ public class MembercreatesProject implements Serializable {
         return "com.dac2014equipe3.sujet2.model.entity.MembercreatesProject[ membercreatesProjectPK=" + membercreatesProjectPK + " ]";
     }
 
+    @Override
+    public MembercreatesProjectVo toVo() {
+        MembercreatesProjectVo membercreatesProjectVo = new MembercreatesProjectVo(
+                membercreatesProjectPK, member1.toVo(), project.toVo());
+        return membercreatesProjectVo;
+    }
 }
