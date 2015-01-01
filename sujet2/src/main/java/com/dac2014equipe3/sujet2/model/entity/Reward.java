@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dac2014equipe3.sujet2.model.entity;
-
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -24,10 +17,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Jummartinezro
- */
 @Entity
 @Table(name = "Reward", catalog = "sujet2", schema = "")
 @NamedQueries({
@@ -37,6 +26,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Reward.findByRewardDescription", query = "SELECT r FROM Reward r WHERE r.rewardDescription = :rewardDescription"),
     @NamedQuery(name = "Reward.findByRewardMinPrice", query = "SELECT r FROM Reward r WHERE r.rewardMinPrice = :rewardMinPrice")})
 public class Reward implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

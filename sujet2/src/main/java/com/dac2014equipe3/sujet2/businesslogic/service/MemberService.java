@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dac2014equipe3.sujet2.businesslogic.service;
-
 import com.dac2014equipe3.sujet2.model.dao.DAOFactory;
 import com.dac2014equipe3.sujet2.model.dao.MemberDAO;
 import com.dac2014equipe3.sujet2.model.entity.Member;
@@ -13,10 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author Jummartinezro
- */
 public class MemberService implements IService<MemberVo> {
 
     private static MemberService instance;
@@ -74,7 +64,6 @@ public class MemberService implements IService<MemberVo> {
         entity.setMemberSex(vo.getMemberSex());
         entity.setMemberProfession(vo.getMemberProfession());
         entity.setMemberIsSuppressed(vo.getMemberIsSuppressed());
-
         dao.update(entity, em);
     }
 

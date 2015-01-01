@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dac2014equipe3.sujet2.model.entity;
-
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -21,10 +14,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author Jummartinezro, chambon for the copy/paste...
- */
 @Entity
 @Table(name = "Member_creates_Project", catalog = "sujet2", schema = "")
 @NamedQueries({
@@ -34,6 +23,7 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = "MembercreatesProject.findByProjectId", query = "SELECT m FROM MembercreatesProject m WHERE m.membercreatesProjectPK.projectId = :projectId")})
 
 public class MembercreatesProject implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MembercreatesProjectPK membercreatesProjectPK;

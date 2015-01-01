@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dac2014equipe3.sujet2.presentation.controller;
-
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
 import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
@@ -15,11 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.Date;
 import java.util.List;
-
-/**
- *
- * @author Jummartinezro
- */
 
 @ManagedBean(name = "memberBean")
 @SessionScoped
@@ -302,9 +291,6 @@ public class MemberBean {
     //TODO Valider côté serveur la validité des champs !
     //TODO Ouvrir session membre
 
-        if (!isLoggedIn()){
-            return "failure";
-        }else{
             MemberVo memberVo = new MemberVo();
             MemberFacade memberFacade = FacadeFactory.getInstance()
                     .getMemberFacade();
@@ -321,8 +307,6 @@ public class MemberBean {
             memberVo.setMemberJoiningDate(new Date());
             memberFacade.addMember(memberVo);
             return "success";
-        }
-
 	}
 
     /**
@@ -373,9 +357,6 @@ public class MemberBean {
             return "failure";
         }
     }
-
-
-
 
     /**
      * Supprimer compte membre

@@ -1,5 +1,4 @@
 package com.dac2014equipe3.sujet2.converter;
-
 import com.dac2014equipe3.sujet2.presentation.controller.ProjectCategoriesBean;
 import com.dac2014equipe3.sujet2.vo.ProjectCategoryVo;
 
@@ -8,9 +7,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-/**
- * Created by guilherme on 31/12/14.
- */
 @FacesConverter("projectCategoriesConverter")
 public class ProjectCategoryConverter implements Converter {
 

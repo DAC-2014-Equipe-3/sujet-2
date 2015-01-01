@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dac2014equipe3.sujet2.businesslogic.service;
 
-/**
- *
- * @author juanmanuelmartinezromero
- */
 public class ServiceFactory {
 
     private static ServiceFactory instance;

@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dac2014equipe3.sujet2.model.entity;
-
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,10 +11,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Jummartinezro
- */
 @Entity
 @Table(name = "PaymentData", catalog = "sujet2", schema = "")
 @NamedQueries({
@@ -30,6 +19,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "PaymentData.findByPaypalAuthorization", query = "SELECT p FROM PaymentData p WHERE p.paypalAuthorization = :paypalAuthorization"),
     @NamedQuery(name = "PaymentData.findByCreditcard", query = "SELECT p FROM PaymentData p WHERE p.creditcard = :creditcard")})
 public class PaymentData implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

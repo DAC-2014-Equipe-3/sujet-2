@@ -1,13 +1,16 @@
 package com.dac2014equipe3.sujet2.presentation.controller;
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
+import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
 import com.dac2014equipe3.sujet2.businesslogic.facade.ProjectFacade;
+import com.dac2014equipe3.sujet2.model.entity.Member;
 import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
+import com.dac2014equipe3.sujet2.vo.MemberVo;
 import com.dac2014equipe3.sujet2.vo.ProjectCategoryVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.util.Date;
+import java.util.List;
 
 @ManagedBean(name = "projectBean")
 @RequestScoped
@@ -105,29 +108,34 @@ public class ProjectBean {
      */
     public String addProject() {
         //TODO Vérification que l'utilisateur est loggé
+        //TODO A finir (penser à lier le projet avec le créateur connecté)
 
         ProjectVo projectVo = new ProjectVo();
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
 
-        projectVo.setProjectId(getId());
+        /*MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
+        MemberVo memberVo = memberFacade.find(id);
+        List<MemberVo> creator = null;
+        creator.add(memberVo);*/
+
         projectVo.setProjectTitle(getTitle());
         projectVo.setProjectFundingGoal(getFundingGoal());
-        projectVo.setProjectCreationDate(getCreationDate());
+        projectVo.setProjectCreationDate(new Date());
         projectVo.setProjectEndDate(getEndDate());
         projectVo.setProjectDescription(getDescription());
         projectVo.setProjectIsSuppressed(false);
-        projectVo.setMemberList(null); //TODO
+        projectVo.setMemberList(null);
         projectVo.setProjectCategory(getCategory());
         projectVo.setMediaList(null); //TODO
-        projectVo.setMemberbacksProjectList(null); //TODO
         projectVo.setReward(null);//TODO
-
-        //TODO A finir (penser à lier le projet avec le créateur)
+        //projectFacade.addProject(projectVo);
         return "success";
     }
 
     public String deleteProject(){
         //TODO Supprimer projet en flagant isSuppressed
+        //TODO verifier les conditions définies
+        //TODO verifier membre connecté
         return "success";
     }
 
