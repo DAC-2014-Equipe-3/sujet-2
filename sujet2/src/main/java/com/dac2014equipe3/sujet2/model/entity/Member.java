@@ -110,7 +110,7 @@ public class Member implements Serializable, IEntity<MemberVo> {
     @JoinTable(name = "Member_creates_Project", joinColumns = {
         @JoinColumn(name = "creatorId", referencedColumnName = "memberId")}, inverseJoinColumns = {
         @JoinColumn(name = "projectId", referencedColumnName = "projectId")})
-    @ManyToMany
+    @OneToMany
     private List<Project> projectList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "member1")
     private List<MemberbacksProject> memberbacksProjectList;

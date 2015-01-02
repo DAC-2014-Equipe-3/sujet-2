@@ -42,7 +42,7 @@ public class ProjectService implements IService<ProjectVo>{
         entity.setReward(vo.getReward());
 
         DAOFactory.getInstance().getProjectDAO().persist(entity, em);
-
+        vo.setProjectId(entity.getProjectId());
     }
 
     @Override

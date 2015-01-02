@@ -26,4 +26,20 @@ public class ProjectFacade extends Facade<ProjectVo> {
             }
         }
     }
+
+    /**
+     * Register the project in the database
+     * @param project
+     */
+    public void addProject(ProjectVo project){
+        persist(project);
+    }
+
+    /**
+     * Update the member in the database
+     * @param project
+     */
+    public void updateProject(ProjectVo project){
+        update(project);
+    }
 }

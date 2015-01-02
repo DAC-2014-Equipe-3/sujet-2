@@ -14,6 +14,7 @@
                             <h2>Proposer un nouveau projet</h2>
                         </div>
                         <h:panelGrid columns="3" cellpadding="5">
+                            #{projectCategoriesBean.getAllProjectCategories()}
                             <p:outputLabel for="title" value="Titre : "/>
                             <p:inputText id="title" required="true" value="#{projectBean.title}"
                                          requiredMessage="Veuillez compléter le champ"/>
@@ -28,9 +29,19 @@
                             <p:inputTextarea id="description" required="true" value="#{projectBean.description}"
                                          requiredMessage="Veuillez compléter le champ"/>
                             <p:message for="description" value="Description"/>
+
+                            <p:outputLabel for="category" value="Category : "/>
+                            <p:selectOneMenu id="category" required="true"  converter="projectCategoriesConverter" value="#{projectBean.categoryVo}"
+                                             requiredMessage="Veuillez compléter le champ">
+                                <f:selectItems value="#{projectCategoriesBean.listProjectCategories}" var="catProject"
+                                               itemLabel="#{catProject.categoryName}" itemValue="#{catProject}"/>
+                            </p:selectOneMenu>
+
+                            <p:message for="category" value="Category"/>
+
                         </h:panelGrid>
                         <div class="form-actions">
-                            <h:commandButton value="Valider" class="btn btn-danger"/>
+                            <h:commandButton action="#{projectBean.addProject()}" value="Valider" class="btn btn-danger"/>
                         </div>
                     </div>
                 </h:form>

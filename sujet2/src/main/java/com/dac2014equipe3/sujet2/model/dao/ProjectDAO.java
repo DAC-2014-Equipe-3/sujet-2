@@ -28,7 +28,7 @@ public class ProjectDAO implements IDAO<Project>  {
     public Project find(Object id, EntityManager em) {
         Integer idA = (Integer) id;
         Query query = em.createNamedQuery("Project.findByProjectId")
-                .setParameter("idProject", idA);
+                .setParameter("projectId", idA);
         return (Project) query.getSingleResult();
     }
 

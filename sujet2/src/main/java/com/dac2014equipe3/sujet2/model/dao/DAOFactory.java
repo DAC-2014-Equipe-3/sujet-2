@@ -4,6 +4,8 @@
  */
 package com.dac2014equipe3.sujet2.model.dao;
 
+import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
+
 /**
  *
  * @author juanmanuelmartinezromero
@@ -24,4 +26,12 @@ public class DAOFactory {
     }
 
     public ProjectDAO getProjectDAO(){ return ProjectDAO.getInstance(); }
+
+    public ProjectCategoryDAO getProjectCategoryDAO(){
+        return ProjectCategoryDAO.getInstance();
+    }
+
+    public MembercreatesProjectDAO getMembercreatesProjectDAO(){
+        return MembercreatesProjectDAO.getInstance();
+    }
 }

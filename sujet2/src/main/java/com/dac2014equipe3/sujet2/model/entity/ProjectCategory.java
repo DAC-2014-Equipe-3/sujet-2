@@ -6,6 +6,8 @@
 
 package com.dac2014equipe3.sujet2.model.entity;
 
+import com.dac2014equipe3.sujet2.vo.ProjectCategoryVo;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -33,7 +35,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProjectCategory.findByCategoryId", query = "SELECT p FROM ProjectCategory p WHERE p.categoryId = :categoryId"),
     @NamedQuery(name = "ProjectCategory.findByCategoryName", query = "SELECT p FROM ProjectCategory p WHERE p.categoryName = :categoryName"),
     @NamedQuery(name = "ProjectCategory.findByCategoryDescription", query = "SELECT p FROM ProjectCategory p WHERE p.categoryDescription = :categoryDescription")})
-public class ProjectCategory implements Serializable {
+public class ProjectCategory implements Serializable, IEntity<ProjectCategoryVo> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +63,13 @@ public class ProjectCategory implements Serializable {
     public ProjectCategory(Integer categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+    }
+
+    public ProjectCategory(ProjectCategoryVo projectCategoryVo){
+        this.setCategoryDescription(projectCategoryVo.getCategoryDescription());
+        this.setCategoryId(projectCategoryVo.getCategoryId());
+        this.setCategoryName(projectCategoryVo.getCategoryName());
+        this.setProjectList(projectCategoryVo.getProjectList());
     }
 
     public Integer getCategoryId() {
@@ -120,4 +129,15 @@ public class ProjectCategory implements Serializable {
         return "com.dac2014equipe3.sujet2.model.entity.ProjectCategory[ categoryId=" + categoryId + " ]";
     }
 
+    @Override
+    public ProjectCategoryVo toVo() {
+        ProjectCategoryVo vo = new ProjectCategoryVo();
+
+        vo.setCategoryDescription(categoryDescription);
+        vo.setCategoryId(categoryId);
+        vo.setCategoryName(categoryName);
+        vo.setProjectList(projectList);
+
+        return vo;
+    }
 }

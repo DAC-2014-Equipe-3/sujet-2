@@ -482,4 +482,24 @@ public boolean verifyPassword(MemberVo memberVo, String oldPassword){
         return false;
     }
 
+	public MemberVo getMemberVo(){
+		MemberVo vo = new MemberVo();
+
+		vo.setMemberId(id);
+		vo.setMemberEmail(email);
+		vo.setMemberLogin(login);
+		vo.setMemberPassword(password);
+		vo.setMemberIsAdmin(isAdmin);
+		vo.setMemberJoiningDate(joiningDate);
+		vo.setMemberBirthday(birthday);
+		vo.setMemberFirstname(firstName);
+		vo.setMemberLastname(lastName);
+		vo.setMemberNationality(nationality);
+		vo.setMemberSex(sex);
+		vo.setMemberProfession(profession);
+		vo.setMemberIsSuppressed(isSuppressed);
+
+		return vo;
+	}
+
 }

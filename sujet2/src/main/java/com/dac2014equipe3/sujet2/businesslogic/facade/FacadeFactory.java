@@ -5,6 +5,7 @@
 package com.dac2014equipe3.sujet2.businesslogic.facade;
 
 import com.dac2014equipe3.sujet2.businesslogic.service.ServiceFactory;
+import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
 
 
 /**
@@ -29,5 +30,13 @@ public class FacadeFactory {
 
     public ProjectFacade getProjectFacade() {
         return new ProjectFacade(PU, ServiceFactory.getInstance().getProjectService());
+    }
+
+    public ProjectCategoryFacade getProjectCategoryFacade(){
+        return new ProjectCategoryFacade(PU, ServiceFactory.getInstance().getProjectCategoryServices());
+    }
+
+    public MembercreatesProjectFacade getMembercreatesProjectFacade(){
+        return new MembercreatesProjectFacade(PU, ServiceFactory.getInstance().getMembercreateProjectServices());
     }
 }
