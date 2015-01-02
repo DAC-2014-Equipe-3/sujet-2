@@ -30,7 +30,9 @@ public class MemberBean {
 	private String email;
 	private String login;
 	private String password;
-	private boolean isAdmin;
+    private String oldPassword;
+    private String passwordBis;
+    private boolean isAdmin;
 	private Date joiningDate;
 	private String lastName;
 	private String firstName;
@@ -42,7 +44,15 @@ public class MemberBean {
     private List<Project> projectList;
     private List<MemberbacksProject> memberbacksProjectList;
 
-	/**
+    public String getPasswordBis() {
+        return passwordBis;
+    }
+
+    public void setPasswordBis(String passwordBis) {
+        this.passwordBis = passwordBis;
+    }
+
+    /**
 	 * @return the id
 	 */
 	public int getId() {
@@ -71,7 +81,15 @@ public class MemberBean {
 		this.id = id;
 	}
 
-	/**
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    /**
 	 * @param loggedIn
 	 *            the loggedIn to set
 	 */
@@ -329,21 +347,25 @@ public class MemberBean {
      * Recuperer les infos personnelles du membre connecté
      */
     public void getDataMember(){
-
+        loggedIn = true;
         if (isLoggedIn()) {
-            MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
-            MemberVo memberVo = memberFacade.find(id);
-            setLogin(memberVo.getMemberLogin());
-            setBirthday(memberVo.getMemberBirthday());
-            setEmail(memberVo.getMemberEmail());
-            setFirstName(memberVo.getMemberFirstname());
-            setLastName(memberVo.getMemberLastname());
-            setId(memberVo.getMemberId());
-            setJoiningDate(memberVo.getMemberJoiningDate());
-            setNationality(memberVo.getMemberNationality());
-            setSex(memberVo.getMemberSex());
-            setProfession(memberVo.getMemberProfession());
-            setPassword(memberVo.getMemberPassword());
+
+                MemberFacade memberFacade = FacadeFactory.getInstance()
+                        .getMemberFacade();
+                //TODO recuperer session membre pour recuperer l'utilisateur courant
+                MemberVo memberVo = memberFacade.find(2);
+
+                setBirthday(memberVo.getMemberBirthday());
+                setEmail(memberVo.getMemberEmail());
+                setFirstName(memberVo.getMemberFirstname());
+                setLastName(memberVo.getMemberLastname());
+                setId(memberVo.getMemberId());
+                setJoiningDate(memberVo.getMemberJoiningDate());
+                setNationality(memberVo.getMemberNationality());
+                setSex(memberVo.getMemberSex());
+                setProfession(memberVo.getMemberProfession());
+                setPassword(memberVo.getMemberPassword());
+
         }
     }
 
@@ -352,13 +374,17 @@ public class MemberBean {
      */
     public String updateAccount(){
     //TODO Valider côté serveur la validité des champs !
-
-        if (!isLoggedIn()) {
+           loggedIn = false;
+        if (isLoggedIn()) {
             return "failure";
         } else {
-            MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
+            MemberFacade memberFacade = FacadeFactory.getInstance()
+                    .getMemberFacade();
+
             MemberVo memberVo = new MemberVo();
-            memberVo.setMemberId(id);
+
+            //TODO Recuperation de l'id  membre dans la session
+            memberVo.setMemberId(2);
             memberVo.setMemberLogin(getLogin());
             memberVo.setMemberEmail(getEmail());
             memberVo.setMemberPassword(getPassword());
@@ -368,14 +394,51 @@ public class MemberBean {
             memberVo.setMemberLastname(getLastName());
             memberVo.setMemberSex(getSex());
             memberVo.setMemberProfession(getProfession());
-            if(memberFacade.updateMember(memberVo))
+            memberVo.setMemberJoiningDate(new Date());
+            if(memberFacade.updateMember(memberVo)){
                 return "success";
+            }
             return "failure";
         }
     }
 
+    /**
+     * Mettre à jour le mot de passe de l'utilisateur
+     */
+    public String updatePassword(){
+        //TODO Valider côté serveur la validité des champs !
+         loggedIn= true;
+        if (!isLoggedIn()) {
+            return "failure";
+        } else {
+            MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
+            //TODO Recuperation de l'id  membre dans la session
+            MemberVo memberVo =memberFacade.find(2);
 
+            if (verifyPassword(memberVo, getOldPassword())) {
+                memberVo.setMemberPassword(getPassword());
+                memberFacade = FacadeFactory.getInstance().getMemberFacade();
+                if (memberFacade.updateMember(memberVo)) {
+                    return "success";
+                }
+                return "failure";
+            } else {
+                // envoyer message signant l'erreur
+                return "failure";
+            }
+        }
+    }
 
+public boolean verifyPassword(MemberVo memberVo, String oldPassword){
+    //Todo appel de la fonction de hashage qui sera utilisé sur formPassword
+    String dbPassword = memberVo.getMemberPassword();
+    if(getPasswordBis().equals(getPassword())) {
+        if (dbPassword.equals(oldPassword)) {
+            return true;
+        }
+    }
+    return false;
+}
 
     /**
      * Supprimer compte membre
