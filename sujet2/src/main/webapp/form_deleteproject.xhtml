@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head/>
+    <h:body>
+        <ui:composition template="template/template.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    #{projectBean.getDataProject(param['idProject'])}
+                    <div id="shareModal" class="modal hide fade">
+                        <div class="modal-header">
+                            <h2>Supprimer un projet</h2>
+                        </div>
+                        <h3>Etes vous sur de vouloir supprimer le projet : #{projectBean.description}</h3>
+                        <div class="form-actions">
+                            <h:commandButton action="#{projectBean.deleteProject()}" value="Supprimer" class="btn btn-danger">
+                                <f:param name="idProject" value="#{projectBean.id}" />
+                            </h:commandButton>
+                            <h:commandButton action="projects" value="Annuler" class="btn btn-danger"/>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>>
+</f:view>
+</html>
