@@ -1,21 +1,17 @@
 package com.dac2014equipe3.sujet2.presentation.controller;
-import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
-import com.dac2014equipe3.sujet2.businesslogic.facade.MembercreatesProjectFacade;
-import com.dac2014equipe3.sujet2.businesslogic.facade.ProjectFacade;
+import com.dac2014equipe3.sujet2.businesslogic.facade.*;
 import com.dac2014equipe3.sujet2.model.entity.MemberbacksProjectPK;
 import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
 import com.dac2014equipe3.sujet2.model.entity.MembercreatesProjectPK;
 import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
-import com.dac2014equipe3.sujet2.vo.MemberVo;
-import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
-import com.dac2014equipe3.sujet2.vo.ProjectCategoryVo;
-import com.dac2014equipe3.sujet2.vo.ProjectVo;
+import com.dac2014equipe3.sujet2.vo.*;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.List;
 
 @ManagedBean(name = "projectBean")
 @RequestScoped
@@ -154,8 +150,73 @@ public class ProjectBean {
     }
 
     public String deleteProject(){
-        //TODO Supprimer projet en flagant isSuppressed
-        return "success";
+        //TODO get id user from session
+        int  idUser = 1;//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUser");
+        boolean isProjectCreator = false;
+
+        Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
+        ProjectVo projectVo = null;
+        ProjectFacade projectFacade = null;
+        List<MemberbacksProjectVo> listProjectBacks = null;
+        MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
+        MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance().getMemberbacksProjectFacade();
+        MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
+        MemberVo memberVo = memberFacade.find(idUser);
+        List<MembercreatesProjectVo> listMemberProjects = membercreatesProjectFacade.getListForCreator(idUser);
+
+        try{
+            id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject"));
+        }catch(NumberFormatException e){
+            id = 0;
+        }
+
+        if(id > 0){
+            projectFacade = FacadeFactory.getInstance().getProjectFacade();
+            projectVo = projectFacade.find(id);
+            for(MembercreatesProjectVo McP : listMemberProjects){
+                if(McP.getMembercreatesProjectPK().getCreatorId() == idUser){
+                    isProjectCreator = true;
+                }
+            }
+            if(isProjectCreator || memberVo.getMemberIsAdmin()){
+                listProjectBacks = memberbacksProjectFacade.getListForProject(id);
+                if(listProjectBacks.isEmpty() && currentDate.compareTo(projectVo.getProjectEndDate()) != 1 ){
+                    projectFacade = FacadeFactory.getInstance().getProjectFacade();
+                    projectVo.setProjectIsSuppressed(true);
+                    return projectFacade.updateProject(projectVo) ? "success" : "failure";
+                }else{
+                    return "failure";
+                }
+            }else{
+                return "failure";
+            }
+        }else{
+            return "failure";
+        }
+
+    }
+
+    public void getDataProject(String idProject){
+
+        ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
+
+        try{
+            id = Integer.parseInt(idProject);
+        }catch(NumberFormatException e){
+            id = 0;
+        }
+
+        if(id > 0) {
+            ProjectVo projectVo = projectFacade.find(id);
+            setId(projectVo.getProjectId());
+            setTitle(projectVo.getProjectTitle());
+            setFundingGoal(projectVo.getProjectFundingGoal());
+            setCreationDate(projectVo.getProjectCreationDate());
+            setEndDate(projectVo.getProjectEndDate());
+            setDescription(projectVo.getProjectDescription());
+            setCategory(projectVo.getProjectCategory());
+        }
+
     }
 
 }

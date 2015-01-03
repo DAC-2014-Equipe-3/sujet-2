@@ -39,4 +39,8 @@ public class FacadeFactory {
     public MembercreatesProjectFacade getMembercreatesProjectFacade(){
         return new MembercreatesProjectFacade(PU, ServiceFactory.getInstance().getMembercreateProjectServices());
     }
+
+    public MemberbacksProjectFacade getMemberbacksProjectFacade(){
+        return new MemberbacksProjectFacade(PU, ServiceFactory.getInstance().getMemberbacksProjectServices());
+    }
 }

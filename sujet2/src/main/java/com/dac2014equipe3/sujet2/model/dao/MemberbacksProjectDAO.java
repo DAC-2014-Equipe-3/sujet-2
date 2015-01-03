@@ -2,6 +2,7 @@ package com.dac2014equipe3.sujet2.model.dao;
 
 import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
 import com.dac2014equipe3.sujet2.model.entity.MemberbacksProjectPK;
+import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -47,6 +48,14 @@ public class MemberbacksProjectDAO implements IDAO<MemberbacksProject> {
     @Override
     public List<MemberbacksProject> getList(EntityManager em) {
         Query query = em.createNamedQuery("MemberbacksProject.findAll");
+        List<MemberbacksProject> listMbP = query.getResultList();
+        return listMbP;
+    }
+
+    public List<MemberbacksProject> getListForProject(Object idProject, EntityManager em) {
+        Integer id = (Integer) idProject;
+        Query query = em.createNamedQuery("MemberbacksProject.findByProjectId")
+                .setParameter("projectId", id);
         List<MemberbacksProject> listMbP = query.getResultList();
         return listMbP;
     }

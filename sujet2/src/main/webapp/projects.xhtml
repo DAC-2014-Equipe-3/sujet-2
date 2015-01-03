@@ -28,6 +28,9 @@
                                         <h:outputText value="#{inves.memberFirstname}" />
                                         <h:outputText value="#{inves.memberLastname}" />
                                     </p:tab>
+                                    <h:link value="Supprimer" outcome="form_deleteproject" >
+                                        <f:param name="idProject" value="#{project.projectId}" />
+                                    </h:link>
                                 </h:panelGrid>
                             </p:tab>
                         </p:accordionPanel>

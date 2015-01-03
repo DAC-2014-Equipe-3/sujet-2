@@ -6,6 +6,9 @@
 
 package com.dac2014equipe3.sujet2.model.entity;
 
+import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
+import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -36,7 +39,7 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = "MemberbacksProject.findByPledgedEuros", query = "SELECT m FROM MemberbacksProject m WHERE m.pledgedEuros = :pledgedEuros"),
         @NamedQuery(name = "MemberbacksProject.findByBackingDate", query = "SELECT m FROM MemberbacksProject m WHERE m.backingDate = :backingDate")})
 
-public class MemberbacksProject implements Serializable {
+public class MemberbacksProject implements Serializable, IEntity<MemberbacksProjectVo> {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MemberbacksProjectPK memberbacksProjectPK;
@@ -149,4 +152,9 @@ public class MemberbacksProject implements Serializable {
         return "com.dac2014equipe3.sujet2.model.entity.MemberbacksProject[ memberbacksProjectPK=" + memberbacksProjectPK + " ]";
     }
 
+    @Override
+    public MemberbacksProjectVo toVo() {
+        MemberbacksProjectVo memberbacksProjectVo = new MemberbacksProjectVo(memberbacksProjectPK, pledgedEuros, backingDate, member1.toVo(), project.toVo(), reward);
+        return memberbacksProjectVo;
+    }
 }
