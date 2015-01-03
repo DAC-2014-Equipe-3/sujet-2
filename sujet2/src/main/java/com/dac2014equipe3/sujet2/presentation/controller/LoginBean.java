@@ -4,6 +4,7 @@ import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
 import com.dac2014equipe3.sujet2.model.dao.MemberDAO;
 import com.dac2014equipe3.sujet2.vo.MemberVo;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -11,16 +12,15 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 /**
- *
  * @author juanmanuelmartinezromero
  */
 @ManagedBean(name = "loginBean")
 @RequestScoped
 public class LoginBean {
 
-    private static final String SUCCESS_LOGIN="success";
-    private static final String FAILED_LOGIN="failure";
-    
+    private static final String SUCCESS_LOGIN = "success";
+    private static final String FAILED_LOGIN = "failure";
+
     @ManagedProperty(value = "#{memberBean}")
     private MemberBean user = new MemberBean();
     private String username;
@@ -62,7 +62,6 @@ public class LoginBean {
     }
 
     /**
-     *
      * @param memberDAO
      */
     public void setMemberDAO(MemberDAO memberDAO) {
@@ -84,7 +83,6 @@ public class LoginBean {
     }
 
     /**
-     *
      * @return the user connected
      */
     public MemberBean getUser() {
@@ -92,14 +90,13 @@ public class LoginBean {
     }
 
     /**
-     *
      * @param user
      */
     public void setUser(MemberBean user) {
         this.user = user;
     }
 
-    private void openSession(){
+    private void openSession() {
         /*HttpSession session = request.getSession();
         String exemple = "abc";
         session.setAttribute( "chaine", exemple );

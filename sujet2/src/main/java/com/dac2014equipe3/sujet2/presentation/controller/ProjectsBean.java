@@ -24,7 +24,6 @@ public class ProjectsBean {
     }
 
     /**
-     *
      * @return
      */
     public List<ProjectVo> getListProjects() {
@@ -32,7 +31,6 @@ public class ProjectsBean {
     }
 
     /**
-     *
      * @param listProjects
      */
     public void setListProjects(ArrayList<ProjectVo> listProjects) {
@@ -40,18 +38,17 @@ public class ProjectsBean {
     }
 
     /**
-     * Recupere tous les projets
+     * Recupere tous les projets non supprimés
      */
-    public void getAllProjectsNotDeleted(){
-        //TODO seulement les projets non supprimés
+    public void getAllProjectsNotDeleted() {
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
-        listProjects.addAll(projectFacade.getAllProjects());
+        listProjects.addAll(projectFacade.getProjectsNotDeleted());
     }
 
     /**
      * Recupere tous les projets
      */
-    public void getAllProjects(){
+    public void getAllProjects() {
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
         listProjects.addAll(projectFacade.getAllProjects());
     }

@@ -22,17 +22,20 @@ VALUES ('mobile','Trés utilisé aujourd\'hui');
 
 /**CREATION DE PROJETS**/
 INSERT INTO sujet2.Project(projectTitle,projectFundingGoal,projectCreationDate,
-projectEndDate,projectDescription,projectCategory)
-VALUES ('TitreExemple',10,'2014-10-09','2015-05-14','descriptionExemple',1);
+projectEndDate,projectDescription,projectCategory,projectIsSuppressed)
+VALUES ('TitreExemple',10,'2014-10-09','2015-05-14','descriptionExemple',1,0);
 INSERT INTO sujet2. Project(projectTitle,projectFundingGoal,projectCreationDate,
-projectEndDate,projectDescription,projectCategory)
-VALUES ('TitreExemple2',10,'2014-08-09','2015-06-07','descriptionExemple2',2);
+projectEndDate,projectDescription,projectCategory,projectIsSuppressed)
+VALUES ('TitreExemple2',10,'2014-08-09','2015-06-07','descriptionExemple2',2,0);
 INSERT INTO sujet2. Project(projectTitle,projectFundingGoal,projectCreationDate,
-projectEndDate,projectDescription,projectCategory)
-VALUES ('TitreExemple3',10,'2014-05-14','2015-11-29','descriptionExemple3',3);
+projectEndDate,projectDescription,projectCategory,projectIsSuppressed)
+VALUES ('TitreExemple3',10,'2014-05-14','2015-11-29','descriptionExemple3',3,0);
 INSERT INTO sujet2. Project(projectTitle,projectFundingGoal,projectCreationDate,
-projectEndDate,projectDescription,projectCategory)
-VALUES ('TitreExemple4',10,'2014-01-19','2015-03-04','descriptionExemple4',4);
+projectEndDate,projectDescription,projectCategory,projectIsSuppressed)
+VALUES ('TitreExemple4',10,'2014-01-19','2015-03-04','descriptionExemple4',4,0);
+INSERT INTO sujet2. Project(projectTitle,projectFundingGoal,projectCreationDate,
+                            projectEndDate,projectDescription,projectCategory,projectIsSuppressed)
+VALUES ('Compilateur',10,'2013-01-19','2015-06-04','langage c++ avec architecture ...',1,1);
 
 /**CREATION DE REWARDS**/
 INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice)
@@ -53,4 +56,8 @@ VALUES (4,2,455,'2015-12-25',2);
 INSERT INTO sujet2.Member_creates_Project(creatorId,projectId) VALUES (4,3);
 INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId)
 VALUES (5,3,64,'2015-02-27',3);
+
+INSERT INTO sujet2.Member_creates_Project(creatorId,projectId) VALUES (4,4);
+INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId)
+VALUES (5,4,64,'2015-02-27',3);
 

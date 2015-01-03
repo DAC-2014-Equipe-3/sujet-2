@@ -19,19 +19,6 @@ public class MemberFacade extends Facade<MemberVo> {
         super(PUName, service);
     }
 
-    public MemberVo login(MemberVo memberVo) {
-
-        try {
-            em = emf.createEntityManager();
-            return ((MemberService) service).login(memberVo, em);
-        } finally {
-            if (em != null) {
-                em.clear();
-                em.close();
-            }
-        }
-    }
-
     /**
      * Register the member in the database
      * @param memberVo
@@ -46,6 +33,24 @@ public class MemberFacade extends Facade<MemberVo> {
      */
     public boolean updateMember (MemberVo memberVo){
         return update(memberVo);
+    }
+
+    /**
+     * Log the member
+     * @param memberVo
+     * @return
+     */
+    public MemberVo login(MemberVo memberVo) {
+
+        try {
+            em = emf.createEntityManager();
+            return ((MemberService) service).login(memberVo, em);
+        } finally {
+            if (em != null) {
+                em.clear();
+                em.close();
+            }
+        }
     }
 
 }

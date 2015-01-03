@@ -16,18 +16,21 @@
     <p:outputPanel>
             <div class="ui-grid ui-grid-responsive">
             <div class="ui-grid-row">
-            <div class="ui-grid-col-12">
-                <ui:insert name="header" >
-                    <ui:include src="header.xhtml"/>
-                </ui:insert>
-                <ui:insert name="menu">
-                    <ui:include src="menu.xhtml"/>
-                </ui:insert>
+                <div class="ui-grid-col-12">
+                    <ui:insert name="header" >
+                        <ui:include src="header.xhtml"/>
+                    </ui:insert>
+                    <ui:insert name="menu">
+                        <ui:include src="menu.xhtml"/>
+                    </ui:insert>
+                </div>
             </div>
+            <div class="ui-grid-row" style="border:10px solid white;">
+                <div class="ui-grid-col-12">
+                </div>
             </div>
-
                 <div class="ui-grid-row">
-                    <div class="ui-grid-col-3">
+                    <div class="ui-grid-col-3" style="background-color: #003366;border:2px solid #80D0D0">
                         <ui:insert name="leftPanel" >
                             <h:panelGroup>
                                 <h:panelGroup rendered="#{memberBean.loggedIn == false}">

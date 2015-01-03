@@ -87,4 +87,12 @@ public class ProjectService implements IService<ProjectVo>{
         }
         return list;
     }
+
+    public List<ProjectVo> getProjectsNotDeleted(EntityManager em){
+        List<ProjectVo> list = new ArrayList<ProjectVo>();
+        for (Project project : DAOFactory.getInstance().getProjectDAO().getProjectsNotDeleted(em)) {
+            list.add((project).toVo());
+        }
+        return list;
+    }
 }

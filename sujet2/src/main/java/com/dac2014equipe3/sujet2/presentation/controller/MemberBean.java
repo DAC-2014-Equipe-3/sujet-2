@@ -3,22 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-        package com.dac2014equipe3.sujet2.presentation.controller;
+package com.dac2014equipe3.sujet2.presentation.controller;
 
-        import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
-        import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
-        import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
-        import com.dac2014equipe3.sujet2.model.entity.Project;
-        import com.dac2014equipe3.sujet2.vo.MemberVo;
+import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
+import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
+import com.dac2014equipe3.sujet2.businesslogic.facade.MemberbacksProjectFacade;
+import com.dac2014equipe3.sujet2.businesslogic.facade.MembercreatesProjectFacade;
+import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
+import com.dac2014equipe3.sujet2.model.entity.Project;
+import com.dac2014equipe3.sujet2.vo.MemberVo;
+import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
+import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
+import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
-        import javax.faces.bean.ManagedBean;
-        import javax.faces.bean.SessionScoped;
-        import javax.faces.context.FacesContext;
-        import java.util.Date;
-        import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
- *
  * @author Jummartinezro
  */
 
@@ -28,12 +33,13 @@ public class MemberBean {
 
     private int id;
     private boolean loggedIn;
+    private boolean isAdmin;
+    private boolean isSuppressed;
     private String email;
     private String login;
     private String password;
     private String oldPassword;
     private String passwordBis;
-    private boolean isAdmin;
     private Date joiningDate;
     private String lastName;
     private String firstName;
@@ -41,17 +47,8 @@ public class MemberBean {
     private String nationality;
     private String sex;
     private String profession;
-    private boolean isSuppressed;
-    private List<Project> projectList;
-    private List<MemberbacksProject> memberbacksProjectList;
-
-    public String getPasswordBis() {
-        return passwordBis;
-    }
-
-    public void setPasswordBis(String passwordBis) {
-        this.passwordBis = passwordBis;
-    }
+    private List<Project> createdProjectList;
+    private List<Project> investedProjectList;
 
     /**
      * @return the id
@@ -75,39 +72,41 @@ public class MemberBean {
     }
 
     /**
-     * @param id
-     *            the id to set
+     * @param id the id to set
      */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return
+     */
     public String getOldPassword() {
         return oldPassword;
     }
 
+    /**
+     * @param oldPassword
+     */
     public void setOldPassword(String oldPassword) {
         this.oldPassword = oldPassword;
     }
 
     /**
-     * @param loggedIn
-     *            the loggedIn to set
+     * @param loggedIn the loggedIn to set
      */
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
 
     /**
-     * @param email
-     *            the email to set
+     * @param email the email to set
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     *
      * @return
      */
     public Date getBirthday() {
@@ -115,7 +114,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @param birthday
      */
     public void setBirthday(Date birthday) {
@@ -123,7 +121,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @return
      */
     public String getLogin() {
@@ -131,7 +128,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @param login
      */
     public void setLogin(String login) {
@@ -139,7 +135,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @return
      */
     public boolean isAdmin() {
@@ -147,7 +142,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @param isAdmin
      */
     public void setAdmin(boolean isAdmin) {
@@ -155,7 +149,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @return
      */
     public Date getJoiningDate() {
@@ -163,7 +156,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @param joiningDate
      */
     public void setJoiningDate(Date joiningDate) {
@@ -171,7 +163,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @return
      */
     public String getLastName() {
@@ -179,7 +170,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @param lastName
      */
     public void setLastName(String lastName) {
@@ -187,7 +177,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @return
      */
     public String getFirstName() {
@@ -195,7 +184,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @param firstName
      */
     public void setFirstName(String firstName) {
@@ -203,7 +191,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @return
      */
     public String getNationality() {
@@ -211,7 +198,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @param nationality
      */
     public void setNationality(String nationality) {
@@ -219,7 +205,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @return
      */
     public String getSex() {
@@ -227,7 +212,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @param sex
      */
     public void setSex(String sex) {
@@ -235,7 +219,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @return
      */
     public String getProfession() {
@@ -243,7 +226,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @param profession
      */
     public void setProfession(String profession) {
@@ -251,7 +233,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @return
      */
     public boolean isSuppressed() {
@@ -259,7 +240,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @param isSuppressed
      */
     public void setSuppressed(boolean isSuppressed) {
@@ -267,7 +247,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @return
      */
     public String getPassword() {
@@ -275,7 +254,6 @@ public class MemberBean {
     }
 
     /**
-     *
      * @param password
      */
     public void setPassword(String password) {
@@ -283,36 +261,49 @@ public class MemberBean {
     }
 
     /**
-     *
      * @return
      */
-    public List<MemberbacksProject> getMemberbacksProjectList() {
-        return memberbacksProjectList;
+    public List<Project> getInvestedProjectList() {
+        return investedProjectList;
     }
 
     /**
-     *
-     * @param memberbacksProjectList
+     * @param investedProjectList
      */
-    public void setMemberbacksProjectList(List<MemberbacksProject> memberbacksProjectList) {
-        this.memberbacksProjectList = memberbacksProjectList;
+    public void setInvestedProjectList(List<Project> investedProjectList) {
+        this.investedProjectList = investedProjectList;
     }
 
     /**
-     *
      * @return
      */
-    public List<Project> getProjectList() {
-        return projectList;
+    public List<Project> getCreatedProjectList() {
+        return createdProjectList;
     }
 
     /**
-     *
-     * @param projectList
+     * @param createdProjectList
      */
-    public void setProjectList(List<Project> projectList) {
-        this.projectList = projectList;
+    public void setCreatedProjectList(List<Project> createdProjectList) {
+        this.createdProjectList = createdProjectList;
     }
+
+
+    /**
+     * @return
+     */
+    public String getPasswordBis() {
+        return passwordBis;
+    }
+
+    /**
+     * @param passwordBis
+     */
+    public void setPasswordBis(String passwordBis) {
+        this.passwordBis = passwordBis;
+    }
+
+/**************************************METHODES AJOUTEES******************************/
 
     /**
      * Cree un nouveau membre
@@ -321,13 +312,9 @@ public class MemberBean {
         //TODO Valider côté serveur la validité des champs !
         //TODO Ouvrir session membre
 
-        if (!isLoggedIn()){
-            return "failure";
-        }else{
             MemberVo memberVo = new MemberVo();
             MemberFacade memberFacade = FacadeFactory.getInstance()
                     .getMemberFacade();
-
             memberVo.setMemberLogin(getLogin());
             memberVo.setMemberPassword(getPassword());
             memberVo.setMemberEmail(getEmail());
@@ -340,14 +327,12 @@ public class MemberBean {
             memberVo.setMemberJoiningDate(new Date());
             memberFacade.addMember(memberVo);
             return "success";
-        }
-
     }
 
     /**
      * Recuperer les infos personnelles du membre connecté
      */
-    public void getDataMember(){
+    public void getDataMember() {
         MemberBean controller = FacesContext.getCurrentInstance().getApplication()
                 .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
                         MemberBean.class);
@@ -381,10 +366,10 @@ public class MemberBean {
     /**
      * Mettre à jour les informations de l'utilisateur
      */
-    public String updateAccount(){
+    public String updateAccount() {
         //TODO Valider côté serveur la validité des champs !
-
-        if (!isLoggedIn()) {
+        loggedIn = false;
+        if (isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance()
@@ -406,7 +391,7 @@ public class MemberBean {
             memberVo.setMemberIsAdmin(isAdmin());
             memberVo.setMemberProfession(getProfession());
             memberVo.setMemberJoiningDate(new Date());
-            if(memberFacade.updateMember(memberVo)){
+            if (memberFacade.updateMember(memberVo)) {
                 return "success";
             }
             return "failure";
@@ -416,9 +401,9 @@ public class MemberBean {
     /**
      * Mettre à jour le mot de passe de l'utilisateur
      */
-    public String updatePassword(){
+    public String updatePassword() {
         //TODO Valider côté serveur la validité des champs !
-
+        loggedIn = true;
         if (!isLoggedIn()) {
             return "failure";
         } else {
@@ -440,10 +425,15 @@ public class MemberBean {
         }
     }
 
-    public boolean verifyPassword(MemberVo memberVo, String oldPassword){
+    /**
+     * @param memberVo
+     * @param oldPassword
+     * @return
+     */
+    public boolean verifyPassword(MemberVo memberVo, String oldPassword) {
         //Todo appel de la fonction de hashage qui sera utilisé sur formPassword
         String dbPassword = memberVo.getMemberPassword();
-        if(getPasswordBis().equals(getPassword())) {
+        if (getPasswordBis().equals(getPassword())) {
             if (dbPassword.equals(oldPassword)) {
                 return true;
             }
@@ -453,9 +443,10 @@ public class MemberBean {
 
     /**
      * Supprimer compte membre
+     *
      * @return
      */
-    public String deleteAccount(){
+    public String deleteAccount() {
 
         if (!isLoggedIn()) {
             return "failure";
@@ -463,7 +454,7 @@ public class MemberBean {
             MemberFacade memberFacade = FacadeFactory.getInstance()
                     .getMemberFacade();
             MemberVo memberVo = memberFacade.find(id);
-            if(memberVo.getProjectList().size() > 0){
+            if (memberVo.getProjectList().size() > 0) {
                 return "failure";
             }
             memberVo.setMemberId(id);
@@ -475,25 +466,20 @@ public class MemberBean {
 
     /**
      * Deconnecter membre
+     *
      * @return
      */
-    public String disconnect(){
+    public String disconnect() {
         //TODO Gerer session ??
         setLoggedIn(false);
         return "success";
     }
 
-    private boolean checkDataMember(MemberVo mVo){
-        //TODO a completer
-
-        if(mVo != null){
-            return true;
-        }
-
-        return false;
-    }
-
-    public MemberVo getMemberVo(){
+    /**
+     * Convertir le membre en vo
+     * @return
+     */
+    public MemberVo getMemberVo() {
         MemberVo vo = new MemberVo();
 
         vo.setMemberId(id);
@@ -511,6 +497,48 @@ public class MemberBean {
         vo.setMemberIsSuppressed(isSuppressed);
 
         return vo;
+    }
+
+    /**
+     * Recuperer les projets créés par le membre
+     */
+    public void allProjectsCreated() {
+        /*if (isLoggedIn()) {
+            MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
+            List<MembercreatesProjectVo> projectsCreated = membercreatesProjectFacade.getListForCreator(getId());
+            ListIterator<MembercreatesProjectVo> iter = projectsCreated.listIterator();
+            Project proj = new Project();
+            ProjectVo projTmp;
+
+            while (iter.hasNext()) {
+                projTmp = iter.next().getProject();
+                proj.setProjectTitle(projTmp.getProjectTitle());
+                proj.setProjectCategory(projTmp.getProjectCategory());
+                proj.setProjectDescription(projTmp.getProjectDescription());
+                createdProjectList.add(proj);
+            }
+        }*/
+    }
+
+    /**
+     * Recuperer les projets créés par le membre
+     */
+    public void allProjectsInvested() {
+        /*if (isLoggedIn()) {
+            MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance().getMemberbacksProjectFacade();
+            List<MemberbacksProjectVo> projectsInvested = memberbacksProjectFacade.getListForProject(getId());
+            ListIterator<MemberbacksProjectVo> iter = projectsInvested.listIterator();
+            Project proj = new Project();
+            ProjectVo projTmp;
+
+            while (iter.hasNext()) {
+                projTmp = iter.next().getProject();
+                proj.setProjectTitle(projTmp.getProjectTitle());
+                proj.setProjectCategory(projTmp.getProjectCategory());
+                proj.setProjectDescription(projTmp.getProjectDescription());
+                investedProjectList.add(proj);
+            }
+        }*/
     }
 
 }

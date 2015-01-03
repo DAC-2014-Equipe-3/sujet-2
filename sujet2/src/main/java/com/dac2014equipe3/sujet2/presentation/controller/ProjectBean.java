@@ -1,18 +1,18 @@
+package com.dac2014equipe3.sujet2.presentation.controller;
 
-        package com.dac2014equipe3.sujet2.presentation.controller;
-        import com.dac2014equipe3.sujet2.businesslogic.facade.*;
-        import com.dac2014equipe3.sujet2.model.entity.MemberbacksProjectPK;
-        import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
-        import com.dac2014equipe3.sujet2.model.entity.MembercreatesProjectPK;
-        import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
-        import com.dac2014equipe3.sujet2.vo.*;
+import com.dac2014equipe3.sujet2.businesslogic.facade.*;
+import com.dac2014equipe3.sujet2.model.entity.MemberbacksProjectPK;
+import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
+import com.dac2014equipe3.sujet2.model.entity.MembercreatesProjectPK;
+import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
+import com.dac2014equipe3.sujet2.vo.*;
 
-        import javax.faces.bean.ManagedBean;
-        import javax.faces.bean.RequestScoped;
-        import javax.faces.context.FacesContext;
-        import java.util.Date;
-        import java.util.Calendar;
-        import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.List;
 
 @ManagedBean(name = "projectBean")
 @RequestScoped
@@ -26,15 +26,6 @@ public class ProjectBean {
     private String description;
     private ProjectCategory category;
     private boolean isSuppressed;
-
-    public ProjectCategoryVo getCategoryVo() {
-        return categoryVo;
-    }
-
-    public void setCategoryVo(ProjectCategoryVo categoryVo) {
-        this.categoryVo = categoryVo;
-    }
-
     private ProjectCategoryVo categoryVo;
 
     public ProjectBean() {
@@ -104,8 +95,19 @@ public class ProjectBean {
         this.isSuppressed = isSuppressed;
     }
 
+    public ProjectCategoryVo getCategoryVo() {
+        return categoryVo;
+    }
+
+    public void setCategoryVo(ProjectCategoryVo categoryVo) {
+        this.categoryVo = categoryVo;
+    }
+
+    /***********************************METHODES AJOUTEES*********************************/
+
     /**
      * Cree un nouveau projet
+     *
      * @return
      */
     public String addProject() {
@@ -114,12 +116,10 @@ public class ProjectBean {
         ProjectVo projectVo = new ProjectVo();
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
 
-        Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
-
         projectVo.setProjectId(getId());
         projectVo.setProjectTitle(getTitle());
         projectVo.setProjectFundingGoal(getFundingGoal());
-        projectVo.setProjectCreationDate(timeNow);
+        projectVo.setProjectCreationDate(new Date());
         projectVo.setProjectEndDate(getEndDate());
         projectVo.setProjectDescription(getDescription());
         projectVo.setProjectIsSuppressed(false);
@@ -128,7 +128,6 @@ public class ProjectBean {
         projectVo.setMediaList(null); //TODO
         projectVo.setMemberbacksProjectList(null); //TODO
         projectVo.setReward(null);//TODO
-
         projectFacade.addProject(projectVo);
 
         //Get the new project id
@@ -150,7 +149,12 @@ public class ProjectBean {
         return "success";
     }
 
-    public String deleteProject(){
+    /**
+     * Supprimer un projet
+     *
+     * @return
+     */
+    public String deleteProject() {
 
         MemberBean controller = FacesContext.getCurrentInstance().getApplication()
                 .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
@@ -158,47 +162,47 @@ public class ProjectBean {
 
         if(controller.isLoggedIn()){
             int idUser = controller.getId();
-            boolean isProjectCreator = false;
+        boolean isProjectCreator = false;
 
-            Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
-            ProjectVo projectVo = null;
-            ProjectFacade projectFacade = null;
-            List<MemberbacksProjectVo> listProjectBacks = null;
-            MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
-            MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance().getMemberbacksProjectFacade();
-            MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
-            MemberVo memberVo = memberFacade.find(idUser);
-            List<MembercreatesProjectVo> listMemberProjects = membercreatesProjectFacade.getListForCreator(idUser);
+        Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
+        ProjectVo projectVo = null;
+        ProjectFacade projectFacade = null;
+        List<MemberbacksProjectVo> listProjectBacks = null;
+        MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
+        MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance().getMemberbacksProjectFacade();
+        MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
+        MemberVo memberVo = memberFacade.find(idUser);
+        List<MembercreatesProjectVo> listMemberProjects = membercreatesProjectFacade.getListForCreator(idUser);
 
-            try{
-                id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject"));
-            }catch(NumberFormatException e){
-                id = 0;
-            }
+        try {
+            id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject"));
+        } catch (NumberFormatException e) {
+            id = 0;
+        }
 
-            if(id > 0){
-                projectFacade = FacadeFactory.getInstance().getProjectFacade();
-                projectVo = projectFacade.find(id);
-                for(MembercreatesProjectVo McP : listMemberProjects){
-                    if(McP.getMembercreatesProjectPK().getCreatorId() == idUser){
-                        isProjectCreator = true;
-                    }
+        if (id > 0) {
+            projectFacade = FacadeFactory.getInstance().getProjectFacade();
+            projectVo = projectFacade.find(id);
+            for (MembercreatesProjectVo McP : listMemberProjects) {
+                if (McP.getMembercreatesProjectPK().getCreatorId() == idUser) {
+                    isProjectCreator = true;
                 }
-                if(isProjectCreator || memberVo.getMemberIsAdmin()){
-                    listProjectBacks = memberbacksProjectFacade.getListForProject(id);
-                    if(listProjectBacks.isEmpty() && currentDate.compareTo(projectVo.getProjectEndDate()) != 1 ){
-                        projectFacade = FacadeFactory.getInstance().getProjectFacade();
-                        projectVo.setProjectIsSuppressed(true);
-                        return projectFacade.updateProject(projectVo) ? "success" : "failure";
-                    }else{
-                        return "failure";
-                    }
-                }else{
+            }
+            if (isProjectCreator || memberVo.getMemberIsAdmin()) {
+                listProjectBacks = memberbacksProjectFacade.getListForProject(id);
+                if (listProjectBacks.isEmpty() && currentDate.compareTo(projectVo.getProjectEndDate()) != 1) {
+                    projectFacade = FacadeFactory.getInstance().getProjectFacade();
+                    projectVo.setProjectIsSuppressed(true);
+                    return projectFacade.updateProject(projectVo) ? "success" : "failure";
+                } else {
                     return "failure";
                 }
-            }else{
+            } else {
                 return "failure";
             }
+        } else {
+            return "failure";
+        }
         }else{
             return "failure";
         }
@@ -206,17 +210,22 @@ public class ProjectBean {
 
     }
 
-    public void getDataProject(String idProject){
+    /**
+     * Recuperer les données d'un projet
+     *
+     * @param idProject
+     */
+    public void getDataProject(String idProject) {
 
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
 
-        try{
+        try {
             id = Integer.parseInt(idProject);
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             id = 0;
         }
 
-        if(id > 0) {
+        if (id > 0) {
             ProjectVo projectVo = projectFacade.find(id);
             setId(projectVo.getProjectId());
             setTitle(projectVo.getProjectTitle());

@@ -28,19 +28,20 @@ public class ProjectCategoriesBean {
     public void setListProjectCategories(List<ProjectCategoryVo> listProjectCategories) {
         this.listProjectCategories = listProjectCategories;
     }
+
     /**
      * Recupere tous les categories
      */
-    public void getAllProjectCategories(){
+    public void getAllProjectCategories() {
         ProjectCategoryFacade projectCategoryFacade = FacadeFactory.getInstance().getProjectCategoryFacade();
         //Clear list
         listProjectCategories.clear();
         listProjectCategories.addAll(projectCategoryFacade.getAllProjectCategories());
     }
 
-    public ProjectCategoryVo findCountryById(String id){
-        for(ProjectCategoryVo object : listProjectCategories) {
-            if(object.getCategoryId() == Integer.valueOf(id).intValue()) {
+    public ProjectCategoryVo findCountryById(String id) {
+        for (ProjectCategoryVo object : listProjectCategories) {
+            if (object.getCategoryId() == Integer.valueOf(id).intValue()) {
                 return object;
             }
         }

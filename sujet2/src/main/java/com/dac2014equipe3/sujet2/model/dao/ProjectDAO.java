@@ -50,4 +50,11 @@ public class ProjectDAO implements IDAO<Project>  {
         return listProjects;
     }
 
+    public List<Project> getProjectsNotDeleted(EntityManager em){
+        Query query = em.createNamedQuery("Project.findByProjectIsSuppressed");
+        query.setParameter("projectIsSuppressed",false);
+        List<Project> listProjects = query.getResultList();
+        return listProjects;
+    }
+
 }
