@@ -325,6 +325,8 @@ public class MemberBean {
             memberVo.setMemberSex(getSex());
             memberVo.setMemberProfession(getProfession());
             memberVo.setMemberJoiningDate(new Date());
+            memberVo.setMemberIsAdmin(false);
+            memberVo.setMemberIsSuppressed(false);
             memberFacade.addMember(memberVo);
             return "success";
     }
