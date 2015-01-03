@@ -74,6 +74,21 @@
             <to-view-id>/template/error.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/form_updatepassword.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{memberBean.updatePassword()}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{memberBean.updatePassword()}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/template/error.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
     <navigation-rule>
         <from-view-id>/form_deleteproject.xhtml</from-view-id>
         <navigation-case>

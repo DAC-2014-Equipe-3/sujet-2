@@ -42,6 +42,15 @@ public class ProjectsBean {
     /**
      * Recupere tous les projets
      */
+    public void getAllProjectsNotDeleted(){
+        //TODO seulement les projets non supprimés
+        ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
+        listProjects.addAll(projectFacade.getAllProjects());
+    }
+
+    /**
+     * Recupere tous les projets
+     */
     public void getAllProjects(){
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
         listProjects.addAll(projectFacade.getAllProjects());

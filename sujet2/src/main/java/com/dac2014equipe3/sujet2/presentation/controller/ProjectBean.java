@@ -127,7 +127,6 @@ public class ProjectBean {
         projectVo.setMediaList(null); //TODO
         projectVo.setMemberbacksProjectList(null); //TODO
         projectVo.setReward(null);//TODO
-
         projectFacade.addProject(projectVo);
 
         //Get the new project id
@@ -149,6 +148,10 @@ public class ProjectBean {
         return "success";
     }
 
+    /**
+     * Supprimer un projet
+     * @return
+     */
     public String deleteProject(){
 
         MemberBean controller = FacesContext.getCurrentInstance().getApplication()
@@ -205,6 +208,10 @@ public class ProjectBean {
 
     }
 
+    /**
+     * Recuperer les données d'un projet
+     * @param idProject
+     */
     public void getDataProject(String idProject){
 
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();

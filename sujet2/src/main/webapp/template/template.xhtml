@@ -7,57 +7,53 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-    <!--<f:facet name="last">
-        <h:outputStylesheet library="css" name=""/>
-    </f:facet>-->
+    <f:facet name="css">
+        <h:outputStylesheet library="css" name="style.css"/>
+    </f:facet>
 </h:head>
 <h:body>
-    <!--<h:outputStylesheet library="css" name="style.css" />-->
-    <div id="page">
-    <p:layout fullPage="true">
-        <p:layoutUnit position="north">
-            <div id="header" class="img_template">
-                <!--<img alt="header" src="./img/header.jpg"/>-->
+    <h:outputStylesheet library="css" name="style.css" />
+    <p:outputPanel>
+            <div class="ui-grid ui-grid-responsive">
+            <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
                 <ui:insert name="header" >
                     <ui:include src="header.xhtml"/>
                 </ui:insert>
-            </div>
-            <div id="menu">
                 <ui:insert name="menu">
                     <ui:include src="menu.xhtml"/>
                 </ui:insert>
             </div>
-            </p:layoutUnit>
-        <p:layoutUnit position="west">
-            <div id="leftPanel">
-            <ui:insert name="leftPanel" >
-                <h:panelGroup id="includeContainer">
-                    <h:panelGroup rendered="#{memberBean.loggedIn == false}">
-                        <ui:include src="connection.xhtml"/>
-                    </h:panelGroup>
-                    <h:panelGroup rendered="#{memberBean.loggedIn == true}">
-                        <h3>Bienvenue #{memberBean.firstName} #{memberBean.lastName}</h3>
-                        <ui:include src="optionmember.xhtml"/>
-                    </h:panelGroup>
-                </h:panelGroup>
-            </ui:insert>
             </div>
-        </p:layoutUnit>
-        <p:layoutUnit position="center">
-            <div id="content">
-            <ui:insert name="content">
-            </ui:insert>
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-3">
+                        <ui:insert name="leftPanel" >
+                            <h:panelGroup>
+                                <h:panelGroup rendered="#{memberBean.loggedIn == false}">
+                                    <ui:include src="connection.xhtml"/>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{memberBean.loggedIn == true}">
+                                    <h3>Bienvenue #{memberBean.firstName} #{memberBean.lastName}</h3>
+                                    <ui:include src="optionmember.xhtml"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </ui:insert>
+                    </div>
+                    <div class="ui-grid-col-9">
+                        <ui:insert name="content">
+                        </ui:insert>
+                    </div>
+                </div>
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <ui:insert name="footer">
+                            <ui:include src="footer.xhtml"/>
+                        </ui:insert>
+                    </div>
+                </div>
             </div>
-        </p:layoutUnit>
-        <p:layoutUnit position="south">
-            <div id="footer" class="img_template">
-                <!--<img alt="footer" src="./img/footer.jpg"/>-->
-                <ui:insert name="footer">
-                    <ui:include src="footer.xhtml"/>
-                </ui:insert>
-            </div>
-        </p:layoutUnit>
-    </p:layout>
-    </div>
+</p:outputPanel>
 </h:body>
 </html>

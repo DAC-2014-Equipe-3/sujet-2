@@ -4,7 +4,8 @@ body{
 }
 
 .logo_footer{
-
+    width: 100px;
+    height: 100px;
 }
 
 #page{
@@ -12,11 +13,11 @@ body{
 }
 
 #header{
-    background-color:red;
-    /*background-image: url("../../webapp/img/header.jpg"); background-repeat: repeat-y;*/
+    /*background-image: url("../../webapp/img/header.jpg");*/
+    background-repeat: repeat-y; !important;
 }
 
 #footer{
-    background-color: blue;
-    /*background-image: url("../../webapp/img/footer.jpg"); background-repeat: repeat-y;*/
+    /*background-image: url("../../webapp/img/footer.jpg");*/
+    background-repeat: repeat-y; !important;
 }
