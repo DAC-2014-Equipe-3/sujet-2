@@ -13,6 +13,7 @@ import com.dac2014equipe3.sujet2.vo.MemberVo;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.util.Date;
 import java.util.List;
 
@@ -347,14 +348,20 @@ public class MemberBean {
      * Recuperer les infos personnelles du membre connecté
      */
     public void getDataMember(){
-        loggedIn = true;
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
+
+        setLoggedIn(controller.isLoggedIn());
         if (isLoggedIn()) {
 
                 MemberFacade memberFacade = FacadeFactory.getInstance()
                         .getMemberFacade();
                 //TODO recuperer session membre pour recuperer l'utilisateur courant
-                MemberVo memberVo = memberFacade.find(2);
 
+                setId(controller.getId());
+                MemberVo memberVo = memberFacade.find(getId());
+                setLogin(memberVo.getMemberLogin());
                 setBirthday(memberVo.getMemberBirthday());
                 setEmail(memberVo.getMemberEmail());
                 setFirstName(memberVo.getMemberFirstname());
@@ -364,6 +371,8 @@ public class MemberBean {
                 setNationality(memberVo.getMemberNationality());
                 setSex(memberVo.getMemberSex());
                 setProfession(memberVo.getMemberProfession());
+                setAdmin(memberVo.getMemberIsAdmin());
+                setSuppressed(memberVo.getMemberIsSuppressed());
                 setPassword(memberVo.getMemberPassword());
 
         }
@@ -374,8 +383,8 @@ public class MemberBean {
      */
     public String updateAccount(){
     //TODO Valider côté serveur la validité des champs !
-           loggedIn = false;
-        if (isLoggedIn()) {
+
+        if (!isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance()
@@ -384,7 +393,7 @@ public class MemberBean {
             MemberVo memberVo = new MemberVo();
 
             //TODO Recuperation de l'id  membre dans la session
-            memberVo.setMemberId(2);
+            memberVo.setMemberId(getId());
             memberVo.setMemberLogin(getLogin());
             memberVo.setMemberEmail(getEmail());
             memberVo.setMemberPassword(getPassword());
@@ -393,6 +402,8 @@ public class MemberBean {
             memberVo.setMemberFirstname(getFirstName());
             memberVo.setMemberLastname(getLastName());
             memberVo.setMemberSex(getSex());
+            memberVo.setMemberIsSuppressed(isSuppressed());
+            memberVo.setMemberIsAdmin(isAdmin());
             memberVo.setMemberProfession(getProfession());
             memberVo.setMemberJoiningDate(new Date());
             if(memberFacade.updateMember(memberVo)){
@@ -407,13 +418,13 @@ public class MemberBean {
      */
     public String updatePassword(){
         //TODO Valider côté serveur la validité des champs !
-         loggedIn= true;
+
         if (!isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
             //TODO Recuperation de l'id  membre dans la session
-            MemberVo memberVo =memberFacade.find(2);
+            MemberVo memberVo =memberFacade.find(getId());
 
             if (verifyPassword(memberVo, getOldPassword())) {
                 memberVo.setMemberPassword(getPassword());

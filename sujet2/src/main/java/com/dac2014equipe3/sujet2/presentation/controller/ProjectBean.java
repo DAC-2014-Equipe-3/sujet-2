@@ -150,40 +150,48 @@ public class ProjectBean {
     }
 
     public String deleteProject(){
-        //TODO get id user from session
-        int  idUser = 1;//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUser");
-        boolean isProjectCreator = false;
 
-        Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
-        ProjectVo projectVo = null;
-        ProjectFacade projectFacade = null;
-        List<MemberbacksProjectVo> listProjectBacks = null;
-        MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
-        MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance().getMemberbacksProjectFacade();
-        MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
-        MemberVo memberVo = memberFacade.find(idUser);
-        List<MembercreatesProjectVo> listMemberProjects = membercreatesProjectFacade.getListForCreator(idUser);
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
 
-        try{
-            id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject"));
-        }catch(NumberFormatException e){
-            id = 0;
-        }
+        if(controller.isLoggedIn()){
+            int idUser = controller.getId();
+            boolean isProjectCreator = false;
 
-        if(id > 0){
-            projectFacade = FacadeFactory.getInstance().getProjectFacade();
-            projectVo = projectFacade.find(id);
-            for(MembercreatesProjectVo McP : listMemberProjects){
-                if(McP.getMembercreatesProjectPK().getCreatorId() == idUser){
-                    isProjectCreator = true;
-                }
+            Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
+            ProjectVo projectVo = null;
+            ProjectFacade projectFacade = null;
+            List<MemberbacksProjectVo> listProjectBacks = null;
+            MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
+            MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance().getMemberbacksProjectFacade();
+            MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
+            MemberVo memberVo = memberFacade.find(idUser);
+            List<MembercreatesProjectVo> listMemberProjects = membercreatesProjectFacade.getListForCreator(idUser);
+
+            try{
+                id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject"));
+            }catch(NumberFormatException e){
+                id = 0;
             }
-            if(isProjectCreator || memberVo.getMemberIsAdmin()){
-                listProjectBacks = memberbacksProjectFacade.getListForProject(id);
-                if(listProjectBacks.isEmpty() && currentDate.compareTo(projectVo.getProjectEndDate()) != 1 ){
-                    projectFacade = FacadeFactory.getInstance().getProjectFacade();
-                    projectVo.setProjectIsSuppressed(true);
-                    return projectFacade.updateProject(projectVo) ? "success" : "failure";
+
+            if(id > 0){
+                projectFacade = FacadeFactory.getInstance().getProjectFacade();
+                projectVo = projectFacade.find(id);
+                for(MembercreatesProjectVo McP : listMemberProjects){
+                    if(McP.getMembercreatesProjectPK().getCreatorId() == idUser){
+                        isProjectCreator = true;
+                    }
+                }
+                if(isProjectCreator || memberVo.getMemberIsAdmin()){
+                    listProjectBacks = memberbacksProjectFacade.getListForProject(id);
+                    if(listProjectBacks.isEmpty() && currentDate.compareTo(projectVo.getProjectEndDate()) != 1 ){
+                        projectFacade = FacadeFactory.getInstance().getProjectFacade();
+                        projectVo.setProjectIsSuppressed(true);
+                        return projectFacade.updateProject(projectVo) ? "success" : "failure";
+                    }else{
+                        return "failure";
+                    }
                 }else{
                     return "failure";
                 }
@@ -193,6 +201,7 @@ public class ProjectBean {
         }else{
             return "failure";
         }
+
 
     }
 
