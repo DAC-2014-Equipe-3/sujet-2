@@ -16,31 +16,38 @@
                 </h:panelGroup>
                 <h:panelGroup rendered="#{memberBean.loggedIn == true}">
                     <h2>Connecté</h2>
-                    #{memberBean.memberbacksProjectList}
                     <p:tabView value="tabView">
                         <p:tab title="Mes projets">
-                            <h:panelGrid>
-                                <p:dataScroller value="#{memberBean.projectList}" var="project" chunkSize="10">
-                                    <f:facet name="header">
-                                        Scroll Down to Load More projects
-                                    </f:facet>
-                                    <h:panelGrid columns="2" style="width:100%">
-                                        <p:outputPanel>
-                                            <h:panelGrid columns="2" cellpadding="5">
-                                                <h:outputText value="Id:" />
-                                                <h:outputText value="#{project.projectId}" style="font-weight: bold"/>
-                                                <h:outputText value="Year:" />
-                                                <h:outputText value="#{project.projectDescription}" style="font-weight: bold"/>
-                                            </h:panelGrid>
-                                        </p:outputPanel>
-                                    </h:panelGrid>
-                                </p:dataScroller>
-                            </h:panelGrid>
+                            Recuperer tous les projets créés par le membre
+
+                            <p:dataScroller value="#{memberBean.createdProjectList}" var="project" chunkSize="10">
+                                <h:panelGrid columns="2">
+                                    <p:outputPanel>
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:outputText value="Id:" />
+                                            <h:outputText value="#{project.projectId}" style="font-weight: bold"/>
+                                            <h:outputText value="Year:" />
+                                            <h:outputText value="#{project.projectDescription}" style="font-weight: bold"/>
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </h:panelGrid>
+                            </p:dataScroller>
                         </p:tab>
                         <p:tab title="Mes investissements">
-                            <h:panelGrid>
-                            deuxieme onglet
-                            </h:panelGrid>
+                            Recuperer tous les projets pour lesquels le membre a investi
+
+                            <p:dataScroller value="#{memberBean.investedProjectList}" var="project" chunkSize="10">
+                                <h:panelGrid columns="2">
+                                    <p:outputPanel>
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:outputText value="Id:" />
+                                            <h:outputText value="#{project.projectId}" style="font-weight: bold"/>
+                                            <h:outputText value="Year:" />
+                                            <h:outputText value="#{project.projectDescription}" style="font-weight: bold"/>
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </h:panelGrid>
+                            </p:dataScroller>
                         </p:tab>
                     </p:tabView>
                 </h:panelGroup>

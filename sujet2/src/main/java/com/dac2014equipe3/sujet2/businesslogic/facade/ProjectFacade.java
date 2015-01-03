@@ -16,6 +16,22 @@ public class ProjectFacade extends Facade<ProjectVo> {
     }
 
     /**
+     * Register the project in the database
+     * @param project
+     */
+    public void addProject(ProjectVo project){
+        persist(project);
+    }
+
+    /**
+     * Update the project in the database
+     * @param projectVo
+     */
+    public boolean updateProject(ProjectVo projectVo){
+        return update(projectVo);
+    }
+
+    /**
      * Recuperer tous les projets existants
      * @return
      */
@@ -32,18 +48,18 @@ public class ProjectFacade extends Facade<ProjectVo> {
     }
 
     /**
-     * Register the project in the database
-     * @param project
+     * Recuperer les projets non supprimés
+     * @return
      */
-    public void addProject(ProjectVo project){
-        persist(project);
-    }
-
-    /**
-     * Update the project in the database
-     * @param projectVo
-     */
-    public boolean updateProject(ProjectVo projectVo){
-        return update(projectVo);
+    public List<ProjectVo> getProjectsNotDeleted(){
+        try {
+            em = emf.createEntityManager();
+            return ((ProjectService) service).getProjectsNotDeleted(em);
+        } finally {
+            if (em != null) {
+                em.clear();
+                em.close();
+            }
+        }
     }
 }

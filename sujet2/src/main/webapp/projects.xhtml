@@ -12,19 +12,17 @@
                     <h:form>
                         #{projectsBean.getAllProjectsNotDeleted()}
                         <p:accordionPanel value="#{projectsBean.listProjects}" var="project">
-                            <p:tab title="Project - #{project.projectId} [Catégorie:#{project.projectCategory.categoryName}]">
+                            <p:tab title="#{project.projectTitle} [Catégorie:#{project.projectCategory.categoryName}]">
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Description:" style="font-weight: bold" />
-                                    <h:outputText value="#{project.projectDescription}" />
-                                    <h:outputText value="Titre:" style="font-weight: bold" />
-                                    <h:outputText value="#{project.projectTitle}" />
+                                    <h:outputText value="#{project.projectDescription}" />>
                                     <h:outputText value="Createur:" style="font-weight: bold" />
                                     <p:tab value="#{project.memberList}" var="creator">
                                         <h:outputText value="#{creator.memberFirstname}" />
                                         <h:outputText value="#{creator.memberLastname}" />
                                     </p:tab>
                                     <h:outputText value="Investisseurs:" style="font-weight: bold" />
-                                    <p:tab value="#{project.memberbacksProjectList}" var="inves">
+                                    <p:tab value="#{project.investedProjects}" var="inves">
                                         <h:outputText value="#{inves.memberFirstname}" />
                                         <h:outputText value="#{inves.memberLastname}" />
                                     </p:tab>

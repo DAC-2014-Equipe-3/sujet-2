@@ -7,7 +7,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:head/>
+    <h:head></h:head>
+
     <h:body>
         <ui:composition template="template/template.xhtml">
             <ui:define name="content">
@@ -19,10 +20,10 @@
                         </div>
                         <h3>Etes vous sur de vouloir supprimer le projet : #{projectBean.description}</h3>
                         <div class="form-actions">
-                            <h:commandButton action="#{projectBean.deleteProject()}" value="Supprimer" class="btn btn-danger">
+                            <h:commandButton action="#{projectBean.deleteProject()}" value="Supprimer">
                                 <f:param name="idProject" value="#{projectBean.id}" />
                             </h:commandButton>
-                            <h:commandButton action="projects" value="Annuler" class="btn btn-danger"/>
+                            <h:commandButton action="projects" value="Annuler"/>
                         </div>
                     </div>
                 </h:form>
