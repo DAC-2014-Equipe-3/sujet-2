@@ -8,6 +8,7 @@ import com.dac2014equipe3.sujet2.model.entity.Project;
 import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,5 +87,13 @@ public class MembercreatesProjectService implements IService<MembercreatesProjec
     @Override
     public List<MembercreatesProjectVo> getList(EntityManager em) {
         return null;
+    }
+
+    public List<MembercreatesProjectVo> getListForCreator(Object idCreator, EntityManager em) {
+        List<MembercreatesProjectVo> list = new ArrayList<MembercreatesProjectVo>();
+        for (MembercreatesProject McP : DAOFactory.getInstance().getMembercreatesProjectDAO().getListForCreator(idCreator, em)) {
+            list.add((McP).toVo());
+        }
+        return list;
     }
 }

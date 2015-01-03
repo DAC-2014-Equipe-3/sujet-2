@@ -46,7 +46,15 @@ public class MembercreatesProjectDAO implements IDAO<MembercreatesProject> {
 
     @Override
     public List<MembercreatesProject> getList(EntityManager em) {
-        Query query = em.createNamedQuery("MemberbacksProject.findAll");
+        Query query = em.createNamedQuery("MembercreatesProject.findAll");
+        List<MembercreatesProject> listMcP = query.getResultList();
+        return listMcP;
+    }
+
+    public List<MembercreatesProject> getListForCreator(Object idCreator, EntityManager em) {
+        Integer id = (Integer) idCreator;
+        Query query = em.createNamedQuery("MembercreatesProject.findByCreatorId")
+                .setParameter("creatorId", id);
         List<MembercreatesProject> listMcP = query.getResultList();
         return listMcP;
     }

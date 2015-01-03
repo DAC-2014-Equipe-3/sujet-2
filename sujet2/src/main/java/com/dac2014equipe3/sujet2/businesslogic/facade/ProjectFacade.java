@@ -37,9 +37,9 @@ public class ProjectFacade extends Facade<ProjectVo> {
 
     /**
      * Update the member in the database
-     * @param project
+     * @param projectVo
      */
-    public void updateProject(ProjectVo project){
-        update(project);
+    public boolean updateProject(ProjectVo projectVo){
+        return update(projectVo);
     }
 }
