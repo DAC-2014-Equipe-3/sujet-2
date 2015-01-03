@@ -22,8 +22,16 @@
 
                             <p:outputLabel for="enddate" value="Date de clôture : "/>
                             <p:calendar id="enddate" required="true" value="#{projectBean.endDate}"
-                                        requiredMessage="Veuillez compléter le champ"/>
+                                        requiredMessage="Veuillez compléter le champ">
+                            </p:calendar>
                             <p:message for="enddate" value="Date de clôture"/>
+
+                            <p:outputLabel for="goal" value="Value attendue : "/>
+                            <p:inputText id="goal" required="true" value="#{projectBean.fundingGoal}"
+                                         requiredMessage="Veuillez compléter le champ">
+                                <f:validateLongRange minimum="0" maximum="1000000" for="goal"/>
+                            </p:inputText>
+                            <p:message for="goal" value="Goal"/>
 
                             <p:outputLabel for="description" value="Description : "/>
                             <p:inputTextarea id="description" required="true" value="#{projectBean.description}"
