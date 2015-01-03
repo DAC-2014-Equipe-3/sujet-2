@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dac2014equipe3.sujet2.presentation.controller;
+        package com.dac2014equipe3.sujet2.presentation.controller;
 
-import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
-import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
-import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
-import com.dac2014equipe3.sujet2.model.entity.Project;
-import com.dac2014equipe3.sujet2.vo.MemberVo;
+        import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
+        import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
+        import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
+        import com.dac2014equipe3.sujet2.model.entity.Project;
+        import com.dac2014equipe3.sujet2.vo.MemberVo;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import java.util.Date;
-import java.util.List;
+        import javax.faces.bean.ManagedBean;
+        import javax.faces.bean.SessionScoped;
+        import javax.faces.context.FacesContext;
+        import java.util.Date;
+        import java.util.List;
 
 /**
  *
@@ -25,22 +26,22 @@ import java.util.List;
 @SessionScoped
 public class MemberBean {
 
-	private int id;
-	private boolean loggedIn;
-	private String email;
-	private String login;
-	private String password;
+    private int id;
+    private boolean loggedIn;
+    private String email;
+    private String login;
+    private String password;
     private String oldPassword;
     private String passwordBis;
     private boolean isAdmin;
-	private Date joiningDate;
-	private String lastName;
-	private String firstName;
-	private Date birthday;
-	private String nationality;
-	private String sex;
-	private String profession;
-	private boolean isSuppressed;
+    private Date joiningDate;
+    private String lastName;
+    private String firstName;
+    private Date birthday;
+    private String nationality;
+    private String sex;
+    private String profession;
+    private boolean isSuppressed;
     private List<Project> projectList;
     private List<MemberbacksProject> memberbacksProjectList;
 
@@ -53,33 +54,33 @@ public class MemberBean {
     }
 
     /**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * @return the loggedIn
-	 */
-	public boolean isLoggedIn() {
-		return loggedIn;
-	}
+    /**
+     * @return the loggedIn
+     */
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
 
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getOldPassword() {
         return oldPassword;
@@ -90,196 +91,196 @@ public class MemberBean {
     }
 
     /**
-	 * @param loggedIn
-	 *            the loggedIn to set
-	 */
-	public void setLoggedIn(boolean loggedIn) {
-		this.loggedIn = loggedIn;
-	}
+     * @param loggedIn
+     *            the loggedIn to set
+     */
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
 
-	/**
-	 * @param email
-	 *            the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * @param email
+     *            the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public Date getBirthday() {
-		return birthday;
-	}
+    /**
+     *
+     * @return
+     */
+    public Date getBirthday() {
+        return birthday;
+    }
 
-	/**
-	 *
-	 * @param birthday
-	 */
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
+    /**
+     *
+     * @param birthday
+     */
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getLogin() {
-		return login;
-	}
+    /**
+     *
+     * @return
+     */
+    public String getLogin() {
+        return login;
+    }
 
-	/**
-	 *
-	 * @param login
-	 */
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    /**
+     *
+     * @param login
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public boolean isAdmin() {
-		return isAdmin;
-	}
+    /**
+     *
+     * @return
+     */
+    public boolean isAdmin() {
+        return isAdmin;
+    }
 
-	/**
-	 *
-	 * @param isAdmin
-	 */
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
+    /**
+     *
+     * @param isAdmin
+     */
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public Date getJoiningDate() {
-		return joiningDate;
-	}
+    /**
+     *
+     * @return
+     */
+    public Date getJoiningDate() {
+        return joiningDate;
+    }
 
-	/**
-	 *
-	 * @param joiningDate
-	 */
-	public void setJoiningDate(Date joiningDate) {
-		this.joiningDate = joiningDate;
-	}
+    /**
+     *
+     * @param joiningDate
+     */
+    public void setJoiningDate(Date joiningDate) {
+        this.joiningDate = joiningDate;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getLastName() {
-		return lastName;
-	}
+    /**
+     *
+     * @return
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
-	/**
-	 *
-	 * @param lastName
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /**
+     *
+     * @param lastName
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
+    /**
+     *
+     * @return
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
-	/**
-	 *
-	 * @param firstName
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /**
+     *
+     * @param firstName
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getNationality() {
-		return nationality;
-	}
+    /**
+     *
+     * @return
+     */
+    public String getNationality() {
+        return nationality;
+    }
 
-	/**
-	 *
-	 * @param nationality
-	 */
-	public void setNationality(String nationality) {
-		this.nationality = nationality;
-	}
+    /**
+     *
+     * @param nationality
+     */
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getSex() {
-		return sex;
-	}
+    /**
+     *
+     * @return
+     */
+    public String getSex() {
+        return sex;
+    }
 
-	/**
-	 *
-	 * @param sex
-	 */
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
+    /**
+     *
+     * @param sex
+     */
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getProfession() {
-		return profession;
-	}
+    /**
+     *
+     * @return
+     */
+    public String getProfession() {
+        return profession;
+    }
 
-	/**
-	 *
-	 * @param profession
-	 */
-	public void setProfession(String profession) {
-		this.profession = profession;
-	}
+    /**
+     *
+     * @param profession
+     */
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public boolean isSuppressed() {
-		return isSuppressed;
-	}
+    /**
+     *
+     * @return
+     */
+    public boolean isSuppressed() {
+        return isSuppressed;
+    }
 
-	/**
-	 *
-	 * @param isSuppressed
-	 */
-	public void setSuppressed(boolean isSuppressed) {
-		this.isSuppressed = isSuppressed;
-	}
+    /**
+     *
+     * @param isSuppressed
+     */
+    public void setSuppressed(boolean isSuppressed) {
+        this.isSuppressed = isSuppressed;
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public String getPassword() {
-		return password;
-	}
+    /**
+     *
+     * @return
+     */
+    public String getPassword() {
+        return password;
+    }
 
-	/**
-	 *
-	 * @param password
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     *
+     * @param password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     /**
      *
@@ -313,12 +314,12 @@ public class MemberBean {
         this.projectList = projectList;
     }
 
-	/**
-	 * Cree un nouveau membre
-	 */
+    /**
+     * Cree un nouveau membre
+     */
     public String addNewMember() {
-    //TODO Valider côté serveur la validité des champs !
-    //TODO Ouvrir session membre
+        //TODO Valider côté serveur la validité des champs !
+        //TODO Ouvrir session membre
 
         if (!isLoggedIn()){
             return "failure";
@@ -341,30 +342,38 @@ public class MemberBean {
             return "success";
         }
 
-	}
+    }
 
     /**
      * Recuperer les infos personnelles du membre connecté
      */
     public void getDataMember(){
-        loggedIn = true;
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
+
+        setLoggedIn(controller.isLoggedIn());
         if (isLoggedIn()) {
 
-                MemberFacade memberFacade = FacadeFactory.getInstance()
-                        .getMemberFacade();
-                //TODO recuperer session membre pour recuperer l'utilisateur courant
-                MemberVo memberVo = memberFacade.find(2);
+            MemberFacade memberFacade = FacadeFactory.getInstance()
+                    .getMemberFacade();
+            //TODO recuperer session membre pour recuperer l'utilisateur courant
 
-                setBirthday(memberVo.getMemberBirthday());
-                setEmail(memberVo.getMemberEmail());
-                setFirstName(memberVo.getMemberFirstname());
-                setLastName(memberVo.getMemberLastname());
-                setId(memberVo.getMemberId());
-                setJoiningDate(memberVo.getMemberJoiningDate());
-                setNationality(memberVo.getMemberNationality());
-                setSex(memberVo.getMemberSex());
-                setProfession(memberVo.getMemberProfession());
-                setPassword(memberVo.getMemberPassword());
+            setId(controller.getId());
+            MemberVo memberVo = memberFacade.find(getId());
+            setLogin(memberVo.getMemberLogin());
+            setBirthday(memberVo.getMemberBirthday());
+            setEmail(memberVo.getMemberEmail());
+            setFirstName(memberVo.getMemberFirstname());
+            setLastName(memberVo.getMemberLastname());
+            setId(memberVo.getMemberId());
+            setJoiningDate(memberVo.getMemberJoiningDate());
+            setNationality(memberVo.getMemberNationality());
+            setSex(memberVo.getMemberSex());
+            setProfession(memberVo.getMemberProfession());
+            setAdmin(memberVo.getMemberIsAdmin());
+            setSuppressed(memberVo.getMemberIsSuppressed());
+            setPassword(memberVo.getMemberPassword());
 
         }
     }
@@ -373,9 +382,9 @@ public class MemberBean {
      * Mettre à jour les informations de l'utilisateur
      */
     public String updateAccount(){
-    //TODO Valider côté serveur la validité des champs !
-           loggedIn = false;
-        if (isLoggedIn()) {
+        //TODO Valider côté serveur la validité des champs !
+
+        if (!isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance()
@@ -384,7 +393,7 @@ public class MemberBean {
             MemberVo memberVo = new MemberVo();
 
             //TODO Recuperation de l'id  membre dans la session
-            memberVo.setMemberId(2);
+            memberVo.setMemberId(getId());
             memberVo.setMemberLogin(getLogin());
             memberVo.setMemberEmail(getEmail());
             memberVo.setMemberPassword(getPassword());
@@ -393,6 +402,8 @@ public class MemberBean {
             memberVo.setMemberFirstname(getFirstName());
             memberVo.setMemberLastname(getLastName());
             memberVo.setMemberSex(getSex());
+            memberVo.setMemberIsSuppressed(isSuppressed());
+            memberVo.setMemberIsAdmin(isAdmin());
             memberVo.setMemberProfession(getProfession());
             memberVo.setMemberJoiningDate(new Date());
             if(memberFacade.updateMember(memberVo)){
@@ -407,13 +418,13 @@ public class MemberBean {
      */
     public String updatePassword(){
         //TODO Valider côté serveur la validité des champs !
-         loggedIn= true;
+
         if (!isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
             //TODO Recuperation de l'id  membre dans la session
-            MemberVo memberVo =memberFacade.find(2);
+            MemberVo memberVo =memberFacade.find(getId());
 
             if (verifyPassword(memberVo, getOldPassword())) {
                 memberVo.setMemberPassword(getPassword());
@@ -429,16 +440,16 @@ public class MemberBean {
         }
     }
 
-public boolean verifyPassword(MemberVo memberVo, String oldPassword){
-    //Todo appel de la fonction de hashage qui sera utilisé sur formPassword
-    String dbPassword = memberVo.getMemberPassword();
-    if(getPasswordBis().equals(getPassword())) {
-        if (dbPassword.equals(oldPassword)) {
-            return true;
+    public boolean verifyPassword(MemberVo memberVo, String oldPassword){
+        //Todo appel de la fonction de hashage qui sera utilisé sur formPassword
+        String dbPassword = memberVo.getMemberPassword();
+        if(getPasswordBis().equals(getPassword())) {
+            if (dbPassword.equals(oldPassword)) {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
 
     /**
      * Supprimer compte membre
@@ -473,7 +484,7 @@ public boolean verifyPassword(MemberVo memberVo, String oldPassword){
     }
 
     private boolean checkDataMember(MemberVo mVo){
-    //TODO a completer
+        //TODO a completer
 
         if(mVo != null){
             return true;
@@ -482,24 +493,24 @@ public boolean verifyPassword(MemberVo memberVo, String oldPassword){
         return false;
     }
 
-	public MemberVo getMemberVo(){
-		MemberVo vo = new MemberVo();
+    public MemberVo getMemberVo(){
+        MemberVo vo = new MemberVo();
 
-		vo.setMemberId(id);
-		vo.setMemberEmail(email);
-		vo.setMemberLogin(login);
-		vo.setMemberPassword(password);
-		vo.setMemberIsAdmin(isAdmin);
-		vo.setMemberJoiningDate(joiningDate);
-		vo.setMemberBirthday(birthday);
-		vo.setMemberFirstname(firstName);
-		vo.setMemberLastname(lastName);
-		vo.setMemberNationality(nationality);
-		vo.setMemberSex(sex);
-		vo.setMemberProfession(profession);
-		vo.setMemberIsSuppressed(isSuppressed);
+        vo.setMemberId(id);
+        vo.setMemberEmail(email);
+        vo.setMemberLogin(login);
+        vo.setMemberPassword(password);
+        vo.setMemberIsAdmin(isAdmin);
+        vo.setMemberJoiningDate(joiningDate);
+        vo.setMemberBirthday(birthday);
+        vo.setMemberFirstname(firstName);
+        vo.setMemberLastname(lastName);
+        vo.setMemberNationality(nationality);
+        vo.setMemberSex(sex);
+        vo.setMemberProfession(profession);
+        vo.setMemberIsSuppressed(isSuppressed);
 
-		return vo;
-	}
+        return vo;
+    }
 
 }

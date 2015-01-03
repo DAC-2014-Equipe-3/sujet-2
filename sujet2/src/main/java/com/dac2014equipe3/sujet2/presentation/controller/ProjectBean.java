@@ -1,17 +1,18 @@
-package com.dac2014equipe3.sujet2.presentation.controller;
-import com.dac2014equipe3.sujet2.businesslogic.facade.*;
-import com.dac2014equipe3.sujet2.model.entity.MemberbacksProjectPK;
-import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
-import com.dac2014equipe3.sujet2.model.entity.MembercreatesProjectPK;
-import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
-import com.dac2014equipe3.sujet2.vo.*;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import java.util.Date;
-import java.util.Calendar;
-import java.util.List;
+        package com.dac2014equipe3.sujet2.presentation.controller;
+        import com.dac2014equipe3.sujet2.businesslogic.facade.*;
+        import com.dac2014equipe3.sujet2.model.entity.MemberbacksProjectPK;
+        import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
+        import com.dac2014equipe3.sujet2.model.entity.MembercreatesProjectPK;
+        import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
+        import com.dac2014equipe3.sujet2.vo.*;
+
+        import javax.faces.bean.ManagedBean;
+        import javax.faces.bean.RequestScoped;
+        import javax.faces.context.FacesContext;
+        import java.util.Date;
+        import java.util.Calendar;
+        import java.util.List;
 
 @ManagedBean(name = "projectBean")
 @RequestScoped
@@ -127,6 +128,7 @@ public class ProjectBean {
         projectVo.setMediaList(null); //TODO
         projectVo.setMemberbacksProjectList(null); //TODO
         projectVo.setReward(null);//TODO
+
         projectFacade.addProject(projectVo);
 
         //Get the new project id
@@ -148,10 +150,6 @@ public class ProjectBean {
         return "success";
     }
 
-    /**
-     * Supprimer un projet
-     * @return
-     */
     public String deleteProject(){
 
         MemberBean controller = FacesContext.getCurrentInstance().getApplication()
@@ -208,10 +206,6 @@ public class ProjectBean {
 
     }
 
-    /**
-     * Recuperer les données d'un projet
-     * @param idProject
-     */
     public void getDataProject(String idProject){
 
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
