@@ -15,6 +15,10 @@ public class ProjectFacade extends Facade<ProjectVo> {
         super(PUName, service);
     }
 
+    /**
+     * Recuperer tous les projets existants
+     * @return
+     */
     public List<ProjectVo> getAllProjects(){
         try {
             em = emf.createEntityManager();
@@ -36,7 +40,7 @@ public class ProjectFacade extends Facade<ProjectVo> {
     }
 
     /**
-     * Update the member in the database
+     * Update the project in the database
      * @param projectVo
      */
     public boolean updateProject(ProjectVo projectVo){

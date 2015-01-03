@@ -347,7 +347,7 @@ public class MemberBean {
      * Recuperer les infos personnelles du membre connecté
      */
     public void getDataMember(){
-        loggedIn = true;
+        //loggedIn = true;
         if (isLoggedIn()) {
 
                 MemberFacade memberFacade = FacadeFactory.getInstance()
@@ -355,6 +355,7 @@ public class MemberBean {
                 //TODO recuperer session membre pour recuperer l'utilisateur courant
                 MemberVo memberVo = memberFacade.find(2);
 
+                setLogin(memberVo.getMemberLogin());
                 setBirthday(memberVo.getMemberBirthday());
                 setEmail(memberVo.getMemberEmail());
                 setFirstName(memberVo.getMemberFirstname());

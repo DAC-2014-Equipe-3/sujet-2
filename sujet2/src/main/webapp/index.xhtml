@@ -3,12 +3,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <f:view contentType="text/html">
 <h:body>
     <ui:composition template="./template/template.xhtml">
         <ui:define name="content">
             <h2>This is index content</h2>
+            <h:panelGroup>
+                <h:panelGroup rendered="#{memberBean.loggedIn == false}">
+                    <h2>ICI pas connecté</h2>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{memberBean.loggedIn == true}">
+                    <h2>Connecté</h2>
+                    #{memberBean.memberbacksProjectList}
+                    <p:tabView value="tabView">
+                        <p:tab title="Mes projets">
+                            <h:panelGrid>
+                                <p:dataScroller value="#{memberBean.projectList}" var="project" chunkSize="10">
+                                    <f:facet name="header">
+                                        Scroll Down to Load More projects
+                                    </f:facet>
+                                    <h:panelGrid columns="2" style="width:100%">
+                                        <p:outputPanel>
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <h:outputText value="Id:" />
+                                                <h:outputText value="#{project.projectId}" style="font-weight: bold"/>
+                                                <h:outputText value="Year:" />
+                                                <h:outputText value="#{project.projectDescription}" style="font-weight: bold"/>
+                                            </h:panelGrid>
+                                        </p:outputPanel>
+                                    </h:panelGrid>
+                                </p:dataScroller>
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Mes investissements">
+                            <h:panelGrid>
+                            deuxieme onglet
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                </h:panelGroup>
+            </h:panelGroup>
         </ui:define>
     </ui:composition>
 </h:body>
