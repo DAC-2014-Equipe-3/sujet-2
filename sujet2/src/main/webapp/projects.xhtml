@@ -14,14 +14,22 @@
                         <p:accordionPanel value="#{projectsBean.listProjects}" var="project">
                             <p:tab title="#{project.projectTitle} [Catégorie:#{project.projectCategory.categoryName}]">
                                 <h:panelGrid columns="2" cellpadding="5">
-                                    <h:outputText value="Description:" style="font-weight: bold" />
-                                    <h:outputText value="#{project.projectDescription}" />>
-                                    <h:outputText value="Createur:" style="font-weight: bold" />
+                                    <h:outputText value="Description:" />
+                                    <h:outputText value="#{project.projectDescription}" />
+                                    <p:separator/><p:separator/>
+                                    <h:outputText value="Créé le:" />
+                                    <h:outputText value="#{project.projectCreationDate}"/>
+                                    <h:outputText value="Montant à atteindre:" />
+                                    <h:outputText value="#{project.projectFundingGoal}" />
+                                    <h:outputText value="Date de clôture:" />
+                                    <h:outputText value="#{project.projectEndDate}" />
+
+                                    <h:outputText value="Createur:" />
                                     <p:tab value="#{project.memberList}" var="creator">
                                         <h:outputText value="#{creator.memberFirstname}" />
                                         <h:outputText value="#{creator.memberLastname}" />
                                     </p:tab>
-                                    <h:outputText value="Investisseurs:" style="font-weight: bold" />
+                                    <h:outputText value="Investisseurs:" />
                                     <p:tab value="#{project.investedProjects}" var="inves">
                                         <h:outputText value="#{inves.memberFirstname}" />
                                         <h:outputText value="#{inves.memberLastname}" />
