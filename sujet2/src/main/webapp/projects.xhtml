@@ -10,6 +10,8 @@
             <ui:composition template="template/template.xhtml">
                 <ui:define name="content">
                     <h:form>
+                        <p:tooltip />
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                         #{projectsBean.getAllProjectsNotDeleted()}
                         <p:accordionPanel value="#{projectsBean.listProjects}" var="project">
                             <p:tab title="#{project.projectTitle} [Catégorie:#{project.projectCategory.categoryName}]">

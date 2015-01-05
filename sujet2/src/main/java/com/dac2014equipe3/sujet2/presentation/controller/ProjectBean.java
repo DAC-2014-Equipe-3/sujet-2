@@ -6,7 +6,9 @@ import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
 import com.dac2014equipe3.sujet2.model.entity.MembercreatesProjectPK;
 import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
 import com.dac2014equipe3.sujet2.vo.*;
+import com.dac2014equipe3.sujet2.util.Utilities;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -162,48 +164,60 @@ public class ProjectBean {
 
         if(controller.isLoggedIn()){
             int idUser = controller.getId();
-        boolean isProjectCreator = false;
+            boolean isProjectCreator = false;
 
-        Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
-        ProjectVo projectVo = null;
-        ProjectFacade projectFacade = null;
-        List<MemberbacksProjectVo> listProjectBacks = null;
-        MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
-        MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance().getMemberbacksProjectFacade();
-        MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
-        MemberVo memberVo = memberFacade.find(idUser);
-        List<MembercreatesProjectVo> listMemberProjects = membercreatesProjectFacade.getListForCreator(idUser);
+            Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
+            ProjectVo projectVo = null;
+            ProjectFacade projectFacade = null;
+            List<MemberbacksProjectVo> listProjectBacks = null;
+            MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
+            MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance().getMemberbacksProjectFacade();
+            MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
+            MemberVo memberVo = memberFacade.find(idUser);
+            List<MembercreatesProjectVo> listMemberProjects = membercreatesProjectFacade.getListForCreator(idUser);
 
-        try {
-            id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject"));
-        } catch (NumberFormatException e) {
-            id = 0;
-        }
-
-        if (id > 0) {
-            projectFacade = FacadeFactory.getInstance().getProjectFacade();
-            projectVo = projectFacade.find(id);
-            for (MembercreatesProjectVo McP : listMemberProjects) {
-                if (McP.getMembercreatesProjectPK().getCreatorId() == idUser) {
-                    isProjectCreator = true;
-                }
+            try {
+                id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject"));
+            } catch (NumberFormatException e) {
+                id = 0;
             }
-            if (isProjectCreator || memberVo.getMemberIsAdmin()) {
-                listProjectBacks = memberbacksProjectFacade.getListForProject(id);
-                if (listProjectBacks.isEmpty() && currentDate.compareTo(projectVo.getProjectEndDate()) != 1) {
-                    projectFacade = FacadeFactory.getInstance().getProjectFacade();
-                    projectVo.setProjectIsSuppressed(true);
-                    return projectFacade.updateProject(projectVo) ? "success" : "failure";
+
+            if (id > 0) {
+                projectFacade = FacadeFactory.getInstance().getProjectFacade();
+                projectVo = projectFacade.find(id);
+                for (MembercreatesProjectVo McP : listMemberProjects) {
+                    if (McP.getMembercreatesProjectPK().getCreatorId() == idUser) {
+                        isProjectCreator = true;
+                    }
+                }
+                if (isProjectCreator || memberVo.getMemberIsAdmin()) {
+                    listProjectBacks = memberbacksProjectFacade.getListForProject(id);
+                    if (listProjectBacks.isEmpty() && currentDate.compareTo(projectVo.getProjectEndDate()) != 1) {
+                        projectFacade = FacadeFactory.getInstance().getProjectFacade();
+                        projectVo.setProjectIsSuppressed(true);
+                        if(projectFacade.updateProject(projectVo)){
+                            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Projet supprimé avec succés."));
+                            Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet supprimé avec succés.");
+                            return "success";
+                        }else{
+                            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+                            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
+                            return "failure";
+                        }
+                    } else {
+                        Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
+                        return "failure";
+                    }
                 } else {
+                    Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
                     return "failure";
                 }
             } else {
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
                 return "failure";
             }
-        } else {
-            return "failure";
-        }
         }else{
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
             return "failure";
         }
 
