@@ -11,7 +11,9 @@
                         <p:menuitem value="Rechercher" icon="ui-icon-search"/>
                     </p:submenu>
                     <p:submenu label="Membre">
-                        <p:menuitem value="Mes informations" icon="ui-icon-wrench" action="infomember" url="/faces/form_updatemember.xhtml"/>
+                        <p:menuitem  url="/faces/form_updatemember.xhtml" value="Modifier" icon="ui-icon-pencil"/>
+                        <p:menuitem  url="/faces/form_updatepassword.xhtml" value="Mot de passe" icon="ui-icon-key"/>
+                        <p:menuitem  url="/faces/form_updatemember.xhtml" value="Supprimer le compte" icon="ui-icon-trash"/>
                         <p:menuitem value="Déconnexion" icon="ui-icon-power" action="#{memberBean.disconnect()}" />
                     </p:submenu>
                 </p:menu>
