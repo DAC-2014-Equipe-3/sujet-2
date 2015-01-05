@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `sujet2`.`Reward` (
   `rewardName` VARCHAR(45) NOT NULL,
   `rewardDescription` VARCHAR(45) NOT NULL,
   `rewardMinPrice` VARCHAR(45) NULL,
-  `Project_projectId` INT(11) NOT NULL,
+  `Project_projectId` INT(11) NULL,
   PRIMARY KEY (`rewardId`),
   INDEX `fk_Reward_Project1_idx` (`Project_projectId` ASC),
   CONSTRAINT `fk_Reward_Project1`
