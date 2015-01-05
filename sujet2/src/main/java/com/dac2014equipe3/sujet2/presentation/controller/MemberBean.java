@@ -7,23 +7,17 @@ package com.dac2014equipe3.sujet2.presentation.controller;
 
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
-import com.dac2014equipe3.sujet2.businesslogic.facade.MemberbacksProjectFacade;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MembercreatesProjectFacade;
-import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
 import com.dac2014equipe3.sujet2.model.entity.Project;
 import com.dac2014equipe3.sujet2.util.Utilities;
 import com.dac2014equipe3.sujet2.vo.MemberVo;
-import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
-import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import java.util.Date;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * @author Jummartinezro
@@ -466,7 +460,7 @@ public class MemberBean {
             MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance()
                     .getMembercreatesProjectFacade();
 
-           List<ProjectVo> listMemberProjects = membercreatesProjectFacade.getListCreator(memberVo.getMemberId());
+           List<ProjectVo> listMemberProjects = membercreatesProjectFacade.getListCreatorProject(memberVo.getMemberId());
             if (listMemberProjects.size() > 0) {
                 Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Impossible de supprimer le compte" +
                         " Veuillez contacter l'adminnistrateur : admin@dac.imag ") ;
