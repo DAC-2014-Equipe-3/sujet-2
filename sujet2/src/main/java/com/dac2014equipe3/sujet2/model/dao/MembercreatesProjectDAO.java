@@ -76,7 +76,7 @@ public class MembercreatesProjectDAO implements IDAO<MembercreatesProject> {
      * @param em
      * @return
      */
-    public List<Project> getListCreator(Integer memberId, EntityManager em) {
+    public List<Project> getListCreatorProject(Integer memberId, EntityManager em) {
         List<Project> project =null;
         Query q = em.createQuery(JPQL_SELECT_BY_CREATEDID_PROJECT);
         q.setParameter(PARAM_CREATEDID, (Integer)memberId);

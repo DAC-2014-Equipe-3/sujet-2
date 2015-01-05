@@ -5,7 +5,6 @@ import com.dac2014equipe3.sujet2.model.dao.MembercreatesProjectDAO;
 import com.dac2014equipe3.sujet2.model.entity.Member;
 import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
 import com.dac2014equipe3.sujet2.model.entity.Project;
-import com.dac2014equipe3.sujet2.vo.MemberVo;
 import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
@@ -99,9 +98,9 @@ public class MembercreatesProjectService implements IService<MembercreatesProjec
         return list;
     }
 
-    public List<ProjectVo> getListCreator(Integer memberId, EntityManager em) {
+    public List<ProjectVo> getListCreatorProject(Integer memberId, EntityManager em) {
         List<ProjectVo> list = new ArrayList<ProjectVo>();
-        for (Project project : DAOFactory.getInstance().getMembercreatesProjectDAO().getListCreator(memberId, em)) {
+        for (Project project : DAOFactory.getInstance().getMembercreatesProjectDAO().getListCreatorProject(memberId, em)) {
             list.add((project).toVo());
         }
         return list;
