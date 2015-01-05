@@ -369,8 +369,11 @@ public class MemberBean {
      * Mettre à jour les informations de l'utilisateur
      */
     public String updateAccount() {
-        //TODO Valider côté serveur la validité des champs !
-        loggedIn = false;
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
+              setLoggedIn(controller.isLoggedIn());
+              setId(controller.getId());
         if (isLoggedIn()) {
             return "failure";
         } else {
@@ -379,7 +382,7 @@ public class MemberBean {
 
             MemberVo memberVo = new MemberVo();
 
-            //TODO Recuperation de l'id  membre dans la session
+
             memberVo.setMemberId(getId());
             memberVo.setMemberLogin(getLogin());
             memberVo.setMemberEmail(getEmail());
@@ -404,13 +407,17 @@ public class MemberBean {
      * Mettre à jour le mot de passe de l'utilisateur
      */
     public String updatePassword() {
-        //TODO Valider côté serveur la validité des champs !
-        loggedIn = true;
+        /*recuperation des infos sur l'utilisateur courant */
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
+        setLoggedIn(controller.isLoggedIn());
+        setId(controller.getId());
         if (!isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
-            //TODO Recuperation de l'id  membre dans la session
+
             MemberVo memberVo =memberFacade.find(getId());
 
             if (verifyPassword(memberVo, getOldPassword())) {
@@ -449,23 +456,32 @@ public class MemberBean {
      * @return
      */
     public String deleteAccount() {
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
+        setLoggedIn(controller.isLoggedIn());
+        setId(controller.getId());
 
         if (!isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance()
                     .getMemberFacade();
-            MemberVo memberVo = memberFacade.find(id);
-            if (memberVo.getProjectList().size() > 0) {
+            MemberVo memberVo = memberFacade.find(getId());
+
+            MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance()
+                    .getMembercreatesProjectFacade();
+
+            List<MembercreatesProjectVo> listMemberProjects = membercreatesProjectFacade.getListForCreator(getId());
+
+            if (listMemberProjects.size() > 0) {
                 return "failure";
             }
-            memberVo.setMemberId(id);
             memberVo.setMemberIsSuppressed(true);
-            memberFacade.update(memberVo);
+            memberFacade.updateMember(memberVo);
             return "success";
         }
     }
-
     /**
      * Deconnecter membre
      *
