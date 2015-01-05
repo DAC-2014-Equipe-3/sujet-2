@@ -73,6 +73,10 @@
             <from-outcome>failure</from-outcome>
             <to-view-id>/template/error.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>update_password</from-outcome>
+            <to-view-id>/form_updatepassword.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
