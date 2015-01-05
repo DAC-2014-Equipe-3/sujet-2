@@ -1,23 +1,40 @@
 
-body{
+body {
     font-size: small;
-}
-
-.logo_footer{
-    width: 100px;
-    height: 100px;
+    height: 100%;
 }
 
 #page{
-    background-color: green;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.logo_footer{
+    width: 60px;
+    height: 60px;
 }
 
 #header{
-    /*background-image: url("../../webapp/img/header.jpg");*/
-    background-repeat: repeat-y; !important;
+    margin:0;
+    padding: 0;
+    height: 150px;
+    background-image: url("../../img/header.jpg");
+    background-repeat: repeat-x;
 }
 
 #footer{
-    /*background-image: url("../../webapp/img/footer.jpg");*/
-    background-repeat: repeat-y; !important;
+    height: auto;
+    background-image: url("../../img/footer.jpg");
+    background-repeat: repeat-x;
+}
+
+#content{
+    min-height: 600px;
+}
+
+#leftPanel{
+    height: 400px;
+    /*background-color: #003366;*/
+    /*border:2px solid #80D0D0;*/
 }
