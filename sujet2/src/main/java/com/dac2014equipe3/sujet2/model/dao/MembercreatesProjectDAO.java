@@ -1,9 +1,13 @@
 package com.dac2014equipe3.sujet2.model.dao;
 
+import com.dac2014equipe3.sujet2.model.entity.Member;
 import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
 import com.dac2014equipe3.sujet2.model.entity.MembercreatesProjectPK;
+import com.dac2014equipe3.sujet2.model.entity.Project;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -13,6 +17,13 @@ import java.util.List;
 public class MembercreatesProjectDAO implements IDAO<MembercreatesProject> {
 
     private static MembercreatesProjectDAO instance;
+    private static final String JPQL_SELECT_BY_CREATEDID_PROJECT  = " SELECT p FROM Project p , MembercreatesProject m " +
+                    " WHERE ( p.projectIsSuppressed = :projectIsSuppressed ) " +
+                    " AND (m.membercreatesProjectPK.creatorId = :creatorId AND m.membercreatesProjectPK.projectId = p.projectId ) " ;
+
+    private static final String PARAM_PROJECTSUPPRESSED = "projectIsSuppressed";
+    private static final String PARAM_CREATEDID = "creatorId";
+
 
     public static synchronized MembercreatesProjectDAO getInstance() {
         if (instance == null) {
@@ -58,4 +69,26 @@ public class MembercreatesProjectDAO implements IDAO<MembercreatesProject> {
         List<MembercreatesProject> listMcP = query.getResultList();
         return listMcP;
     }
+
+    /**
+     * recuperation des projets d'un utilisateur
+     * @param memberId
+     * @param em
+     * @return
+     */
+    public List<Project> getListCreator(Integer memberId, EntityManager em) {
+        List<Project> project =null;
+        Query q = em.createQuery(JPQL_SELECT_BY_CREATEDID_PROJECT);
+        q.setParameter(PARAM_CREATEDID, (Integer)memberId);
+        q.setParameter(PARAM_PROJECTSUPPRESSED, false);
+
+        try {
+            project = (List<Project>) q.getResultList();
+        } catch (NonUniqueResultException e) {
+        } catch (NoResultException e) {
+        }
+
+        return project;
+    }
+
 }
