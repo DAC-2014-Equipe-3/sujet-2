@@ -27,15 +27,20 @@
                                     <h:outputText value="#{project.projectEndDate}" />
 
                                     <h:outputText value="Createur:" />
-                                    <p:tab value="#{project.memberList}" var="creator">
+                                    <ui:repeat value="#{project.memberList}" var="creator">
                                         <h:outputText value="#{creator.memberFirstname}" />
+                                        <h:outputText value=" " />
                                         <h:outputText value="#{creator.memberLastname}" />
-                                    </p:tab>
+                                        <h:outputText value=" | " />
+                                    </ui:repeat>
+
                                     <h:outputText value="Investisseurs:" />
-                                    <p:tab value="#{project.investedProjects}" var="inves">
-                                        <h:outputText value="#{inves.memberFirstname}" />
-                                        <h:outputText value="#{inves.memberLastname}" />
-                                    </p:tab>
+                                    <ui:repeat value="#{project.memberbacksProjectList}" var="inves">
+                                        <h:outputText value="#{inves.member1.memberFirstname}" />
+                                        <h:outputText value=" " />
+                                        <h:outputText value="#{inves.member1.memberLastname}" />
+                                        <h:outputText value=" | " />
+                                    </ui:repeat>
                                     <h:link value="Supprimer" outcome="form_deleteproject" >
                                         <f:param name="idProject" value="#{project.projectId}" />
                                     </h:link>

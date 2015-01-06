@@ -1,0 +1,40 @@
+
+body {
+    font-size: small;
+    height: 100%;
+}
+
+#page{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.logo_footer{
+    width: 60px;
+    height: 60px;
+}
+
+#header{
+    margin:0;
+    padding: 0;
+    height: 150px;
+    background-image: url("../../img/header.jpg");
+    background-repeat: repeat-x;
+}
+
+#footer{
+    height: auto;
+    background-image: url("../../img/footer.jpg");
+    background-repeat: repeat-x;
+}
+
+#content{
+    min-height: 600px;
+}
+
+#leftPanel{
+    height: 400px;
+    /*background-color: #003366;*/
+    /*border:2px solid #80D0D0;*/
+}

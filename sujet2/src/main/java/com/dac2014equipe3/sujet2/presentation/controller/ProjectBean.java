@@ -6,6 +6,7 @@ import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
 import com.dac2014equipe3.sujet2.model.entity.MembercreatesProjectPK;
 import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
 import com.dac2014equipe3.sujet2.vo.*;
+import com.dac2014equipe3.sujet2.util.Utilities;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -195,26 +196,28 @@ public class ProjectBean {
                         projectFacade = FacadeFactory.getInstance().getProjectFacade();
                         projectVo.setProjectIsSuppressed(true);
                         if(projectFacade.updateProject(projectVo)){
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Projet supprimé avec succés."));
+                            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Projet supprimé avec succés."));
+                            Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet supprimé avec succés.");
                             return "success";
                         }else{
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+                            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+                            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
                             return "failure";
                         }
                     } else {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+                        Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
                         return "failure";
                     }
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+                    Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
                     return "failure";
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
                 return "failure";
             }
         }else{
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
             return "failure";
         }
 

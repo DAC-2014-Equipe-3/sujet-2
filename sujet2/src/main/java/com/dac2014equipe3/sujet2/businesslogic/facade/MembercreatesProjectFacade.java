@@ -2,8 +2,6 @@ package com.dac2014equipe3.sujet2.businesslogic.facade;
 
 import com.dac2014equipe3.sujet2.businesslogic.service.IService;
 import com.dac2014equipe3.sujet2.businesslogic.service.MembercreatesProjectService;
-import com.dac2014equipe3.sujet2.businesslogic.service.ProjectService;
-import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
 import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
@@ -29,6 +27,16 @@ public class MembercreatesProjectFacade extends Facade<MembercreatesProjectVo> {
     public List<MembercreatesProjectVo> getListForCreator(Object idCreator) {
         try {
             return ((MembercreatesProjectService)service).getListForCreator(idCreator, em);
+        } finally {
+            if (em != null) {
+                em.clear();
+                em.close();
+            }
+        }
+    }
+    public List<ProjectVo> getListCreatorProject(Integer memberId) {
+        try {
+            return ((MembercreatesProjectService)service).getListCreatorProject(memberId, em);
         } finally {
             if (em != null) {
                 em.clear();
