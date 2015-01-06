@@ -5,7 +5,9 @@ import com.dac2014equipe3.sujet2.model.dao.MembercreatesProjectDAO;
 import com.dac2014equipe3.sujet2.model.entity.Member;
 import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
 import com.dac2014equipe3.sujet2.model.entity.Project;
+import com.dac2014equipe3.sujet2.model.entity.Reward;
 import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
+import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -47,6 +49,12 @@ public class MembercreatesProjectService implements IService<MembercreatesProjec
 
         //Verify if all the fields are needed
         Project project = new Project();
+        List<Reward> rewardList = new ArrayList<Reward>();
+        int i=0;
+        for(Reward reward : rewardList){
+            rewardList.add(new Reward((membercreatesProjectVo.getProject().getListReward().get(i++))));
+        }
+
         project.setMediaList(membercreatesProjectVo.getProject().getMediaList());
         project.setMemberList(membercreatesProjectVo.getProject().getMemberList());
         project.setMemberbacksProjectList(membercreatesProjectVo.getProject().getMemberbacksProjectList());
@@ -58,7 +66,7 @@ public class MembercreatesProjectService implements IService<MembercreatesProjec
         project.setProjectId(membercreatesProjectVo.getProject().getProjectId());
         project.setProjectIsSuppressed(membercreatesProjectVo.getProject().getProjectIsSuppressed());
         project.setProjectTitle(membercreatesProjectVo.getProject().getProjectTitle());
-        project.setReward(membercreatesProjectVo.getProject().getReward());
+        project.setReward(rewardList);
 
         entity.setMember1(member);
         entity.setProject(project);
@@ -93,6 +101,14 @@ public class MembercreatesProjectService implements IService<MembercreatesProjec
         List<MembercreatesProjectVo> list = new ArrayList<MembercreatesProjectVo>();
         for (MembercreatesProject McP : DAOFactory.getInstance().getMembercreatesProjectDAO().getListForCreator(idCreator, em)) {
             list.add((McP).toVo());
+        }
+        return list;
+    }
+
+    public List<ProjectVo> getListCreatorProject(Integer memberId, EntityManager em) {
+        List<ProjectVo> list = new ArrayList<ProjectVo>();
+        for (Project project : DAOFactory.getInstance().getMembercreatesProjectDAO().getListCreatorProject(memberId, em)) {
+            list.add((project).toVo());
         }
         return list;
     }
