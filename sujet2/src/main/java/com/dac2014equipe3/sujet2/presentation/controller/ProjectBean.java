@@ -1,23 +1,19 @@
 package com.dac2014equipe3.sujet2.presentation.controller;
 
 import com.dac2014equipe3.sujet2.businesslogic.facade.*;
-import com.dac2014equipe3.sujet2.model.entity.MemberbacksProjectPK;
-import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
-import com.dac2014equipe3.sujet2.model.entity.MembercreatesProjectPK;
-import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
+import com.dac2014equipe3.sujet2.model.entity.*;
 import com.dac2014equipe3.sujet2.vo.*;
-import com.dac2014equipe3.sujet2.util.Utilities;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import java.util.Date;
-import java.util.Calendar;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.util.*;
 
 @ManagedBean(name = "projectBean")
-@RequestScoped
+@SessionScoped
 public class ProjectBean {
 
     private int id;
@@ -30,8 +26,77 @@ public class ProjectBean {
     private boolean isSuppressed;
     private ProjectCategoryVo categoryVo;
 
-    public ProjectBean() {
+    private Integer rewardId;
+    private String rewardName;
+    private String rewardDescription;
+    private String rewardMinPrice;
+    private List<RewardVo> rewardList;
+
+    public String getRewardMinPrice() {
+        return rewardMinPrice;
     }
+
+    public void setRewardMinPrice(String rewardMinPrice) {
+        this.rewardMinPrice = rewardMinPrice;
+    }
+
+    public Integer getRewardId() {
+        return rewardId;
+    }
+
+    public void setRewardId(Integer rewardId) {
+        this.rewardId = rewardId;
+    }
+
+    public String getRewardName() {
+        return rewardName;
+    }
+
+    public void setRewardName(String rewardName) {
+        this.rewardName = rewardName;
+    }
+
+    public String getRewardDescription() {
+        return rewardDescription;
+    }
+
+    public void setRewardDescription(String rewardDescription) {
+        this.rewardDescription = rewardDescription;
+    }
+
+    public void addReward(){
+        this.rewardList.add(new RewardVo(
+                0,
+                this.rewardName,
+                this.rewardDescription,
+                this.rewardMinPrice));
+
+        this.rewardName = "";
+        this.rewardDescription = "";
+        this.rewardMinPrice = "";
+    }
+
+    public void removeReward(RewardVo rewardVo){
+        this.rewardList.remove(rewardVo);
+    }
+
+    public List<RewardVo> getRewardList() {
+        return rewardList;
+    }
+
+    public void setRewardList(List<RewardVo> rewardList) {
+        this.rewardList = rewardList;
+    }
+
+
+
+    public ProjectBean() {
+        rewardList = new ArrayList<RewardVo>();
+    }
+
+
+
+
 
     public Date getEndDate() {
         return endDate;
@@ -129,7 +194,7 @@ public class ProjectBean {
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
         projectVo.setMediaList(null); //TODO
         projectVo.setMemberbacksProjectList(null); //TODO
-        projectVo.setReward(null);//TODO
+        projectVo.setListReward(getRewardList());//TODO
         projectFacade.addProject(projectVo);
 
         //Get the new project id
@@ -147,6 +212,26 @@ public class ProjectBean {
         MembercreatesProjectVo membercreatesProjectVo = new MembercreatesProjectVo(membercreatesProjectPK, memberVo, projectVo);
 
         membercreatesProjectFacade.addMembercreatesProject(membercreatesProjectVo);
+
+
+        List<Reward> rewards = new ArrayList<Reward>();
+        int i=0;
+        for(RewardVo reward : rewardList){
+            rewards.add(new Reward(projectVo.getListReward().get(i++)));
+        }
+
+        Project project = new Project(projectVo);
+        project.setReward(rewards);
+        for(RewardVo r : rewardList){
+            r.setProject(project);
+        }
+
+
+
+        //Register the rewards
+        RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();
+        rewardFacade.addRewardList(rewardList);
+
 
         return "success";
     }
@@ -196,28 +281,26 @@ public class ProjectBean {
                         projectFacade = FacadeFactory.getInstance().getProjectFacade();
                         projectVo.setProjectIsSuppressed(true);
                         if(projectFacade.updateProject(projectVo)){
-                            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Projet supprimé avec succés."));
-                            Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet supprimé avec succés.");
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Projet supprimé avec succés."));
                             return "success";
                         }else{
-                            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
-                            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
                             return "failure";
                         }
                     } else {
-                        Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
                         return "failure";
                     }
                 } else {
-                    Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
                     return "failure";
                 }
             } else {
-                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
                 return "failure";
             }
         }else{
-            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé.");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
             return "failure";
         }
 

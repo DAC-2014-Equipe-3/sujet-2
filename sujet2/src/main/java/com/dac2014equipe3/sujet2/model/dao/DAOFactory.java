@@ -38,4 +38,8 @@ public class DAOFactory {
     public MemberbacksProjectDAO getMemberbacksProjectDAO(){
         return MemberbacksProjectDAO.getInstance();
     }
+
+    public RewardDAO getRewardDAO() {
+        return RewardDAO.getInstance();
+    }
 }

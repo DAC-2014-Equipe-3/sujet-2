@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = "MembercreatesProject.findByMembercreatesProjectPK", query = "SELECT m FROM MembercreatesProject m WHERE (m.membercreatesProjectPK.creatorId = :creatorId) AND (m.membercreatesProjectPK.projectId = :projectId)"),
         @NamedQuery(name = "MembercreatesProject.findByCreatorId", query = "SELECT m FROM MembercreatesProject m WHERE m.membercreatesProjectPK.creatorId = :creatorId"),
         @NamedQuery(name = "MembercreatesProject.findByProjectId", query = "SELECT m FROM MembercreatesProject m WHERE m.membercreatesProjectPK.projectId = :projectId")})
+
 public class MembercreatesProject implements Serializable, IEntity<MembercreatesProjectVo> {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

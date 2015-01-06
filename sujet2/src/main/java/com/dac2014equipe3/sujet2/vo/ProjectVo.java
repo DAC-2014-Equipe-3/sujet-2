@@ -17,7 +17,7 @@ public class ProjectVo implements IValueObject{
     private ProjectCategory projectCategory;
     private List<Media> mediaList;
     private List<MemberbacksProject> memberbacksProjectList;
-    private Reward reward;
+    private List<RewardVo> listReward;
 
     /**
      *
@@ -195,19 +195,11 @@ public class ProjectVo implements IValueObject{
         this.memberbacksProjectList = memberbacksProjectList;
     }
 
-    /**
-     *
-     * @return reward
-     */
-    public Reward getReward() {
-        return reward;
+    public List<RewardVo> getListReward() {
+        return listReward;
     }
 
-    /**
-     *
-     * @param reward
-     */
-    public void setReward(Reward reward) {
-        this.reward = reward;
+    public void setListReward(List<RewardVo> listReward) {
+        this.listReward = listReward;
     }
 }

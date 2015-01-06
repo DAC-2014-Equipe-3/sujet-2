@@ -7,17 +7,21 @@ package com.dac2014equipe3.sujet2.presentation.controller;
 
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
+import com.dac2014equipe3.sujet2.businesslogic.facade.MemberbacksProjectFacade;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MembercreatesProjectFacade;
+import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
 import com.dac2014equipe3.sujet2.model.entity.Project;
-import com.dac2014equipe3.sujet2.util.Utilities;
 import com.dac2014equipe3.sujet2.vo.MemberVo;
+import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
+import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * @author Jummartinezro
@@ -331,15 +335,18 @@ public class MemberBean {
      * Recuperer les infos personnelles du membre connecté
      */
     public void getDataMember() {
-        setId(Utilities.getSessionMemberId());
-        setLoggedIn(Utilities.getSessionMemberLoggedIn());
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
+
+        setLoggedIn(controller.isLoggedIn());
         if (isLoggedIn()) {
 
             MemberFacade memberFacade = FacadeFactory.getInstance()
                     .getMemberFacade();
             //TODO recuperer session membre pour recuperer l'utilisateur courant
 
-            setId(getId());
+            setId(controller.getId());
             MemberVo memberVo = memberFacade.find(getId());
             setLogin(memberVo.getMemberLogin());
             setBirthday(memberVo.getMemberBirthday());
@@ -362,9 +369,12 @@ public class MemberBean {
      * Mettre à jour les informations de l'utilisateur
      */
     public String updateAccount() {
-        setId(Utilities.getSessionMemberId());
-        setLoggedIn(Utilities.getSessionMemberLoggedIn());
-        if (! isLoggedIn()) {
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
+              setLoggedIn(controller.isLoggedIn());
+              setId(controller.getId());
+        if (isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance()
@@ -387,10 +397,8 @@ public class MemberBean {
             memberVo.setMemberProfession(getProfession());
             memberVo.setMemberJoiningDate(new Date());
             if (memberFacade.updateMember(memberVo)) {
-                Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, " Mis à jour effectué avec succès ") ;
                 return "success";
             }
-            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour  ");
             return "failure";
         }
     }
@@ -400,11 +408,12 @@ public class MemberBean {
      */
     public String updatePassword() {
         /*recuperation des infos sur l'utilisateur courant */
-
-        setId(Utilities.getSessionMemberId());
-        setLoggedIn(Utilities.getSessionMemberLoggedIn());
-
-        if (! isLoggedIn()) {
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
+        setLoggedIn(controller.isLoggedIn());
+        setId(controller.getId());
+        if (!isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
@@ -415,13 +424,11 @@ public class MemberBean {
                 memberVo.setMemberPassword(getPassword());
                 memberFacade = FacadeFactory.getInstance().getMemberFacade();
                 if (memberFacade.updateMember(memberVo)) {
-                    Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, " Mot de passe mis à jour effectué avec succès ") ;
                     return "success";
                 }
-                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mis à jour du mot de passe ") ;
                 return "failure";
             } else {
-                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mis à jour du mot de passe ") ;
+                // envoyer message signant l'erreur
                 return "failure";
             }
         }
@@ -449,6 +456,11 @@ public class MemberBean {
      * @return
      */
     public String deleteAccount() {
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
+        setLoggedIn(controller.isLoggedIn());
+        setId(controller.getId());
 
         if (!isLoggedIn()) {
             return "failure";
@@ -460,16 +472,13 @@ public class MemberBean {
             MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance()
                     .getMembercreatesProjectFacade();
 
-           List<ProjectVo> listMemberProjects = membercreatesProjectFacade.getListCreatorProject(memberVo.getMemberId());
+            List<MembercreatesProjectVo> listMemberProjects = membercreatesProjectFacade.getListForCreator(getId());
+
             if (listMemberProjects.size() > 0) {
-                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Impossible de supprimer le compte" +
-                        " Veuillez contacter l'adminnistrateur : admin@dac.imag ") ;
                 return "failure";
             }
             memberVo.setMemberIsSuppressed(true);
-            memberFacade = FacadeFactory.getInstance().getMemberFacade();
             memberFacade.updateMember(memberVo);
-            Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, " Compte supprimé avec succès ") ;
             return "success";
         }
     }
@@ -549,6 +558,5 @@ public class MemberBean {
             }
         }*/
     }
-
 
 }

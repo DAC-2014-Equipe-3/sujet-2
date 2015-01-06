@@ -41,4 +41,8 @@ public class ServiceFactory {
     public MemberbacksProjectService getMemberbacksProjectServices() {
         return MemberbacksProjectService.getInstance();
     }
+
+    public RewardServices getRewardServices(){
+        return RewardServices.getInstance();
+    }
 }

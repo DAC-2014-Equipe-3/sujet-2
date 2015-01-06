@@ -6,21 +6,11 @@
 
 package com.dac2014equipe3.sujet2.model.entity;
 
+import com.dac2014equipe3.sujet2.vo.RewardVo;
+
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -39,7 +29,7 @@ import javax.validation.constraints.Size;
 public class Reward implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "rewardId")
     private Integer rewardId;
@@ -58,8 +48,8 @@ public class Reward implements Serializable {
     private String rewardMinPrice;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reward")
     private List<MemberbacksProject> memberbacksProjectList;
-    @JoinColumn(name = "rewardId", referencedColumnName = "projectId", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @JoinColumn(name = "Project_projectId", referencedColumnName = "projectId", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private Project project;
 
     public Reward() {
@@ -69,10 +59,20 @@ public class Reward implements Serializable {
         this.rewardId = rewardId;
     }
 
-    public Reward(Integer rewardId, String rewardName, String rewardDescription) {
+    public Reward(Integer rewardId, String rewardName, String rewardDescription, String rewardMinPrice, Project project) {
         this.rewardId = rewardId;
         this.rewardName = rewardName;
         this.rewardDescription = rewardDescription;
+        this.rewardMinPrice = rewardMinPrice;
+        this.project = project;
+    }
+
+    public Reward(RewardVo rewardVo) {
+        this.rewardId = rewardVo.getRewardId();
+        this.rewardName = rewardVo.getRewardName();
+        this.rewardDescription = rewardVo.getRewardDescription();
+        this.rewardMinPrice = rewardVo.getRewardMinPrice();
+        this.project = rewardVo.getProject();
     }
 
     public Integer getRewardId() {

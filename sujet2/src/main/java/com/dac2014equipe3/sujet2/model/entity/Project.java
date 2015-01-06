@@ -9,8 +9,10 @@ package com.dac2014equipe3.sujet2.model.entity;
 import com.dac2014equipe3.sujet2.vo.MemberVo;
 import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
+import com.dac2014equipe3.sujet2.vo.RewardVo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -26,7 +28,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -54,6 +55,7 @@ import javax.validation.constraints.Size;
             "WHERE p.projectDescription = :projectDescription"),
     @NamedQuery(name = "Project.findByProjectIsSuppressed", query = "SELECT p FROM Project p " +
             "WHERE p.projectIsSuppressed = :projectIsSuppressed")})
+
 public class Project implements Serializable, IEntity<ProjectVo> {
     private static final long serialVersionUID = 1L;
     @Id
@@ -96,8 +98,8 @@ public class Project implements Serializable, IEntity<ProjectVo> {
     private List<Media> mediaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private List<MemberbacksProject> memberbacksProjectList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "project")
-    private Reward reward;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+    private List<Reward> reward;
 
     public Project() {
     }
@@ -117,6 +119,12 @@ public class Project implements Serializable, IEntity<ProjectVo> {
     }
 
     public Project(ProjectVo projectVo){
+        List<Reward> rewardList = new ArrayList<Reward>();
+        int i=0;
+        for(Reward reward : rewardList){
+            rewardList.add(new Reward(projectVo.getListReward().get(i++)));
+        }
+
         this.setMediaList(projectVo.getMediaList());
         this.setMemberList(projectVo.getMemberList());
         this.setMemberbacksProjectList(projectVo.getMemberbacksProjectList());
@@ -128,7 +136,7 @@ public class Project implements Serializable, IEntity<ProjectVo> {
         this.setProjectId(projectVo.getProjectId());
         this.setProjectIsSuppressed(projectVo.getProjectIsSuppressed());
         this.setProjectTitle(projectVo.getProjectTitle());
-        this.setReward(projectVo.getReward());
+        this.setReward(rewardList);
     }
 
     public Integer getProjectId() {
@@ -219,11 +227,11 @@ public class Project implements Serializable, IEntity<ProjectVo> {
         this.memberbacksProjectList = memberbacksProjectList;
     }
 
-    public Reward getReward() {
+    public List<Reward> getReward() {
         return reward;
     }
 
-    public void setReward(Reward reward) {
+    public void setReward(List<Reward> reward) {
         this.reward = reward;
     }
 
@@ -256,6 +264,14 @@ public class Project implements Serializable, IEntity<ProjectVo> {
     @Override
     public ProjectVo toVo() {
         ProjectVo vo = new ProjectVo();
+        List<RewardVo> rewardList = new ArrayList<RewardVo>();
+        int i=0;
+        for(RewardVo reward : rewardList){
+            rewardList.add(new RewardVo(this.getReward().get(i).getRewardId(),
+                    this.getReward().get(i).getRewardName(),
+                    this.getReward().get(i).getRewardDescription(),
+                    this.getReward().get(i++).getRewardMinPrice()));
+        }
 
         vo.setMediaList(mediaList);
         vo.setMemberList(memberList);
@@ -268,7 +284,7 @@ public class Project implements Serializable, IEntity<ProjectVo> {
         vo.setProjectId(projectId);
         vo.setProjectIsSuppressed(projectIsSuppressed);
         vo.setProjectTitle(projectTitle);
-        vo.setReward(reward);
+        vo.setListReward(rewardList);
 
         return vo;
     }

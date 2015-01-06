@@ -43,4 +43,8 @@ public class FacadeFactory {
     public MemberbacksProjectFacade getMemberbacksProjectFacade(){
         return new MemberbacksProjectFacade(PU, ServiceFactory.getInstance().getMemberbacksProjectServices());
     }
+
+    public RewardFacade getRewardFacade(){
+        return new RewardFacade(PU, ServiceFactory.getInstance().getRewardServices());
+    }
 }

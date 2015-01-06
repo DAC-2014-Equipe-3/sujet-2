@@ -3,6 +3,7 @@ package com.dac2014equipe3.sujet2.businesslogic.service;
 import com.dac2014equipe3.sujet2.model.dao.DAOFactory;
 import com.dac2014equipe3.sujet2.model.dao.ProjectDAO;
 import com.dac2014equipe3.sujet2.model.entity.Project;
+import com.dac2014equipe3.sujet2.model.entity.Reward;
 import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
@@ -28,6 +29,12 @@ public class ProjectService implements IService<ProjectVo>{
     public void persist(ProjectVo vo, EntityManager em) {
         Project entity = new Project();
 
+        List<Reward> rewardList = new ArrayList<Reward>();
+        int i=0;
+        for(Reward reward : rewardList){
+            rewardList.add(new Reward(vo.getListReward().get(i++)));
+        }
+
         entity.setMediaList(vo.getMediaList());
         entity.setMemberList(vo.getMemberList());
         entity.setMemberbacksProjectList(vo.getMemberbacksProjectList());
@@ -39,7 +46,7 @@ public class ProjectService implements IService<ProjectVo>{
         entity.setProjectId(vo.getProjectId());
         entity.setProjectIsSuppressed(vo.getProjectIsSuppressed());
         entity.setProjectTitle(vo.getProjectTitle());
-        entity.setReward(vo.getReward());
+        entity.setReward(rewardList);
 
         DAOFactory.getInstance().getProjectDAO().persist(entity, em);
         vo.setProjectId(entity.getProjectId());
@@ -57,6 +64,12 @@ public class ProjectService implements IService<ProjectVo>{
         Project entity = new Project();
         ProjectDAO dao = DAOFactory.getInstance().getProjectDAO();
 
+        List<Reward> rewardList = new ArrayList<Reward>();
+        int i=0;
+        for(Reward reward : rewardList){
+            rewardList.add(new Reward(vo.getListReward().get(i++)));
+        }
+
         entity.setMediaList(vo.getMediaList());
         entity.setMemberList(vo.getMemberList());
         entity.setMemberbacksProjectList(vo.getMemberbacksProjectList());
@@ -68,7 +81,7 @@ public class ProjectService implements IService<ProjectVo>{
         entity.setProjectId(vo.getProjectId());
         entity.setProjectIsSuppressed(vo.getProjectIsSuppressed());
         entity.setProjectTitle(vo.getProjectTitle());
-        entity.setReward(vo.getReward());
+        entity.setReward(rewardList);
 
         dao.update(entity, em);
     }
