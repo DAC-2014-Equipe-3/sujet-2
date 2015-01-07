@@ -28,4 +28,10 @@ public class Utilities {
                         MemberBean.class);
         return controller.isLoggedIn();
     }
+
+    public static  void setSessionMemberLoggedIn(Boolean logout){
+        FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class).setLoggedIn(logout);
+    }
 }

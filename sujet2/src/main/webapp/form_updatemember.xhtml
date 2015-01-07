@@ -8,8 +8,9 @@
     <h:body>
         <ui:composition template="template/template.xhtml">
             <ui:define name="content">
-
-                #{memberBean.getDataMember()}
+                <h:form id="form_1">
+                    <h:inputHidden value="#{memberBean.getDataMember()}" id="getdata_1" />
+                </h:form>
                 <h:form>
                     <p:tooltip />
                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
@@ -74,12 +75,18 @@
                         </h:panelGrid>
                         <div class="form-actions">
                             <h:commandButton action="#{memberBean.updateAccount()}" value="Modifier" class="btn btn-danger" />
-                            <h:commandButton action="#{memberBean.deleteAccount()}" value="Supprimer le compte" />
-                        </div>
 
+                            <p:commandButton value="Supprimer le compte" actionListener="#{memberBean.deleteAccount()}">
+                                <p:confirm header="Confirmation : Ceci supprimera votre compte" message=" Votre compte sera supprimé  après cette opération" icon="ui-icon-alert" />
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton   value="Valider" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Annuler" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </div>
                     </div>
                 </h:form>
-
             </ui:define>
         </ui:composition>
     </h:body>

@@ -7,21 +7,19 @@ package com.dac2014equipe3.sujet2.presentation.controller;
 
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
-import com.dac2014equipe3.sujet2.businesslogic.facade.MemberbacksProjectFacade;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MembercreatesProjectFacade;
-import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
 import com.dac2014equipe3.sujet2.model.entity.Project;
+import com.dac2014equipe3.sujet2.util.Utilities;
 import com.dac2014equipe3.sujet2.vo.MemberVo;
-import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
 import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
+import org.primefaces.context.RequestContext;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import java.util.Date;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * @author Jummartinezro
@@ -312,41 +310,38 @@ public class MemberBean {
         //TODO Valider côté serveur la validité des champs !
         //TODO Ouvrir session membre
 
-            MemberVo memberVo = new MemberVo();
-            MemberFacade memberFacade = FacadeFactory.getInstance()
-                    .getMemberFacade();
-            memberVo.setMemberLogin(getLogin());
-            memberVo.setMemberPassword(getPassword());
-            memberVo.setMemberEmail(getEmail());
-            memberVo.setMemberNationality(getNationality());
-            memberVo.setMemberBirthday(getBirthday());
-            memberVo.setMemberFirstname(getFirstName());
-            memberVo.setMemberLastname(getLastName());
-            memberVo.setMemberSex(getSex());
-            memberVo.setMemberProfession(getProfession());
-            memberVo.setMemberJoiningDate(new Date());
-            memberVo.setMemberIsAdmin(false);
-            memberVo.setMemberIsSuppressed(false);
-            memberFacade.addMember(memberVo);
-            return "success";
+        MemberVo memberVo = new MemberVo();
+        MemberFacade memberFacade = FacadeFactory.getInstance()
+                .getMemberFacade();
+        memberVo.setMemberLogin(getLogin());
+        memberVo.setMemberPassword(getPassword());
+        memberVo.setMemberEmail(getEmail());
+        memberVo.setMemberNationality(getNationality());
+        memberVo.setMemberBirthday(getBirthday());
+        memberVo.setMemberFirstname(getFirstName());
+        memberVo.setMemberLastname(getLastName());
+        memberVo.setMemberSex(getSex());
+        memberVo.setMemberProfession(getProfession());
+        memberVo.setMemberJoiningDate(new Date());
+        memberVo.setMemberIsAdmin(false);
+        memberVo.setMemberIsSuppressed(false);
+        memberFacade.addMember(memberVo);
+        return "success";
     }
 
     /**
      * Recuperer les infos personnelles du membre connecté
      */
-    public void getDataMember() {
-        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
-                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
-                        MemberBean.class);
-
-        setLoggedIn(controller.isLoggedIn());
+    public Boolean getDataMember() {
+        setId(Utilities.getSessionMemberId());
+        setLoggedIn(Utilities.getSessionMemberLoggedIn());
         if (isLoggedIn()) {
 
             MemberFacade memberFacade = FacadeFactory.getInstance()
                     .getMemberFacade();
             //TODO recuperer session membre pour recuperer l'utilisateur courant
 
-            setId(controller.getId());
+            setId(getId());
             MemberVo memberVo = memberFacade.find(getId());
             setLogin(memberVo.getMemberLogin());
             setBirthday(memberVo.getMemberBirthday());
@@ -361,20 +356,18 @@ public class MemberBean {
             setAdmin(memberVo.getMemberIsAdmin());
             setSuppressed(memberVo.getMemberIsSuppressed());
             setPassword(memberVo.getMemberPassword());
-
+            return true;
         }
+        return false;
     }
 
     /**
      * Mettre à jour les informations de l'utilisateur
      */
     public String updateAccount() {
-        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
-                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
-                        MemberBean.class);
-              setLoggedIn(controller.isLoggedIn());
-              setId(controller.getId());
-        if (isLoggedIn()) {
+        setId(Utilities.getSessionMemberId());
+        setLoggedIn(Utilities.getSessionMemberLoggedIn());
+        if (! isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance()
@@ -382,6 +375,8 @@ public class MemberBean {
 
             MemberVo memberVo = new MemberVo();
 
+            memberFacade = FacadeFactory.getInstance()
+                    .getMemberFacade();
 
             memberVo.setMemberId(getId());
             memberVo.setMemberLogin(getLogin());
@@ -397,8 +392,10 @@ public class MemberBean {
             memberVo.setMemberProfession(getProfession());
             memberVo.setMemberJoiningDate(new Date());
             if (memberFacade.updateMember(memberVo)) {
+               Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, " Mis à jour effectué avec succès ") ;
                 return "success";
             }
+           Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour  ");
             return "failure";
         }
     }
@@ -408,60 +405,72 @@ public class MemberBean {
      */
     public String updatePassword() {
         /*recuperation des infos sur l'utilisateur courant */
-        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
-                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
-                        MemberBean.class);
-        setLoggedIn(controller.isLoggedIn());
-        setId(controller.getId());
-        if (!isLoggedIn()) {
+
+        setId(Utilities.getSessionMemberId());
+        setLoggedIn(Utilities.getSessionMemberLoggedIn());
+
+        if (! isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
 
             MemberVo memberVo =memberFacade.find(getId());
 
-            if (verifyPassword(memberVo, getOldPassword())) {
+            if (verifyPassword(memberVo.getMemberPassword(), getOldPassword()) && verifyPasswordBisForm(getPasswordBis(),getPassword())) {
                 memberVo.setMemberPassword(getPassword());
                 memberFacade = FacadeFactory.getInstance().getMemberFacade();
                 if (memberFacade.updateMember(memberVo)) {
+                    Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, " Mot de passe mis à jour effectué avec succès ") ;
                     return "success";
                 }
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mis à jour du mot de passe ") ;
                 return "failure";
             } else {
-                // envoyer message signant l'erreur
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mis à jour du mot de passe ") ;
                 return "failure";
             }
         }
     }
 
     /**
-     * @param memberVo
+     * @param dbPassword
      * @param oldPassword
      * @return
      */
-    public boolean verifyPassword(MemberVo memberVo, String oldPassword) {
-        //Todo appel de la fonction de hashage qui sera utilisé sur formPassword
-        String dbPassword = memberVo.getMemberPassword();
-        if (getPasswordBis().equals(getPassword())) {
+    public boolean verifyPassword( String dbPassword , String oldPassword) {
+
+
             if (dbPassword.equals(oldPassword)) {
                 return true;
-            }
+
         }
         return false;
     }
 
+    /**
+     * Verification du mot de passe bis du formulaire
+     * @param password
+     * @param passwordBis
+     * @return
+     */
+
+    public boolean verifyPasswordBisForm( String password , String passwordBis) {
+
+        if (getPasswordBis().equals(getPassword())) {
+
+                return true;
+
+        }
+        return false;
+    }
     /**
      * Supprimer compte membre
      *
      * @return
      */
     public String deleteAccount() {
-        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
-                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
-                        MemberBean.class);
-        setLoggedIn(controller.isLoggedIn());
-        setId(controller.getId());
-
+        setId(Utilities.getSessionMemberId());
+        setLoggedIn(Utilities.getSessionMemberLoggedIn());
         if (!isLoggedIn()) {
             return "failure";
         } else {
@@ -472,13 +481,18 @@ public class MemberBean {
             MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance()
                     .getMembercreatesProjectFacade();
 
-            List<MembercreatesProjectVo> listMemberProjects = membercreatesProjectFacade.getListForCreator(getId());
-
+            List<ProjectVo> listMemberProjects = membercreatesProjectFacade.getListCreatorProject(getId());
             if (listMemberProjects.size() > 0) {
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Impossible de supprimer le compte" +
+                        " Veuillez contacter l'adminnistrateur : admin@dac.imag ") ;
                 return "failure";
             }
             memberVo.setMemberIsSuppressed(true);
+            memberFacade = FacadeFactory.getInstance().getMemberFacade();
             memberFacade.updateMember(memberVo);
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, " Compte supprimé avec succès ") ;
+            //deconnexion
+            disconnect();
             return "success";
         }
     }
@@ -488,8 +502,8 @@ public class MemberBean {
      * @return
      */
     public String disconnect() {
-        //TODO Gerer session ??
         setLoggedIn(false);
+        Utilities.setSessionMemberLoggedIn(false);
         return "success";
     }
 
@@ -559,4 +573,9 @@ public class MemberBean {
         }*/
     }
 
+    public void showDialogDeleteAccount() {
+
+        RequestContext.getCurrentInstance().openDialog("form_deleteaccount");
+
+    }
 }

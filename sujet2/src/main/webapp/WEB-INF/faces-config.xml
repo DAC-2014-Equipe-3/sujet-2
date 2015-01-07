@@ -19,7 +19,7 @@
         <navigation-case>
             <from-action>#{memberBean.disconnect()}</from-action>
             <from-outcome>success</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>/template/template.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-action>#{memberBean.disconnect()}</from-action>
@@ -76,7 +76,7 @@
         <navigation-case>
             <from-action>#{memberBean.deleteAccount()}</from-action>
             <from-outcome>success</from-outcome>
-            <to-view-id>/projects.xhtml</to-view-id>
+            <to-view-id>/template/template.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-action>#{memberBean.deleteAccount()}</from-action>

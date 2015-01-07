@@ -36,5 +36,14 @@ public class MembercreatesProjectFacade extends Facade<MembercreatesProjectVo> {
             }
         }
     }
-
+    public List<ProjectVo> getListCreatorProject(Integer memberId) {
+        try {
+            return ((MembercreatesProjectService)service).getListCreatorProject(memberId, em);
+        } finally {
+            if (em != null) {
+                em.clear();
+                em.close();
+            }
+        }
+    }
 }
