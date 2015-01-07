@@ -7,6 +7,7 @@ package com.dac2014equipe3.sujet2.presentation.controller;
 
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
+import com.dac2014equipe3.sujet2.businesslogic.facade.MemberbacksProjectFacade;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MembercreatesProjectFacade;
 import com.dac2014equipe3.sujet2.model.entity.Project;
 import com.dac2014equipe3.sujet2.util.Utilities;
@@ -46,7 +47,7 @@ public class MemberBean {
     private String sex;
     private String profession;
     private List<ProjectVo> createdProjectList;
-    private List<Project> investedProjectList;
+    private List<ProjectVo> investedProjectList;
 
     /**
      * @return the id
@@ -261,14 +262,14 @@ public class MemberBean {
     /**
      * @return
      */
-    public List<Project> getInvestedProjectList() {
+    public List<ProjectVo> getInvestedProjectList() {
         return investedProjectList;
     }
 
     /**
      * @param investedProjectList
      */
-    public void setInvestedProjectList(List<Project> investedProjectList) {
+    public void setInvestedProjectList(List<ProjectVo> investedProjectList) {
         this.investedProjectList = investedProjectList;
     }
 
@@ -577,5 +578,12 @@ public class MemberBean {
                 .getMembercreatesProjectFacade();
         List<ProjectVo> listMemberProjects = membercreatesProjectFacade.getListCreatorProject(getId());
         setCreatedProjectList(listMemberProjects);
+    }
+
+    public void getAllMemberBackedProject(){
+        MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance()
+                .getMemberbacksProjectFacade();
+        List<ProjectVo> listMemberProjectsBacked = memberbacksProjectFacade.getListProjectBacked(getId());
+        setInvestedProjectList(listMemberProjectsBacked);
     }
 }
