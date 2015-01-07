@@ -45,8 +45,8 @@
                                                 <f:param  name="idProject" value="#{project.projectId}"></f:param>
                                             </p:button>
 
-                                            <div class="form-actions">
-                                                <p:commandButton value="Supprimer le compte" actionListener="#{projectBean.deleteProject(project.projectId)}" >
+                                         <!--   <div class="form-actions">
+                                                <p:commandButton value="Supprimer le compte" actionListener="{projectBean.deleteProject(project.projectId)}" >
                                                     <p:confirm header="Confirmation : Ceci supprimera votre compte" message=" Votre compte sera supprimé  après cette opération" icon="ui-icon-alert" />
                                                 </p:commandButton>
 
@@ -55,7 +55,10 @@
                                                     <p:commandButton value="Annuler" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                                                 </p:confirmDialog>
                                             </div>
-
+                                         -->
+                                            <p:button  icon="ui-icon-pencil" value="Supprimer"  outcome="/faces/form_deleteproject.xhtml"  >
+                                                <f:param  name="idProject" value="#{project.projectId}"></f:param>
+                                            </p:button>
                                         </h:panelGrid>
 
                                         </p:fieldset>
@@ -64,13 +67,10 @@
                             </p:dataScroller>
                         </p:tab>
                         <p:tab title="Mes investissements">
-                            Recuperer tous les projets pour lesquels le membre a investi
                             #{memberBean.getAllMemberBackedProject()}
                             <p:dataScroller value="#{memberBean.investedProjectList}" var="project" chunkSize="10">
-                                <h:panelGrid columns="2">
-
                                     <p:outputPanel>
-                                        <div id="shareModal" class="modal hide fade">
+                                        <div id="shareModal2" class="modal hide fade">
                                             <p:fieldset legend="#{project.projectTitle}" >
                                         <h:panelGrid columns="2" cellpadding="5">
                                             <h:outputText value="IdProject:" />
@@ -87,7 +87,7 @@
                             </p:fieldset>
                         </div>
                                     </p:outputPanel>
-                                </h:panelGrid>
+
                             </p:dataScroller>
                         </p:tab>
                     </p:tabView>

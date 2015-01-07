@@ -111,7 +111,9 @@
                             </h:message>
 
                             <div class="form-actions">
-                                <h:commandButton action="#{projectBean.updateProject() }" value="Valider" class="btn btn-danger"/>
+                                <p:button  icon="ui-icon-pencil" value="Modifier"  action = "#{projectBean.updateProject()}" >
+                                    <f:param  name="idProject" value="#{project.projectId}"></f:param>
+                                </p:button>
                             </div>
                         </p:fieldset>
                     </div>

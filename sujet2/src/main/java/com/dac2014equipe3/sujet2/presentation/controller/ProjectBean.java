@@ -240,7 +240,7 @@ public class ProjectBean {
      *
      * @return
      */
-    public String deleteProject(Integer idProject) {
+    public String deleteProject() {
 
         MemberBean controller = FacesContext.getCurrentInstance().getApplication()
                 .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
@@ -260,22 +260,22 @@ public class ProjectBean {
             MemberVo memberVo = memberFacade.find(idUser);
             List<MembercreatesProjectVo> listMemberProjects = membercreatesProjectFacade.getListForCreator(idUser);
 
-            /*try {
+            try {
                 id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject"));
             } catch (NumberFormatException e) {
                 id = 0;
-            }*/
+            }
 
-            if (idProject > 0) {
+            if (id > 0) {
                 projectFacade = FacadeFactory.getInstance().getProjectFacade();
-                projectVo = projectFacade.find(idProject);
+                projectVo = projectFacade.find(id);
                 for (MembercreatesProjectVo McP : listMemberProjects) {
                     if (McP.getMembercreatesProjectPK().getCreatorId() == idUser) {
                         isProjectCreator = true;
                     }
                 }
                 if (isProjectCreator || memberVo.getMemberIsAdmin()) {
-                    listProjectBacks = memberbacksProjectFacade.getListForProject(idProject);
+                    listProjectBacks = memberbacksProjectFacade.getListForProject(id);
                     if (listProjectBacks.isEmpty() && currentDate.compareTo(projectVo.getProjectEndDate()) != 1) {
                         projectFacade = FacadeFactory.getInstance().getProjectFacade();
                         projectVo.setProjectIsSuppressed(true);
