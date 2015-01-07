@@ -48,7 +48,7 @@ public class Reward implements Serializable {
     private String rewardMinPrice;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reward")
     private List<MemberbacksProject> memberbacksProjectList;
-    @JoinColumn(name = "Project_projectId", referencedColumnName = "projectId", insertable = false, updatable = false)
+    @JoinColumn(name = "Project_projectId", referencedColumnName = "projectId")
     @ManyToOne(optional = false)
     private Project project;
 
