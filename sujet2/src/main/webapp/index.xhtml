@@ -7,30 +7,64 @@
       xmlns:p="http://primefaces.org/ui">
 <f:view contentType="text/html">
 <h:body>
+
     <ui:composition template="./template/template.xhtml">
+
         <ui:define name="content">
+            <h:form>
             <h2>This is index content</h2>
-            <h:panelGroup>
+            <h:panelGroup  >
                 <h:panelGroup rendered="#{memberBean.loggedIn == false}">
                     <h2>ICI pas connecté</h2>
                 </h:panelGroup>
                 <h:panelGroup rendered="#{memberBean.loggedIn == true}">
                     <h2>Connecté</h2>
-                    <p:tabView value="tabView">
-                        <p:tab title="Mes projets">
-                            Recuperer tous les projets créés par le membre
+                    <p:tooltip />
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
+
+                    <p:tabView id="tableProject" value="tabView">
+                        <p:tab title="Mes projets">
+                            #{memberBean.getAllMemberProject()}
                             <p:dataScroller value="#{memberBean.createdProjectList}" var="project" chunkSize="10">
-                                <h:panelGrid columns="2">
+
                                     <p:outputPanel>
+                                    <div id="shareModal" class="modal hide fade">
+                                        <p:fieldset legend="#{project.projectTitle}" >
                                         <h:panelGrid columns="2" cellpadding="5">
-                                            <h:outputText value="Id:" />
+
+                                            <h:outputText value="IdProject:" />
                                             <h:outputText value="#{project.projectId}" style="font-weight: bold"/>
-                                            <h:outputText value="Year:" />
+                                            <h:outputText value="Catégorie :" />
+                                            <h:outputText value="#{project.projectCategory.categoryName}" style="font-weight: bold"/>
+                                            <h:outputText value="Libellé:" />
+                                            <h:outputText value="#{project.projectTitle}" style="font-weight: bold"/>
+                                            <h:outputText value="Description:" />
                                             <h:outputText value="#{project.projectDescription}" style="font-weight: bold"/>
+                                            <p:button  icon="ui-icon-pencil" value="Modifier"  outcome="/faces/form_updateproject.xhtml"  >
+                                                <f:param  name="idProject" value="#{project.projectId}"></f:param>
+                                            </p:button>
+
+                                            <div class="form-actions">
+                                                <p:commandButton value="Supprimer le compte" actionListener="#{projectBean.deleteProject(project.projectId)}" >
+                                                    <p:confirm header="Confirmation : Ceci supprimera votre compte" message=" Votre compte sera supprimé  après cette opération" icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                                <p:commandButton value="Supprimer le compte 2" action="#{projectBean.deleteProject(project.projectId)}" >
+                                                    <p:confirm header="Confirmation : Ceci supprimera votre compte" message=" Votre compte sera supprimé  après cette opération" icon="ui-icon-alert" />-->
+                                                    <f:ajax partialSubmit="true" render="tableProject"/>
+                                                </p:commandButton>
+
+                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                    <p:commandButton   value="Valider" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                                    <p:commandButton value="Annuler" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                </p:confirmDialog>
+                                            </div>
+
                                         </h:panelGrid>
+
+                                        </p:fieldset>
+                                    </div>
                                     </p:outputPanel>
-                                </h:panelGrid>
                             </p:dataScroller>
                         </p:tab>
                         <p:tab title="Mes investissements">
@@ -50,8 +84,11 @@
                             </p:dataScroller>
                         </p:tab>
                     </p:tabView>
-                </h:panelGroup>
+
+        </h:panelGroup>
             </h:panelGroup>
+            </h:form>
+
         </ui:define>
     </ui:composition>
 </h:body>

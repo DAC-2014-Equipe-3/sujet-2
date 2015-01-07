@@ -100,16 +100,16 @@
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/form_deleteproject.xhtml</from-view-id>
+        <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{projectBean.deleteProject()}</from-action>
             <from-outcome>success</from-outcome>
-            <to-view-id>/projects.xhtml</to-view-id>
+            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-action>#{projectBean.deleteProject()}</from-action>
             <from-outcome>failure</from-outcome>
-            <to-view-id>/projects.xhtml</to-view-id>
+            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

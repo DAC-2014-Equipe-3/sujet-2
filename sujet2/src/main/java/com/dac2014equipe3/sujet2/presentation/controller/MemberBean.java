@@ -45,7 +45,7 @@ public class MemberBean {
     private String nationality;
     private String sex;
     private String profession;
-    private List<Project> createdProjectList;
+    private List<ProjectVo> createdProjectList;
     private List<Project> investedProjectList;
 
     /**
@@ -275,14 +275,14 @@ public class MemberBean {
     /**
      * @return
      */
-    public List<Project> getCreatedProjectList() {
+    public List<ProjectVo> getCreatedProjectList() {
         return createdProjectList;
     }
 
     /**
      * @param createdProjectList
      */
-    public void setCreatedProjectList(List<Project> createdProjectList) {
+    public void setCreatedProjectList(List<ProjectVo> createdProjectList) {
         this.createdProjectList = createdProjectList;
     }
 
@@ -572,10 +572,10 @@ public class MemberBean {
             }
         }*/
     }
-
-    public void showDialogDeleteAccount() {
-
-        RequestContext.getCurrentInstance().openDialog("form_deleteaccount");
-
+    public void getAllMemberProject(){
+        MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance()
+                .getMembercreatesProjectFacade();
+        List<ProjectVo> listMemberProjects = membercreatesProjectFacade.getListCreatorProject(getId());
+        setCreatedProjectList(listMemberProjects);
     }
 }
