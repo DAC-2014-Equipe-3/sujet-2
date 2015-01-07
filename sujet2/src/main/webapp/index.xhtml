@@ -51,7 +51,6 @@
                                                 </p:commandButton>
                                                 <p:commandButton value="Supprimer le compte 2" action="#{projectBean.deleteProject(project.projectId)}" >
                                                     <p:confirm header="Confirmation : Ceci supprimera votre compte" message=" Votre compte sera supprimé  après cette opération" icon="ui-icon-alert" />-->
-                                                    <f:ajax partialSubmit="true" render="tableProject"/>
                                                 </p:commandButton>
 
                                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">

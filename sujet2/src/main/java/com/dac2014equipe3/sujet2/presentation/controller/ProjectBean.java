@@ -25,7 +25,6 @@ public class ProjectBean {
     private ProjectCategory category;
     private boolean isSuppressed;
     private ProjectCategoryVo categoryVo;
-
     private Integer rewardId;
     private String rewardName;
     private String rewardDescription;
@@ -340,8 +339,7 @@ public class ProjectBean {
      */
     public void getDataProject() {
             ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
-            setId(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext()
-                    .getRequestParameterMap().get("idProject")));
+            setId(1);
 
             ProjectVo projectVo = projectFacade.find(getId());
             setId(projectVo.getProjectId());
@@ -373,12 +371,8 @@ public class ProjectBean {
         projectVo.setProjectEndDate(getEndDate());
         projectVo.setProjectDescription(getDescription());
         projectVo.setProjectIsSuppressed(false);
-        projectVo.setMemberList(null); //TODO
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
-        projectVo.setMediaList(null); //TODO
-        projectVo.setMemberbacksProjectList(null); //TODO
-        projectVo.setListReward(getRewardList());//TODO
-        projectFacade.addProject(projectVo);
+        projectFacade.updateProject(projectVo);
 
         //Get the new project id
 
@@ -408,9 +402,6 @@ public class ProjectBean {
         for(RewardVo r : rewardList){
             r.setProject(project);
         }
-
-
-
         //Register the rewards
         RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();
         rewardFacade.addRewardList(rewardList);

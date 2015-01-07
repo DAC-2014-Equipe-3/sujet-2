@@ -14,6 +14,7 @@
                         <p:fieldset legend="Proposer un nouveau projet">
                             <h:panelGrid columns="3" cellpadding="5">
                                 #{projectBean.getDataProject()}
+                                #{projectCategoriesBean.getAllProjectCategories()}
                                 <p:outputLabel for="title" value="Titre : "/>
                                 <p:inputText id="title" required="true" value="#{projectBean.title}"
                                              requiredMessage="Veuillez compléter le champ"/>
