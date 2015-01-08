@@ -10,38 +10,44 @@
             <ui:define name="content">
                 <h:form>
                 <div id="shareModal" class="modal hide fade">
-                    <div class="modal-header">
-                        <h2>S'inscrire:</h2>
-                    </div>
-                    <h:panelGrid columns="3" cellpadding="5">
+                    <p:fieldset legend="S'inscrire et devenir membre">
+                    <h:panelGrid columns="3" styleClass="form" cellpadding="5">
                                 <p:outputLabel for="login" value="Login : "/>
                                 <p:inputText id="login" required="true" value="#{memberBean.login}"
-                                             requiredMessage="Veuillez compléter le champ"/>
+                                             requiredMessage="Veuillez compléter le champ">
+                                    <f:validateRegex pattern="^[a-z0-9_-]{3,16}$" />
+                                </p:inputText>
                                 <p:message for="login" value="Login"/>
 
                                 <p:outputLabel for="mail" value="Email : "/>
-                                <p:inputText id="mail" required="true" label="email" size="40"
+                                <p:inputText id="mail" required="true" label="email" size="30" maxlength="40"
                                              requiredMessage="Veuillez compléter le champ"
                                              validatorMessage="Format de l'email invalide"
                                              value="#{memberBean.email}">
                                     <f:validateRegex
-                                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                 </p:inputText>
                                 <p:message for="mail"/>
 
                                 <p:outputLabel for="password" value="Mot de passe : "/>
                                 <p:password id="password" required="true" value="#{memberBean.password}"
-                                            requiredMessage="Veuillez compléter le champ"/>
+                                            requiredMessage="Veuillez compléter le champ">
+                                    <f:validateRegex pattern="^[a-z0-9_-]{6,18}$" />
+                                </p:password>
                                 <p:message for="password" value="Mot de passe"/>
 
                                 <p:outputLabel for="fname" value="Prénom : "/>
                                 <p:inputText id="fname" required="true" value="#{memberBean.firstName}"
-                                             requiredMessage="Veuillez compléter le champ"/>
+                                             requiredMessage="Veuillez compléter le champ">
+                                    <f:validateRegex pattern="^[a-z]+([-][a-zA-Z]+)*" />
+                                </p:inputText>
                                 <p:message for="fname" value="First name"/>
 
                                 <p:outputLabel for="lname" value="Nom : "/>
                                 <p:inputText id="lname" required="true" value="#{memberBean.lastName}"
-                                             requiredMessage="Veuillez compléter le champ"/>
+                                             requiredMessage="Veuillez compléter le champ">
+                                    <f:validateRegex pattern="^[a-z]+([ '-][a-zA-Z]+)*" />
+                                </p:inputText>
                                 <p:message for="lname" value="Last name"/>
 
                                 <p:outputLabel for="birthdate" value="Date de naissance : "/>
@@ -69,12 +75,15 @@
 
                                 <p:outputLabel for="profession" value="Profession : "/>
                                 <p:inputText id="profession" required="true" value="#{memberBean.profession}"
-                                             requiredMessage="Veuillez compléter le champ"/>
+                                             requiredMessage="Veuillez compléter le champ">
+                                    <f:validateRegex pattern="^[a-zA-z]+([ '-][a-zA-Z]+)*" />
+                                </p:inputText>
                                 <p:message for="profession" value="Profession"/>
                     </h:panelGrid>
                     <div class="form-actions">
                         <h:commandButton action="#{memberBean.addNewMember()}" value="Valider" class="btn btn-danger"/>
                     </div>
+                    </p:fieldset>
                 </div>
             </h:form>
             </ui:define>

@@ -93,6 +93,12 @@ public class MemberService implements IService<MemberVo> {
         return list;
     }
 
+    /**
+     * Gere la connexion d'un membre
+     * @param userVo
+     * @param em
+     * @return
+     */
     public MemberVo login(MemberVo userVo, EntityManager em) {
         Member entity = new Member();
         //TODO: encrypt passwd
@@ -101,6 +107,17 @@ public class MemberService implements IService<MemberVo> {
 
         Member member = DAOFactory.getInstance().getMemberDAO().login(entity, em);
         return member != null ? member.toVo() : null;
+    }
+
+    /**
+     * Recherche si le login est deja utilisé
+     * @param login
+     * @param em
+     * @return
+     */
+    public boolean findMemberByLogin(String login, EntityManager em){
+        MemberDAO dao = DAOFactory.getInstance().getMemberDAO();
+        return dao.findMemberByLogin(login,em);
     }
 
 }

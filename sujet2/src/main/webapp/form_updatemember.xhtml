@@ -15,11 +15,8 @@
                     <p:tooltip />
                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                     <div id="shareModal" class="modal hide fade">
-                        <div class="modal-header">
-                            <h2> Mes informations </h2>
-                        </div>
-                        <h:panelGrid columns="3" cellpadding="5">
-                            <!--TODO Modifier mot de passe-->
+                        <p:fieldset legend="Modifier mon compte">
+                        <h:panelGrid columns="3" styleClass="form" cellpadding="5">
                             <p:outputLabel for="updatelogin" value="Login : "/>
                             <p:inputText id="updatelogin" required="true" disabled="true" value="#{memberBean.login}"
                                          requiredMessage="Veuillez compléter le champ"/>
@@ -75,16 +72,15 @@
                         </h:panelGrid>
                         <div class="form-actions">
                             <h:commandButton action="#{memberBean.updateAccount()}" value="Modifier" class="btn btn-danger" />
-
                             <p:commandButton value="Supprimer le compte" actionListener="#{memberBean.deleteAccount()}">
                                 <p:confirm header="Confirmation : Ceci supprimera votre compte" message=" Votre compte sera supprimé  après cette opération" icon="ui-icon-alert" />
                             </p:commandButton>
-
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                 <p:commandButton   value="Valider" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                                 <p:commandButton value="Annuler" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                             </p:confirmDialog>
                         </div>
+                        </p:fieldset>
                     </div>
                 </h:form>
             </ui:define>

@@ -62,7 +62,12 @@ public class MemberDAO implements IDAO<Member> {
         return listMembers;
     }
 
-    // Recherche d'un utilisateur à partir de son surname
+    /**
+     * Recherche d'un utilisateur à partir de son surname
+     * @param entity
+     * @param em
+     * @return
+     */
     public Member login(Member entity, EntityManager em) {
         Member member;
         Query q = em.createQuery(JPQL_SELECT_BY_LOGIN_AND_PASS);
@@ -77,5 +82,18 @@ public class MemberDAO implements IDAO<Member> {
             member = null;
         }
         return member;
+    }
+
+    /**
+     * Recherche si login existant
+     * @param login
+     * @param em
+     * @return
+     */
+    public boolean findMemberByLogin(String login, EntityManager em){
+        Query query = em.createNamedQuery("Member.findByMemberLogin");
+        query.setParameter(PARAM_LOGIN,login);
+        List<Member> listMembers = query.getResultList();
+        return listMembers.size() != 0;
     }
 }

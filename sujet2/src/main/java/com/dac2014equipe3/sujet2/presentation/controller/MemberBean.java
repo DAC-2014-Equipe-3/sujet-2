@@ -13,6 +13,8 @@ import com.dac2014equipe3.sujet2.util.Utilities;
 import com.dac2014equipe3.sujet2.vo.MemberVo;
 import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
+import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
 
 import javax.faces.application.FacesMessage;
@@ -20,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @author Jummartinezro
@@ -47,6 +50,13 @@ public class MemberBean {
     private String profession;
     private List<Project> createdProjectList;
     private List<Project> investedProjectList;
+
+    private static String LOGIN_PATTERN = "^[a-z0-9_-]{3,16}$";
+    private static String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    private static String PASSWORD_PATTERN = "^[a-z0-9_-]{6,18}$";
+    private static String FIRSTNAME_PATTERN = "^[a-z]+([-][a-zA-Z]+)*";
+    private static String LASTNAME_PATTERN = "^[a-z]+([ '-][a-zA-Z]+)*";
+    private static String PROFESSION_PATTERN = "^[a-zA-z]+([ '-][a-zA-Z]+)*";
 
     /**
      * @return the id
@@ -307,24 +317,46 @@ public class MemberBean {
      * Cree un nouveau membre
      */
     public String addNewMember() {
-        //TODO Valider côté serveur la validité des champs !
         //TODO Ouvrir session membre
 
         MemberVo memberVo = new MemberVo();
         MemberFacade memberFacade = FacadeFactory.getInstance()
                 .getMemberFacade();
+        Date datenow = new Date();
+
+        if(!getLogin().matches(LOGIN_PATTERN) ||
+            !getEmail().matches(EMAIL_PATTERN) ||
+            !getPassword().matches(PASSWORD_PATTERN) ||
+            !getSex().contentEquals("F") ||
+            !getSex().contentEquals("M") ||
+            !getFirstName().matches(FIRSTNAME_PATTERN) ||
+            !getLastName().matches(LASTNAME_PATTERN) ||
+            !getBirthday().after(datenow) ||
+            !getProfession().matches(PROFESSION_PATTERN)) {
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec d'inscription (validation des champs");
+            return "failure";
+        }
+        //Verifie si le login est inexistant
+        if (memberFacade.findMemberByLogin(memberVo.getMemberLogin())) {
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec d'inscription : login existant");
+            return "failure";
+        }
+
+        //TODO Nationalité à checker
         memberVo.setMemberLogin(getLogin());
         memberVo.setMemberPassword(getPassword());
-        memberVo.setMemberEmail(getEmail());
-        memberVo.setMemberNationality(getNationality());
-        memberVo.setMemberBirthday(getBirthday());
-        memberVo.setMemberFirstname(getFirstName());
-        memberVo.setMemberLastname(getLastName());
+        memberVo.setMemberEmail(getEmail().toLowerCase());
         memberVo.setMemberSex(getSex());
-        memberVo.setMemberProfession(getProfession());
+        memberVo.setMemberFirstname(StringUtils.capitalize(getFirstName()));
+        memberVo.setMemberLastname(StringUtils.capitalize(getLastName()));
+        memberVo.setMemberBirthday(getBirthday());
+        memberVo.setMemberProfession(StringUtils.capitalize(getProfession()));
+        memberVo.setMemberNationality(getNationality());
+        //Par défaut
         memberVo.setMemberJoiningDate(new Date());
         memberVo.setMemberIsAdmin(false);
         memberVo.setMemberIsSuppressed(false);
+        //Ajout en base
         memberFacade.addMember(memberVo);
         return "success";
     }
@@ -332,15 +364,13 @@ public class MemberBean {
     /**
      * Recuperer les infos personnelles du membre connecté
      */
-    public Boolean getDataMember() {
+    public boolean getDataMember() {
         setId(Utilities.getSessionMemberId());
         setLoggedIn(Utilities.getSessionMemberLoggedIn());
+        //TODO recuperer session membre pour recuperer l'utilisateur courant
+
         if (isLoggedIn()) {
-
-            MemberFacade memberFacade = FacadeFactory.getInstance()
-                    .getMemberFacade();
-            //TODO recuperer session membre pour recuperer l'utilisateur courant
-
+            MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
             setId(getId());
             MemberVo memberVo = memberFacade.find(getId());
             setLogin(memberVo.getMemberLogin());
@@ -367,35 +397,48 @@ public class MemberBean {
     public String updateAccount() {
         setId(Utilities.getSessionMemberId());
         setLoggedIn(Utilities.getSessionMemberLoggedIn());
+
         if (! isLoggedIn()) {
             return "failure";
         } else {
-            MemberFacade memberFacade = FacadeFactory.getInstance()
-                    .getMemberFacade();
-
+            MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
             MemberVo memberVo = new MemberVo();
+            memberFacade = FacadeFactory.getInstance().getMemberFacade();
+            Date datenow = new Date();
 
-            memberFacade = FacadeFactory.getInstance()
-                    .getMemberFacade();
+            if(!getLogin().matches(LOGIN_PATTERN) ||
+                    !getEmail().matches(EMAIL_PATTERN) ||
+                    !getPassword().matches(PASSWORD_PATTERN) ||
+                    !getSex().contentEquals("F") ||
+                    !getSex().contentEquals("M") ||
+                    !getFirstName().matches(FIRSTNAME_PATTERN) ||
+                    !getLastName().matches(LASTNAME_PATTERN) ||
+                    !getBirthday().after(datenow) ||
+                    !getProfession().matches(PROFESSION_PATTERN)) {
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour (validation des champs)");
+                return "failure";
+            }
 
+            //TODO Nationalité à checker
             memberVo.setMemberId(getId());
             memberVo.setMemberLogin(getLogin());
             memberVo.setMemberEmail(getEmail());
             memberVo.setMemberPassword(getPassword());
             memberVo.setMemberNationality(getNationality());
             memberVo.setMemberBirthday(getBirthday());
-            memberVo.setMemberFirstname(getFirstName());
-            memberVo.setMemberLastname(getLastName());
+            memberVo.setMemberFirstname(StringUtils.capitalize(getFirstName()));
+            memberVo.setMemberLastname(StringUtils.capitalize(getLastName()));
+            memberVo.setMemberProfession(StringUtils.capitalize(getProfession()));
+            memberVo.setMemberJoiningDate(new Date());
             memberVo.setMemberSex(getSex());
             memberVo.setMemberIsSuppressed(isSuppressed());
             memberVo.setMemberIsAdmin(isAdmin());
-            memberVo.setMemberProfession(getProfession());
-            memberVo.setMemberJoiningDate(new Date());
+
             if (memberFacade.updateMember(memberVo)) {
-               Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, " Mis à jour effectué avec succès ") ;
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, " Mis à jour effectué avec succès ") ;
                 return "success";
             }
-           Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour  ");
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour  ");
             return "failure";
         }
     }
@@ -404,16 +447,13 @@ public class MemberBean {
      * Mettre à jour le mot de passe de l'utilisateur
      */
     public String updatePassword() {
-        /*recuperation des infos sur l'utilisateur courant */
-
         setId(Utilities.getSessionMemberId());
         setLoggedIn(Utilities.getSessionMemberLoggedIn());
 
-        if (! isLoggedIn()) {
+        if (!isLoggedIn()) {
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
-
             MemberVo memberVo =memberFacade.find(getId());
 
             if (verifyPassword(memberVo.getMemberPassword(), getOldPassword()) && verifyPasswordBisForm(getPasswordBis(),getPassword())) {
@@ -438,12 +478,8 @@ public class MemberBean {
      * @return
      */
     public boolean verifyPassword( String dbPassword , String oldPassword) {
-
-
-            if (dbPassword.equals(oldPassword)) {
-                return true;
-
-        }
+        if (dbPassword.equals(oldPassword))
+            return true;
         return false;
     }
 
@@ -453,13 +489,10 @@ public class MemberBean {
      * @param passwordBis
      * @return
      */
-
     public boolean verifyPasswordBisForm( String password , String passwordBis) {
 
         if (getPasswordBis().equals(getPassword())) {
-
                 return true;
-
         }
         return false;
     }
@@ -504,6 +537,7 @@ public class MemberBean {
     public String disconnect() {
         setLoggedIn(false);
         Utilities.setSessionMemberLoggedIn(false);
+        //TODO supprimer memberBean sinon pb dans la page inscription apres la déconnexion
         return "success";
     }
 
@@ -532,47 +566,8 @@ public class MemberBean {
     }
 
     /**
-     * Recuperer les projets créés par le membre
+     * //TODO A commenter et a mettre ailleurs ?
      */
-    public void allProjectsCreated() {
-        /*if (isLoggedIn()) {
-            MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
-            List<MembercreatesProjectVo> projectsCreated = membercreatesProjectFacade.getListForCreator(getId());
-            ListIterator<MembercreatesProjectVo> iter = projectsCreated.listIterator();
-            Project proj = new Project();
-            ProjectVo projTmp;
-
-            while (iter.hasNext()) {
-                projTmp = iter.next().getProject();
-                proj.setProjectTitle(projTmp.getProjectTitle());
-                proj.setProjectCategory(projTmp.getProjectCategory());
-                proj.setProjectDescription(projTmp.getProjectDescription());
-                createdProjectList.add(proj);
-            }
-        }*/
-    }
-
-    /**
-     * Recuperer les projets créés par le membre
-     */
-    public void allProjectsInvested() {
-        /*if (isLoggedIn()) {
-            MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance().getMemberbacksProjectFacade();
-            List<MemberbacksProjectVo> projectsInvested = memberbacksProjectFacade.getListForProject(getId());
-            ListIterator<MemberbacksProjectVo> iter = projectsInvested.listIterator();
-            Project proj = new Project();
-            ProjectVo projTmp;
-
-            while (iter.hasNext()) {
-                projTmp = iter.next().getProject();
-                proj.setProjectTitle(projTmp.getProjectTitle());
-                proj.setProjectCategory(projTmp.getProjectCategory());
-                proj.setProjectDescription(projTmp.getProjectDescription());
-                investedProjectList.add(proj);
-            }
-        }*/
-    }
-
     public void showDialogDeleteAccount() {
 
         RequestContext.getCurrentInstance().openDialog("form_deleteaccount");

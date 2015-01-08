@@ -3,6 +3,8 @@ package com.dac2014equipe3.sujet2.presentation.controller;
 import com.dac2014equipe3.sujet2.util.Utilities;
 import org.junit.*;
 
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -39,8 +41,8 @@ public class MemberBeanTest {
         System.out.println("Get Data Member");
         instance.setLoggedIn(true);
         instance.setId(1);
-        Boolean expResult = true;
-        Boolean result = instance.getDataMember();
+        boolean expResult = true;
+        boolean result = instance.getDataMember();
         assertEquals(expResult, result);
     }
 
@@ -70,26 +72,27 @@ public class MemberBeanTest {
         String formPassword = "1234";
         System.out.println("Verify Password ");
         System.out.println("\tValid Password compare to Database");
-       Boolean expResult = true;
-        Boolean result = instance.verifyPassword(dbPassword,formPassword);
+        boolean expResult = true;
+        boolean result = instance.verifyPassword(dbPassword,formPassword);
         assertEquals(expResult, result);
 
         System.out.println("\tWrong Password compare to Database");
-         dbPassword = "1234";
+        dbPassword = "1234";
         formPassword = "abcd";
         expResult = false;
-         result = instance.verifyPassword(dbPassword,formPassword);
+        result = instance.verifyPassword(dbPassword,formPassword);
         assertEquals(expResult, result);
     }
 
     @Test
     public void testverifyPasswordBisForm(){
+
         String passwordbis = "1234";
         String formPassword = "1234";
         System.out.println("Verify Password Form ");
         System.out.println("\tValid Password compare to PasswordBis");
-        Boolean expResult = true;
-        Boolean result = instance.verifyPassword(passwordbis,formPassword);
+        boolean expResult = true;
+        boolean result = instance.verifyPassword(passwordbis,formPassword);
         assertEquals(expResult, result);
 
         System.out.println("\tWrong Password compare to Database");
@@ -99,4 +102,53 @@ public class MemberBeanTest {
         result = instance.verifyPassword(passwordbis,formPassword);
         assertEquals(expResult, result);
     }
+
+    @Test
+    public void testAddNewMember(){
+    //Condition = login inexistant
+        String login = "testlogin";
+        String password = "123456";
+        String email = "test@gmail.com";
+        String nationality = "France";
+        Date birthday = new Date();
+        String firstname = "raphael";
+        String lastname = "Jujajo";
+        String sex = "M";
+        String profession = "Astronaut";
+        Date joiningDate = new Date();
+        boolean isAdmin = false;
+        boolean isSuppressed = false;
+
+        System.out.println("Add new member");
+        instance.setLogin(login);
+        instance.setPassword(password);
+        instance.setEmail(email);
+        instance.setNationality(nationality);
+        instance.setBirthday(birthday);
+        instance.setFirstName(firstname);
+        instance.setLastName(lastname);
+        instance.setSex(sex);
+        instance.setProfession(profession);
+        instance.setJoiningDate(joiningDate);
+        instance.setAdmin(isAdmin);
+        instance.setSuppressed(isSuppressed);
+
+        String expResult = "success";
+        String result = instance.addNewMember();
+        assertEquals(expResult, result);
+
+
+    }
+
+    @Test
+    public void testDeleteAccount(){
+    //Conditions = Aucun projet créé et investi
+    }
+
+    @Test
+    public void testDisconnect(){
+
+    }
+
+
 }

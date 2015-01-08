@@ -32,6 +32,10 @@ public class ProjectBean {
     private String rewardMinPrice;
     private List<RewardVo> rewardList;
 
+    public ProjectBean() {
+        rewardList = new ArrayList<RewardVo>();
+    }
+
     public String getRewardMinPrice() {
         return rewardMinPrice;
     }
@@ -87,16 +91,6 @@ public class ProjectBean {
     public void setRewardList(List<RewardVo> rewardList) {
         this.rewardList = rewardList;
     }
-
-
-
-    public ProjectBean() {
-        rewardList = new ArrayList<RewardVo>();
-    }
-
-
-
-
 
     public Date getEndDate() {
         return endDate;
@@ -225,8 +219,6 @@ public class ProjectBean {
         for(RewardVo r : rewardList){
             r.setProject(project);
         }
-
-
 
         //Register the rewards
         RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();

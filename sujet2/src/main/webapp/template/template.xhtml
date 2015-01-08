@@ -31,14 +31,13 @@
         </div>
         <div class="ui-grid-row" id="center">
             <div class="ui-grid-col-3">
-                <div id="lefPanel">
+                <div id="leftPanel">
                     <ui:insert name="leftPanel">
                         <h:panelGroup>
                             <h:panelGroup rendered="#{memberBean.loggedIn == false}">
                                 <ui:include src="connection.xhtml"/>
                             </h:panelGroup>
                             <h:panelGroup rendered="#{memberBean.loggedIn == true}">
-                                <h3>Bienvenue #{memberBean.firstName} #{memberBean.lastName}</h3>
                                 <ui:include src="optionmember.xhtml"/>
                             </h:panelGroup>
                         </h:panelGroup>

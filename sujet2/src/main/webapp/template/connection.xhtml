@@ -2,34 +2,42 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-    <h:form>
-        <div id="shareModal" class="modal hide fade">
-        <img alt="icon_member" src="./img/icon_member.png" style="width: 50px;height: 50px;"></img>
-        <div class="modal-header">
-            <h2>Espace membre</h2>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <p:inputText id="username" required="true" value="#{loginBean.username}"
-                             requiredMessage="Veuillez compléter le champ"/>
-                <p:watermark for="username" value="Utilisateur"/>
-                <p:message id="usernameMessage" for="username"/>
+    <div id="connection">
+        <h:form>
+            <div class="modal hide fade">
+                <div class="modal-header">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            <img alt="icon_member" class="iconMember" src="./img/icon_member.png"/>
+                        </div>
+                        <div class="ui-grid-col-10">
+                            <h3>Espace Membre</h3>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <p:inputText id="username" required="true" value="#{loginBean.username}"
+                                         requiredMessage="Veuillez compléter le champ"/>
+                            <p:watermark for="username" value="Utilisateur"/>
+                            <p:message id="usernameMessage" for="username"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <p:password id="password" required="true" value="#{loginBean.password}"
+                                        requiredMessage="Veuillez compléter le champ"/>
+                            <p:watermark for="password" value="Mot de passe"/>
+                            <p:message id="passwordMessage" for="password"/>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <h:commandButton action="#{loginBean.login()}" value="Se connecter" class="btn btn-danger"/>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <p:password id="password" required="true" value="#{loginBean.password}"
-                            requiredMessage="Veuillez compléter le champ"/>
-                <p:watermark for="password" value="Mot de passe"/>
-                <p:message id="passwordMessage" for="password"/>
-            </div>
-        </div>
-        <div class="form-actions">
-            <h:commandButton action="#{loginBean.login()}" value="Se connecter" class="btn btn-danger"/>
-        </div>
+        </h:form>
+        <h:form>
+            <h:commandButton value="S'inscrire" action="newmember" url="/faces/form_newmember.xhtml"/>
+        </h:form>
     </div>
-    </h:form>
-    <h:form>
-        <h:commandButton value="S'inscrire" action="newmember" url="/faces/form_newmember.xhtml"/>
-    </h:form>
 </ui:composition>

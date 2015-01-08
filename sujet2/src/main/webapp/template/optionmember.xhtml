@@ -2,10 +2,19 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
-    <h:form>
-    <div id="shareModal" class="modal hide fade">
+
+    <div id="member" class="modal hide fade">
+        <h:form>
         <div class="modal-header">
-                <p:menu>
+            <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+                <img alt="icon_member" class="iconMember" src="./img/icon_member.png"/>
+            </div>
+            <div class="ui-grid-col-10">
+                <h3>#{memberBean.firstName} #{memberBean.lastName}</h3>
+            </div>
+        </div>
+            <p:menu styleClass="optionMember">
                     <p:submenu label="Projet">
                         <p:menuitem value="Ajouter" icon="ui-icon-plus" action="addproject" url="/faces/form_newproject.xhtml"/>
                         <p:menuitem value="Rechercher" icon="ui-icon-search"/>
@@ -17,6 +26,6 @@
                     </p:submenu>
                 </p:menu>
         </div>
+        </h:form>
     </div>
-    </h:form>
 </ui:composition>

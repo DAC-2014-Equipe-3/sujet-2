@@ -1,9 +1,6 @@
 package com.dac2014equipe3.sujet2.presentation.controller;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.*;
 
 /**
  * Created by lepeteil on 03/01/15.
@@ -32,4 +29,15 @@ public class ProjectBeanTest {
     @After
     public void tearDown() {
     }
+
+    @Test
+    public void testAddProject(){
+
+    }
+
+    @Test
+    public void testDeleteProject(){
+
+    }
+
 }

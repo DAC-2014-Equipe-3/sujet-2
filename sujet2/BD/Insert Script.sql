@@ -18,7 +18,7 @@ VALUES ('application','Version iphone et android');
 INSERT INTO sujet2.ProjectCategory(categoryName, categoryDescription)
 VALUES ('web','Connu de tous');
 INSERT INTO sujet2.ProjectCategory(categoryName, categoryDescription)
-VALUES ('mobile','Trés utilisé aujourd\'hui');
+VALUES ('mobile','Trés utilisé aujourdhui');
 
 /**CREATION DE PROJETS**/
 INSERT INTO sujet2.Project(projectTitle,projectFundingGoal,projectCreationDate,

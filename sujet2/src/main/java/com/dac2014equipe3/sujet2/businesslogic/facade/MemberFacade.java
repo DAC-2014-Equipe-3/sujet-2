@@ -53,4 +53,21 @@ public class MemberFacade extends Facade<MemberVo> {
         }
     }
 
+    /**
+     * Recherche si le login est déjà utilisé
+     * @param login
+     * @return
+     */
+    public boolean findMemberByLogin(String login){
+        try {
+            em = emf.createEntityManager();
+            return ((MemberService) service).findMemberByLogin(login,em);
+        } finally {
+            if (em != null) {
+                em.clear();
+                em.close();
+            }
+        }
+    }
+
 }
