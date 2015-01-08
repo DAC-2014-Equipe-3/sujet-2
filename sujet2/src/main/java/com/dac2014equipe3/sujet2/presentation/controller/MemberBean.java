@@ -51,13 +51,13 @@ public class MemberBean {
     private String profession;
     private List<ProjectVo> createdProjectList;
     private List<ProjectVo> investedProjectList;
-
     private static String LOGIN_PATTERN = "^[a-z0-9_-]{3,16}$";
     private static String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private static String PASSWORD_PATTERN = "^[a-z0-9_-]{6,18}$";
     private static String FIRSTNAME_PATTERN = "^[a-z]+([-][a-zA-Z]+)*";
     private static String LASTNAME_PATTERN = "^[a-z]+([ '-][a-zA-Z]+)*";
     private static String PROFESSION_PATTERN = "^[a-zA-z]+([ '-][a-zA-Z]+)*";
+
 
     /**
      * @return the id
@@ -607,10 +607,17 @@ public class MemberBean {
             }
         }*/
     }
+    public void getAllMemberProject(){
+        MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance()
+                .getMembercreatesProjectFacade();
+        List<ProjectVo> listMemberProjects = membercreatesProjectFacade.getListCreatorProject(getId());
+        setCreatedProjectList(listMemberProjects);
+    }
 
-    public void showDialogDeleteAccount() {
-
-        RequestContext.getCurrentInstance().openDialog("form_deleteaccount");
-
+    public void getAllMemberBackedProject(){
+        MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance()
+                .getMemberbacksProjectFacade();
+        List<ProjectVo> listMemberProjectsBacked = memberbacksProjectFacade.getListProjectBacked(getId());
+        setInvestedProjectList(listMemberProjectsBacked);
     }
 }

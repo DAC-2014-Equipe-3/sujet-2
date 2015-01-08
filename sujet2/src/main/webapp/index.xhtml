@@ -7,7 +7,9 @@
       xmlns:p="http://primefaces.org/ui">
 <f:view contentType="text/html">
 <h:body>
+
     <ui:composition template="./template/template.xhtml">
+
         <ui:define name="content">
             <h:form>
             <h2>This is index content</h2>
@@ -19,8 +21,6 @@
                     <h2>Connecté</h2>
                     <p:tooltip />
                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-
-
                     <p:tabView id="tableProject" value="tabView">
                         <p:tab title="Mes projets">
                             #{memberBean.getAllMemberProject()}
