@@ -1,14 +1,14 @@
 /**CREATION DE MEMBRES**/
 INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
-	VALUES ('Jmmartinezro@gmail.com', 'Jmmr', '1234', true, CURRENT_DATE, 'Martinez', 'Juan', CURRENT_DATE, 'Colombie', 'M', 'Student', false);
+	VALUES ('Jmmartinezro@gmail.com', 'Jmmr', '1234567', true, CURRENT_DATE, 'Martinez', 'Juan', CURRENT_DATE, 'Colombie', 'M', 'Student', false);
 INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
-	VALUES ('jeanaymard@gmail.com', 'jeanaymard', 'test', true, '2014-12-01', 'Aymard', 'Jean', '1990-10-10', 'France', 'M', 'Jobless', false);
+	VALUES ('jeanaymard@gmail.com', 'jeanaymard', '1234567', true, '2014-12-01', 'Aymard', 'Jean', '1990-10-10', 'France', 'M', 'Jobless', false);
 INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
-	VALUES ('mrcchambon@gmail.com', 'chambonm', 'bobby', true, '2014-12-18', 'Chambon', 'Marc', '1982-03-26', 'France', 'M', 'Chemist', false);
+	VALUES ('mrcchambon@gmail.com', 'chambonm', '1234567', true, '2014-12-18', 'Chambon', 'Marc', '1982-03-26', 'France', 'M', 'Chemist', false);
 INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
-	VALUES ('marypoppins@gmail.com', 'mary', '', true, '2012-12-12', 'Poppins', 'Mary', '1870-11-9', 'France', 'F', 'Actress', false);
+	VALUES ('marypoppins@gmail.com', 'mary', '1234567', true, '2012-12-12', 'Poppins', 'Mary', '1870-11-9', 'France', 'F', 'Actress', false);
 INSERT INTO sujet2.Member (memberEmail, memberLogin, memberPassword, memberIsAdmin, memberJoiningDate, memberLastname, memberFirstname, memberBirthday, memberNationality, memberSex, memberProfession, memberIsSuppressed)
-VALUES ('toto@gmail.com', 'toto', '1234', false, '2012-12-14', 'toto', 'titi', '1999-11-9', 'France', 'F', 'Teacher', false);
+VALUES ('toto@gmail.com', 'toto', '1234567', false, '2012-12-14', 'toto', 'titi', '1999-11-9', 'France', 'F', 'Teacher', false);
 
 /**CREATION DE CATEGORIES**/
 INSERT INTO sujet2.ProjectCategory(categoryName, categoryDescription)
@@ -38,12 +38,20 @@ INSERT INTO sujet2.Project(projectTitle,projectFundingGoal,projectCreationDate,
 VALUES ('Compilateur',10,'2013-01-19','2015-06-04','langage c++ avec architecture ...',1,1);
 
 /**CREATION DE REWARDS**/
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice)
-VALUES ('affiche','descriptionAffiche',45);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice)
-VALUES ('carton','descriptionCarton',89);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice)
-VALUES ('flyer','descriptionFlyer',142);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId)
+VALUES ('affiche','descriptionAffiche',45,1);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId)
+VALUES ('carton','descriptionCarton',89,2);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId)
+VALUES ('flye1r','descriptionFlyer',142,3);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId)
+VALUES ('flyer2','descriptionFlyer',142,4);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId)
+VALUES ('flyer3','descriptionFlyer',142,5);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId)
+VALUES ('flyer5','descriptionFlyer',142,3);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId)
+VALUES ('flyer5','descriptionFlyer',142,1);
 
 INSERT INTO sujet2.Member_creates_Project(creatorId,projectId) VALUES (1,1);
 INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId)

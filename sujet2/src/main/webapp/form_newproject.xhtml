@@ -10,6 +10,8 @@
         <ui:composition template="template/template.xhtml">
             <ui:define name="content">
                 <h:form>
+                    <p:tooltip />
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                     <div id="shareModal" class="modal hide fade">
                         <p:fieldset legend="Proposer un nouveau projet">
                             <h:panelGrid columns="3" styleClass="form" cellpadding="5">

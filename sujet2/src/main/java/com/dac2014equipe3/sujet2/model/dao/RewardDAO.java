@@ -13,6 +13,10 @@ import javax.persistence.Query;
 public class RewardDAO implements IDAO<Reward> {
 
     private static RewardDAO instance;
+    private static final String JPQL_SELECT_BY_PROJECT_REWARD  = " SELECT r FROM Reward r " +
+            " WHERE ( r.project.projectId = :Project_projectId ) " ;
+
+    private static final String PARAM_PROJECTID= "Project_projectId";
 
     public static synchronized RewardDAO getInstance() {
         if (instance == null) {
@@ -48,6 +52,18 @@ public class RewardDAO implements IDAO<Reward> {
     @Override
     public List<Reward> getList(EntityManager em) {
         Query query = em.createNamedQuery("Reward.findAll");
+        List<Reward> listReward = query.getResultList();
+        return listReward;
+    }
+
+    /**
+     * Recuperation de la liste des rewards d'un projet
+     * @param em
+     * @return
+     */
+    public List<Reward> getListProjectReward(Integer projectId,EntityManager em) {
+        Query query = em.createQuery(JPQL_SELECT_BY_PROJECT_REWARD);
+        query.setParameter(PARAM_PROJECTID,projectId);
         List<Reward> listReward = query.getResultList();
         return listReward;
     }

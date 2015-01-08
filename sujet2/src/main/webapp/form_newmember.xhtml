@@ -9,7 +9,9 @@
         <ui:composition template="template/template.xhtml">
             <ui:define name="content">
                 <h:form>
-                <div id="shareModal" class="modal hide fade">
+                    <p:tooltip />
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                    <div id="shareModal" class="modal hide fade">
                     <p:fieldset legend="S'inscrire et devenir membre">
                     <h:panelGrid columns="3" styleClass="form" cellpadding="5">
                                 <p:outputLabel for="login" value="Login : "/>

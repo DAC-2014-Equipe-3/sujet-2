@@ -1,6 +1,7 @@
 package com.dac2014equipe3.sujet2.util;
 
 import com.dac2014equipe3.sujet2.presentation.controller.MemberBean;
+import com.dac2014equipe3.sujet2.vo.MemberVo;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -44,6 +45,16 @@ public class Utilities {
         return controller.isLoggedIn();
     }
 
+    /**
+     * Recuperation de l'objet membre du membre connecté
+     * @return
+     */
+    public static MemberVo getSessionMember(){
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
+        return controller.getMemberVo();
+    }
     /**
      *
      * @param logout

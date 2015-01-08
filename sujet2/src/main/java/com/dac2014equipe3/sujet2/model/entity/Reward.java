@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Reward.findByRewardName", query = "SELECT r FROM Reward r WHERE r.rewardName = :rewardName"),
     @NamedQuery(name = "Reward.findByRewardDescription", query = "SELECT r FROM Reward r WHERE r.rewardDescription = :rewardDescription"),
     @NamedQuery(name = "Reward.findByRewardMinPrice", query = "SELECT r FROM Reward r WHERE r.rewardMinPrice = :rewardMinPrice")})
-public class Reward implements Serializable {
+public class Reward implements Serializable ,IEntity<RewardVo>{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -148,4 +148,17 @@ public class Reward implements Serializable {
         return "com.dac2014equipe3.sujet2.model.entity.Reward[ rewardId=" + rewardId + " ]";
     }
 
+    @Override
+    public RewardVo toVo() {
+        RewardVo vo = new RewardVo();
+
+        vo.setMemberbacksProjectList(memberbacksProjectList);
+        vo.setProject(project);
+        vo.setRewardDescription(rewardDescription);
+        vo.setRewardId(rewardId);
+        vo.setRewardMinPrice(rewardMinPrice);
+        vo.setRewardName(rewardName);
+
+        return vo;
+    }
 }

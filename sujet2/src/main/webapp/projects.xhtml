@@ -1,53 +1,52 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-    <f:view contentType="text/html">
-        <h:body>
-            <ui:composition template="template/template.xhtml">
-                <ui:define name="content">
-                    <h:form>
-                        #{projectsBean.getAllProjectsNotDeleted()}
-                        <p:accordionPanel value="#{projectsBean.listProjects}" var="project">
-                            <p:tab title="#{project.projectTitle} [Catégorie:#{project.projectCategory.categoryName}]">
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <h:outputText value="Description:" />
-                                    <h:outputText value="#{project.projectDescription}" />
-                                    <p:separator/><p:separator/>
-                                    <h:outputText value="Créé le:" />
-                                    <h:outputText value="#{project.projectCreationDate}"/>
-                                    <h:outputText value="Montant à atteindre:" />
-                                    <h:outputText value="#{project.projectFundingGoal}" />
-                                    <h:outputText value="Date de clôture:" />
-                                    <h:outputText value="#{project.projectEndDate}" />
+<f:view contentType="text/html">
+    <h:body>
+        <ui:composition template="template/template.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    #{projectsBean.getAllProjectsNotDeleted()}
+                    <p:accordionPanel value="#{projectsBean.listProjects}" var="project">
+                        <p:tab title="#{project.projectTitle} [Catégorie:#{project.projectCategory.categoryName}]">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Description:" />
+                                <h:outputText value="#{project.projectDescription}" />
+                                <p:separator/><p:separator/>
+                                <h:outputText value="Créé le:" />
+                                <h:outputText value="#{project.projectCreationDate}"/>
+                                <h:outputText value="Montant à atteindre:" />
+                                <h:outputText value="#{project.projectFundingGoal}" />
+                                <h:outputText value="Date de clôture:" />
+                                <h:outputText value="#{project.projectEndDate}" />
 
-                                    <h:outputText value="Createur:" />
-                                    <ui:repeat value="#{project.memberList}" var="creator">
-                                        <h:outputText value="#{creator.memberFirstname}" />
-                                        <h:outputText value=" " />
-                                        <h:outputText value="#{creator.memberLastname}" />
-                                        <h:outputText value=" | " />
-                                    </ui:repeat>
-
-                                    <h:outputText value="Investisseurs:" />
-                                    <ui:repeat value="#{project.memberbacksProjectList}" var="inves">
-                                        <h:outputText value="#{inves.member1.memberFirstname}" />
-                                        <h:outputText value=" " />
-                                        <h:outputText value="#{inves.member1.memberLastname}" />
-                                        <h:outputText value=" | " />
-                                    </ui:repeat>
-                                    <h:link value="Supprimer" outcome="form_deleteproject" >
-                                        <f:param name="idProject" value="#{project.projectId}" />
-                                    </h:link>
-                                </h:panelGrid>
-                            </p:tab>
-                        </p:accordionPanel>
-                    </h:form>
-                </ui:define>
-            </ui:composition>
-        </h:body>
-    </f:view>
+                                <h:outputText value="Createur:" />
+                                <ui:repeat value="#{project.memberList}" var="creator">
+                                    <h:outputText value="#{creator.memberFirstname}" />
+                                    <h:outputText value=" " />
+                                    <h:outputText value="#{creator.memberLastname}" />
+                                    <h:outputText value=" | " />
+                                </ui:repeat>
+                                <h:outputText value="Investisseurs:" />
+                                <ui:repeat value="#{project.memberbacksProjectList}" var="inves">
+                                    <h:outputText value="#{inves.member1.memberFirstname}" />
+                                    <h:outputText value=" " />
+                                    <h:outputText value="#{inves.member1.memberLastname}" />
+                                    <h:outputText value=" | " />
+                                </ui:repeat>
+                                <p:button  icon="ui-icon-pencil" value="Investir"  outcome="/faces/form_backproject.xhtml"  >
+                                    <f:param  name="idProject" value="#{project.projectId}"></f:param>
+                                </p:button>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</f:view>
 </html>

@@ -20,9 +20,12 @@ public class MemberbacksProjectVo implements IValueObject{
     private Date backingDate;
     private MemberVo member1;
     private ProjectVo project;
-    private Reward reward;
+    private RewardVo reward;
 
-    public MemberbacksProjectVo(MemberbacksProjectPK memberbacksProjectPK, int pledgedEuros, Date backingDate, MemberVo member1, ProjectVo project, Reward reward) {
+    public MemberbacksProjectVo() {
+    }
+
+    public MemberbacksProjectVo(MemberbacksProjectPK memberbacksProjectPK, int pledgedEuros, Date backingDate, MemberVo member1, ProjectVo project, RewardVo reward) {
         this.memberbacksProjectPK = memberbacksProjectPK;
         this.pledgedEuros = pledgedEuros;
         this.backingDate = backingDate;
@@ -71,11 +74,11 @@ public class MemberbacksProjectVo implements IValueObject{
         this.project = project;
     }
 
-    public Reward getReward() {
+    public RewardVo getReward() {
         return reward;
     }
 
-    public void setReward(Reward reward) {
+    public void setReward(RewardVo reward) {
         this.reward = reward;
     }
 }

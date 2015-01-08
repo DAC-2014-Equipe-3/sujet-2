@@ -1,9 +1,7 @@
 package com.dac2014equipe3.sujet2.businesslogic.service;
 
 import com.dac2014equipe3.sujet2.model.dao.DAOFactory;
-import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
-import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
-import com.dac2014equipe3.sujet2.model.entity.Project;
+import com.dac2014equipe3.sujet2.model.entity.*;
 import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
 import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
@@ -15,7 +13,7 @@ import java.util.List;
 /**
  * Created by Monssef on 03/01/15.
  */
-public class MemberbacksProjectService implements IService<MembercreatesProjectVo>{
+public class MemberbacksProjectService implements IService<MemberbacksProjectVo>{
 
     private static MemberbacksProjectService instance;
 
@@ -27,17 +25,34 @@ public class MemberbacksProjectService implements IService<MembercreatesProjectV
     }
 
     @Override
-    public void persist(MembercreatesProjectVo membercreatesProjectVo, EntityManager em) {
+    public void persist(MemberbacksProjectVo memberbacksProjectVo, EntityManager em) {
+        MemberbacksProject entity = new MemberbacksProject();
+        Project projectentity = new Project();
+        Member memberentity = new Member();
+        Reward rewardentity = new Reward();
 
+        memberentity.setMemberId(memberbacksProjectVo.getMember1().getMemberId());
+        projectentity.setProjectId(memberbacksProjectVo.getProject().getProjectId());
+        rewardentity.setRewardId(memberbacksProjectVo.getReward().getRewardId());
+
+        entity.setBackingDate(memberbacksProjectVo.getBackingDate());
+        entity.setPledgedEuros(memberbacksProjectVo.getPledgedEuros());
+
+        entity.setProject(projectentity);
+        entity.setReward(rewardentity);
+        entity.setMemberbacksProjectPK(memberbacksProjectVo.getMemberbacksProjectPK());
+        entity.setMember1(memberentity);
+
+        DAOFactory.getInstance().getMemberbacksProjectDAO().persist(entity, em);
     }
 
     @Override
-    public MembercreatesProjectVo find(Object id, EntityManager em) {
+    public MemberbacksProjectVo find(Object id, EntityManager em) {
         return null;
     }
 
     @Override
-    public void update(MembercreatesProjectVo membercreatesProjectVo, EntityManager em) {
+    public void update(MemberbacksProjectVo membercreatesProjectVo, EntityManager em) {
 
     }
 
@@ -47,7 +62,7 @@ public class MemberbacksProjectService implements IService<MembercreatesProjectV
     }
 
     @Override
-    public List<MembercreatesProjectVo> getList(EntityManager em) {
+    public List<MemberbacksProjectVo> getList(EntityManager em) {
         return null;
     }
 

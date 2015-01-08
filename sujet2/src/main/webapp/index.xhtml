@@ -39,24 +39,20 @@
                                             <h:outputText value="#{project.projectTitle}" style="font-weight: bold"/>
                                             <h:outputText value="Description:" />
                                             <h:outputText value="#{project.projectDescription}" style="font-weight: bold"/>
+                                        </h:panelGrid>
+                                            <h:panelGrid columns="3" >
                                             <p:button  icon="ui-icon-pencil" value="Modifier"  outcome="/faces/form_updateproject.xhtml"  >
                                                 <f:param  name="idProject" value="#{project.projectId}"></f:param>
                                             </p:button>
 
-                                         <!--   <div class="form-actions">
-                                                <p:commandButton value="Supprimer le compte" actionListener="{projectBean.deleteProject(project.projectId)}" >
-                                                    <p:confirm header="Confirmation : Ceci supprimera votre compte" message=" Votre compte sera supprimé  après cette opération" icon="ui-icon-alert" />
-                                                </p:commandButton>
-
-                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                    <p:commandButton   value="Valider" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                                    <p:commandButton value="Annuler" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                                                </p:confirmDialog>
-                                            </div>
-                                         -->
-                                            <p:button  icon="ui-icon-pencil" value="Supprimer"  outcome="/faces/form_deleteproject.xhtml"  >
+                                            <p:button  icon="ui-icon-locked" value="Modifier"  outcome="/faces/form_updateproject.xhtml"  >
                                                 <f:param  name="idProject" value="#{project.projectId}"></f:param>
                                             </p:button>
+
+                                            <p:button  icon="ui-icon-trash" value="Supprimer"  outcome="/faces/form_deleteproject.xhtml"  >
+                                                <f:param  name="idProject" value="#{project.projectId}"></f:param>
+                                            </p:button>
+
                                         </h:panelGrid>
 
                                         </p:fieldset>
@@ -71,14 +67,15 @@
                                         <div id="shareModal2" class="modal hide fade">
                                             <p:fieldset legend="#{project.projectTitle}" >
                                         <h:panelGrid columns="2" cellpadding="5">
-                                            <h:outputText value="IdProject:" />
+                                            <h:outputText value="IdProject :" />
                                             <h:outputText value="#{project.projectId}" style="font-weight: bold"/>
                                             <h:outputText value="Catégorie :" />
                                             <h:outputText value="#{project.projectCategory.categoryName}" style="font-weight: bold"/>
-                                            <h:outputText value="Libellé:" />
+                                            <h:outputText value="Libellé :" />
                                             <h:outputText value="#{project.projectTitle}" style="font-weight: bold"/>
-                                            <h:outputText value="Description:" />
+                                            <h:outputText value="Description :" />
                                             <h:outputText value="#{project.projectDescription}" style="font-weight: bold"/>
+                                            <h:outputText value="Montant (en euros):" />
 
                                 </h:panelGrid>
 

@@ -27,7 +27,9 @@ public class MemberbacksProjectFacade extends Facade<MemberbacksProjectVo>{
             }
         }
     }
-
+    public void addMemberBacksProject(MemberbacksProjectVo memberbacksProjectVo){
+       persist(memberbacksProjectVo);
+    }
     public List<ProjectVo> getListProjectBacked(Integer memberId) {
         try {
             return ((MemberbacksProjectService)service).getListProjectBacked(memberId, em);

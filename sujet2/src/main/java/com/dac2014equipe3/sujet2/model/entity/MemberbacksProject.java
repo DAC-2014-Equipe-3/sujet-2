@@ -154,7 +154,7 @@ public class MemberbacksProject implements Serializable, IEntity<MemberbacksProj
 
     @Override
     public MemberbacksProjectVo toVo() {
-        MemberbacksProjectVo memberbacksProjectVo = new MemberbacksProjectVo(memberbacksProjectPK, pledgedEuros, backingDate, member1.toVo(), project.toVo(), reward);
+        MemberbacksProjectVo memberbacksProjectVo = new MemberbacksProjectVo(memberbacksProjectPK, pledgedEuros, backingDate, member1.toVo(), project.toVo(), reward.toVo());
         return memberbacksProjectVo;
     }
 }

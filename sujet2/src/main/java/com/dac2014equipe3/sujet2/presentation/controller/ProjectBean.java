@@ -2,6 +2,7 @@ package com.dac2014equipe3.sujet2.presentation.controller;
 
 import com.dac2014equipe3.sujet2.businesslogic.facade.*;
 import com.dac2014equipe3.sujet2.model.entity.*;
+import com.dac2014equipe3.sujet2.util.Utilities;
 import com.dac2014equipe3.sujet2.vo.*;
 
 import javax.faces.application.FacesMessage;
@@ -188,7 +189,13 @@ public class ProjectBean {
         projectVo.setMediaList(null); //TODO
         projectVo.setMemberbacksProjectList(null); //TODO
         projectVo.setListReward(getRewardList());//TODO
-        projectFacade.addProject(projectVo);
+        if (getRewardList().size() > 0 ) {
+            projectFacade.addProject(projectVo);
+        }else {
+            // aucun reward, on l'oblige a ajouter un reward joker
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "  Veuillez ajouter un reward au minimum. Merci"));
+            return "failure";
+        }
 
         //Get the new project id
 
@@ -331,7 +338,7 @@ public class ProjectBean {
      */
     public void getDataProject() {
             ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
-            setId(1);
+            setId(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject")));
 
             ProjectVo projectVo = projectFacade.find(getId());
             setId(projectVo.getProjectId());
@@ -400,5 +407,24 @@ public class ProjectBean {
 
 
         return "success";
+    }
+
+    public String endedProject(){
+        String ret = "failure";
+        //todo correction de la base de donnees ajoutee l'attribut ProjectIsclosed
+       /* ProjectVo projectVo = new ProjectVo();
+        ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
+
+        projectVo.setProjectId(getId());
+        projectVo.setProjectTitle(getTitle());
+        projectVo.setProjectFundingGoal(getFundingGoal());
+        projectVo.setProjectCreationDate(new Date());
+        projectVo.setProjectEndDate(getEndDate());
+        projectVo.setProjectDescription(getDescription());
+        projectVo.setProjectIsSuppressed(false);
+
+        projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
+        projectFacade.updateProject(projectVo);*/
+        return ret;
     }
 }

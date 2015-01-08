@@ -1,6 +1,7 @@
 package com.dac2014equipe3.sujet2.businesslogic.facade;
 
 import com.dac2014equipe3.sujet2.businesslogic.service.IService;
+import com.dac2014equipe3.sujet2.businesslogic.service.RewardServices;
 import com.dac2014equipe3.sujet2.vo.RewardVo;
 
 import java.util.List;
@@ -17,6 +18,17 @@ public class RewardFacade extends Facade<RewardVo>{
     public void addRewardList(List<RewardVo> list){
         for(RewardVo r : list){
             persist(r);
+        }
+    }
+
+    public List<RewardVo>  getListProjectReward(Integer projectId) {
+        try {
+            return ((RewardServices)service).getListProjectReward(projectId,em);
+        } finally {
+            if (em != null) {
+                em.clear();
+                em.close();
+            }
         }
     }
 }

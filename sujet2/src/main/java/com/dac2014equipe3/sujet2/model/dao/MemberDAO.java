@@ -75,7 +75,7 @@ public class MemberDAO implements IDAO<Member> {
         q.setParameter(PARAM_PASS, entity.getMemberPassword());
 
         try {
-            member = (Member) q.getSingleResult();
+            member = (Member)q.getSingleResult();
         } catch (NonUniqueResultException e) {
             member = (Member) q.getResultList().get(0);
         } catch (NoResultException e) {

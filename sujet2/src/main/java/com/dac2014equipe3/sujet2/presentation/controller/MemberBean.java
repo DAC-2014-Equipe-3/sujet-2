@@ -14,7 +14,6 @@ import com.dac2014equipe3.sujet2.util.Utilities;
 import com.dac2014equipe3.sujet2.vo.MemberVo;
 import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
 import com.dac2014equipe3.sujet2.vo.ProjectVo;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
 

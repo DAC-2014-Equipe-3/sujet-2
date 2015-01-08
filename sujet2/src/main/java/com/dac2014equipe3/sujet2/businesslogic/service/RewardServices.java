@@ -6,6 +6,7 @@ import com.dac2014equipe3.sujet2.model.entity.Reward;
 import com.dac2014equipe3.sujet2.vo.RewardVo;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,5 +53,15 @@ public class RewardServices implements IService<RewardVo>{
     @Override
     public List<RewardVo> getList(EntityManager em) {
         return null;
+    }
+
+
+    public List<RewardVo> getListProjectReward(Integer projectId,EntityManager em) {
+        List<RewardVo> list = new ArrayList<RewardVo>();
+        for (Reward reward: DAOFactory.getInstance().getRewardDAO().getListProjectReward(projectId, em)) {
+            list.add((reward.toVo()));
+        }
+        return list;
+
     }
 }
