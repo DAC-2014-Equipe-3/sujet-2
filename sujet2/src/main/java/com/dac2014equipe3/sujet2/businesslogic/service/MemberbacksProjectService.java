@@ -3,8 +3,10 @@ package com.dac2014equipe3.sujet2.businesslogic.service;
 import com.dac2014equipe3.sujet2.model.dao.DAOFactory;
 import com.dac2014equipe3.sujet2.model.entity.MemberbacksProject;
 import com.dac2014equipe3.sujet2.model.entity.MembercreatesProject;
+import com.dac2014equipe3.sujet2.model.entity.Project;
 import com.dac2014equipe3.sujet2.vo.MemberbacksProjectVo;
 import com.dac2014equipe3.sujet2.vo.MembercreatesProjectVo;
+import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -53,6 +55,14 @@ public class MemberbacksProjectService implements IService<MembercreatesProjectV
         List<MemberbacksProjectVo> list = new ArrayList<MemberbacksProjectVo>();
         for (MemberbacksProject MbP : DAOFactory.getInstance().getMemberbacksProjectDAO().getListForProject(idProject, em)) {
             list.add((MbP).toVo());
+        }
+        return list;
+    }
+
+    public List<ProjectVo> getListProjectBacked(Integer memberId, EntityManager em) {
+        List<ProjectVo> list = new ArrayList<ProjectVo>();
+        for (Project project : DAOFactory.getInstance().getMemberbacksProjectDAO().getListProjectBacked(memberId, em)) {
+            list.add((project).toVo());
         }
         return list;
     }

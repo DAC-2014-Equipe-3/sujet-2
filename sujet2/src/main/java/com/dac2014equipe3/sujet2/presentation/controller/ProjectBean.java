@@ -25,7 +25,6 @@ public class ProjectBean {
     private ProjectCategory category;
     private boolean isSuppressed;
     private ProjectCategoryVo categoryVo;
-
     private Integer rewardId;
     private String rewardName;
     private String rewardDescription;
@@ -276,23 +275,23 @@ public class ProjectBean {
                             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Projet supprimé avec succés."));
                             return "success";
                         }else{
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé, problème à l'execution de la requête. "));
                             return "failure";
                         }
                     } else {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé, projet a déjà des invesstisseurs ou date de fin n'est pas encore arrivée "));
                         return "failure";
                     }
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé, soit vous ne possedez pas le projet soit vous n'êtes pas Administrateur."));
                     return "failure";
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé, vous n'avez pas le droit de supprimer ce projet."));
                 return "failure";
             }
         }else{
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé, utilisateur non connecté"));
             return "failure";
         }
 
@@ -327,4 +326,79 @@ public class ProjectBean {
 
     }
 
+    /**
+     * Recuperation des infos d'un projet
+     */
+    public void getDataProject() {
+            ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
+            setId(1);
+
+            ProjectVo projectVo = projectFacade.find(getId());
+            setId(projectVo.getProjectId());
+            setTitle(projectVo.getProjectTitle());
+            setFundingGoal(projectVo.getProjectFundingGoal());
+            setCreationDate(projectVo.getProjectCreationDate());
+            setEndDate(projectVo.getProjectEndDate());
+            setDescription(projectVo.getProjectDescription());
+            setCategory(projectVo.getProjectCategory());
+    }
+
+    /**
+     * Mettre a jour id du projet selectionné pour la modification ou la suppression
+     * @param idProject
+     */
+    public void setCurrentSelectedProject(Integer idProject){
+        setId(idProject);
+    }
+    public String updateProject() {
+        //TODO Vérification que l'utilisateur est loggé
+
+        ProjectVo projectVo = new ProjectVo();
+        ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
+
+        projectVo.setProjectId(getId());
+        projectVo.setProjectTitle(getTitle());
+        projectVo.setProjectFundingGoal(getFundingGoal());
+        projectVo.setProjectCreationDate(new Date());
+        projectVo.setProjectEndDate(getEndDate());
+        projectVo.setProjectDescription(getDescription());
+        projectVo.setProjectIsSuppressed(false);
+        projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
+        projectFacade.updateProject(projectVo);
+
+        //Get the new project id
+
+        //TODO A finir (penser à lier le projet avec le créateur)
+        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
+                        MemberBean.class);
+
+        //Register the project creator
+        MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
+
+        MemberVo memberVo = controller.getMemberVo();
+        MembercreatesProjectPK membercreatesProjectPK = new MembercreatesProjectPK(memberVo.getMemberId(), projectVo.getProjectId());
+        MembercreatesProjectVo membercreatesProjectVo = new MembercreatesProjectVo(membercreatesProjectPK, memberVo, projectVo);
+
+        membercreatesProjectFacade.addMembercreatesProject(membercreatesProjectVo);
+
+
+        List<Reward> rewards = new ArrayList<Reward>();
+        int i=0;
+        for(RewardVo reward : rewardList){
+            rewards.add(new Reward(projectVo.getListReward().get(i++)));
+        }
+
+        Project project = new Project(projectVo);
+        project.setReward(rewards);
+        for(RewardVo r : rewardList){
+            r.setProject(project);
+        }
+        //Register the rewards
+        RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();
+        rewardFacade.addRewardList(rewardList);
+
+
+        return "success";
+    }
 }

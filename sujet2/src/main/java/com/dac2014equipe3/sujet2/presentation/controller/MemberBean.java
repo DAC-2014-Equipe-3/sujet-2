@@ -7,6 +7,7 @@ package com.dac2014equipe3.sujet2.presentation.controller;
 
 import com.dac2014equipe3.sujet2.businesslogic.facade.FacadeFactory;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MemberFacade;
+import com.dac2014equipe3.sujet2.businesslogic.facade.MemberbacksProjectFacade;
 import com.dac2014equipe3.sujet2.businesslogic.facade.MembercreatesProjectFacade;
 import com.dac2014equipe3.sujet2.model.entity.Project;
 import com.dac2014equipe3.sujet2.util.Utilities;
@@ -48,8 +49,8 @@ public class MemberBean {
     private String nationality;
     private String sex;
     private String profession;
-    private List<Project> createdProjectList;
-    private List<Project> investedProjectList;
+    private List<ProjectVo> createdProjectList;
+    private List<ProjectVo> investedProjectList;
 
     private static String LOGIN_PATTERN = "^[a-z0-9_-]{3,16}$";
     private static String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -271,28 +272,28 @@ public class MemberBean {
     /**
      * @return
      */
-    public List<Project> getInvestedProjectList() {
+    public List<ProjectVo> getInvestedProjectList() {
         return investedProjectList;
     }
 
     /**
      * @param investedProjectList
      */
-    public void setInvestedProjectList(List<Project> investedProjectList) {
+    public void setInvestedProjectList(List<ProjectVo> investedProjectList) {
         this.investedProjectList = investedProjectList;
     }
 
     /**
      * @return
      */
-    public List<Project> getCreatedProjectList() {
+    public List<ProjectVo> getCreatedProjectList() {
         return createdProjectList;
     }
 
     /**
      * @param createdProjectList
      */
-    public void setCreatedProjectList(List<Project> createdProjectList) {
+    public void setCreatedProjectList(List<ProjectVo> createdProjectList) {
         this.createdProjectList = createdProjectList;
     }
 
@@ -566,8 +567,47 @@ public class MemberBean {
     }
 
     /**
-     * //TODO A commenter et a mettre ailleurs ?
+     * Recuperer les projets créés par le membre
      */
+    public void allProjectsCreated() {
+        /*if (isLoggedIn()) {
+            MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
+            List<MembercreatesProjectVo> projectsCreated = membercreatesProjectFacade.getListForCreator(getId());
+            ListIterator<MembercreatesProjectVo> iter = projectsCreated.listIterator();
+            Project proj = new Project();
+            ProjectVo projTmp;
+
+            while (iter.hasNext()) {
+                projTmp = iter.next().getProject();
+                proj.setProjectTitle(projTmp.getProjectTitle());
+                proj.setProjectCategory(projTmp.getProjectCategory());
+                proj.setProjectDescription(projTmp.getProjectDescription());
+                createdProjectList.add(proj);
+            }
+        }*/
+    }
+
+    /**
+     * Recuperer les projets créés par le membre
+     */
+    public void allProjectsInvested() {
+        /*if (isLoggedIn()) {
+            MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance().getMemberbacksProjectFacade();
+            List<MemberbacksProjectVo> projectsInvested = memberbacksProjectFacade.getListForProject(getId());
+            ListIterator<MemberbacksProjectVo> iter = projectsInvested.listIterator();
+            Project proj = new Project();
+            ProjectVo projTmp;
+
+            while (iter.hasNext()) {
+                projTmp = iter.next().getProject();
+                proj.setProjectTitle(projTmp.getProjectTitle());
+                proj.setProjectCategory(projTmp.getProjectCategory());
+                proj.setProjectDescription(projTmp.getProjectDescription());
+                investedProjectList.add(proj);
+            }
+        }*/
+    }
+
     public void showDialogDeleteAccount() {
 
         RequestContext.getCurrentInstance().openDialog("form_deleteaccount");

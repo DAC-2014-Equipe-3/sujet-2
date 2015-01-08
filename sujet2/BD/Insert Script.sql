@@ -47,7 +47,7 @@ VALUES ('flyer','descriptionFlyer',142);
 
 INSERT INTO sujet2.Member_creates_Project(creatorId,projectId) VALUES (1,1);
 INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId)
-VALUES (2,1,387,'2013-11-12',1);
+VALUES (2,1,387,'2013-11-12',1 );
 
 INSERT INTO sujet2.Member_creates_Project(creatorId,projectId) VALUES (3,2);
 INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId)
