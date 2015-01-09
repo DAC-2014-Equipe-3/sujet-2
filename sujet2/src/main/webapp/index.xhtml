@@ -1,98 +1,155 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <f:view contentType="text/html">
-<h:body>
+    <h:body>
 
-    <ui:composition template="./template/template.xhtml">
+        <ui:composition template="./template/template.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h2>This is index content</h2>
+                    <h:panelGroup>
+                        <h:panelGroup rendered="#{memberBean.loggedIn == false}">
+                            <h2>ICI pas connecté</h2>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{memberBean.loggedIn == true}">
+                            <h2>Connecté</h2>
+                            <p:tooltip/>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+                            <p:tabView id="tableProject" value="tabView" dynamic="true" cache="false">
+                                <p:tab title="Mes projets">
+                                    #{memberBean.getAllMemberProject()}
 
-        <ui:define name="content">
-            <h:form>
-            <h2>This is index content</h2>
-            <h:panelGroup  >
-                <h:panelGroup rendered="#{memberBean.loggedIn == false}">
-                    <h2>ICI pas connecté</h2>
-                </h:panelGroup>
-                <h:panelGroup rendered="#{memberBean.loggedIn == true}">
-                    <h2>Connecté</h2>
-                    <p:tooltip />
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-                    <p:tabView id="tableProject" value="tabView">
-                        <p:tab title="Mes projets">
-                            #{memberBean.getAllMemberProject()}
-                            <p:dataScroller value="#{memberBean.createdProjectList}" var="project" chunkSize="10">
-
-                                    <p:outputPanel>
-                                    <div id="shareModal" class="modal hide fade">
-                                        <p:fieldset legend="#{project.projectTitle}" >
-                                        <h:panelGrid columns="2" cellpadding="5">
-
-                                            <h:outputText value="IdProject:" />
-                                            <h:outputText value="#{project.projectId}" style="font-weight: bold"/>
-                                            <h:outputText value="Catégorie :" />
-                                            <h:outputText value="#{project.projectCategory.categoryName}" style="font-weight: bold"/>
-                                            <h:outputText value="Libellé:" />
-                                            <h:outputText value="#{project.projectTitle}" style="font-weight: bold"/>
-                                            <h:outputText value="Description:" />
-                                            <h:outputText value="#{project.projectDescription}" style="font-weight: bold"/>
-                                        </h:panelGrid>
-                                            <h:panelGrid columns="3" >
-                                            <p:button  icon="ui-icon-pencil" value="Modifier"  outcome="/faces/form_updateproject.xhtml"  >
-                                                <f:param  name="idProject" value="#{project.projectId}"></f:param>
+                                    <p:dataTable value="#{memberBean.createdProjectList}" var="project">
+                                        <!--<p:column headerText="IdProject:">
+                                            <h:outputText value="#{project.projectId}"
+                                                          style="font-weight: bold"/>
+                                        </p:column>-->
+                                        <p:column headerText="Titre">
+                                            <h:outputText value="#{project.projectTitle}"
+                                                          style="font-weight: bold"/>
+                                        </p:column>
+                                        <p:column headerText="Catégorie">
+                                            <h:outputText value="#{project.projectCategory.categoryName}"/>
+                                        </p:column>
+                                        <p:column headerText="Date de création">
+                                            <h:outputText value="#{project.projectCreationDate}"/>
+                                        </p:column>
+                                        <p:column headerText="Date de fin">
+                                            <h:outputText value="#{project.projectEndDate}"/>
+                                        </p:column>
+                                        <p:column headerText="Montant déjà atteint">
+                                            <h:outputText value="TO DO (a calculer a chaque fois)"/>
+                                        </p:column>
+                                        <p:column headerText="Options">
+                                            <p:button icon="ui-icon-zoomin" value="Consulter"
+                                                      outcome="/faces/project.xhtml">
+                                                <f:param name="idProject"
+                                                         value="#{project.projectId}"></f:param>
                                             </p:button>
-
-                                            <p:button  icon="ui-icon-locked" value="Modifier"  outcome="/faces/form_updateproject.xhtml"  >
-                                                <f:param  name="idProject" value="#{project.projectId}"></f:param>
+                                            <p:button icon="ui-icon-locked" value="Clôturer"
+                                                      outcome="/faces/form_updateproject.xhtml">
+                                                <f:param name="idProject"
+                                                         value="#{project.projectId}"></f:param>
                                             </p:button>
-
-                                            <p:button  icon="ui-icon-trash" value="Supprimer"  outcome="/faces/form_deleteproject.xhtml"  >
-                                                <f:param  name="idProject" value="#{project.projectId}"></f:param>
+                                            <p:button icon="ui-icon-pencil" value="Modifier"
+                                                      outcome="/faces/form_updateproject.xhtml">
+                                                <f:param name="idProject"
+                                                         value="#{project.projectId}"></f:param>
                                             </p:button>
+                                            <p:button icon="ui-icon-trash" value="Supprimer"
+                                                      outcome="/faces/form_deleteproject.xhtml">
+                                                <f:param name="idProject"
+                                                         value="#{project.projectId}"></f:param>
+                                            </p:button>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <!--<p:dataScroller value="#{memberBean.createdProjectList}" var="project"
+                                                    chunkSize="10">
+                                        <p:outputPanel>
+                                            <div id="shareModal" class="modal hide fade">
+                                                <p:fieldset legend="#{project.projectTitle}">
+                                                    <h:panelGrid columns="2" cellpadding="5">
 
-                                        </h:panelGrid>
+                                                        <h:outputText value="IdProject:"/>
+                                                        <h:outputText value="#{project.projectId}"
+                                                                      style="font-weight: bold"/>
+                                                        <h:outputText value="Catégorie :"/>
+                                                        <h:outputText value="#{project.projectCategory.categoryName}"
+                                                                      style="font-weight: bold"/>
+                                                        <h:outputText value="Libellé:"/>
+                                                        <h:outputText value="#{project.projectTitle}"
+                                                                      style="font-weight: bold"/>
+                                                        <h:outputText value="Description:"/>
+                                                        <h:outputText value="#{project.projectDescription}"
+                                                                      style="font-weight: bold"/>
+                                                    </h:panelGrid>
+                                                    <h:panelGrid columns="3">
+                                                        <p:button icon="ui-icon-locked" value="Clôturer"
+                                                                  outcome="/faces/form_updateproject.xhtml">
+                                                            <f:param name="idProject"
+                                                                     value="#{project.projectId}"></f:param>
+                                                        </p:button>
 
-                                        </p:fieldset>
-                                    </div>
-                                    </p:outputPanel>
-                            </p:dataScroller>
-                        </p:tab>
-                        <p:tab title="Mes investissements">
-                            #{memberBean.getAllMemberBackedProject()}
-                            <p:dataScroller value="#{memberBean.investedProjectList}" var="project" chunkSize="10">
-                                    <p:outputPanel>
-                                        <div id="shareModal2" class="modal hide fade">
-                                            <p:fieldset legend="#{project.projectTitle}" >
-                                        <h:panelGrid columns="2" cellpadding="5">
-                                            <h:outputText value="IdProject :" />
-                                            <h:outputText value="#{project.projectId}" style="font-weight: bold"/>
-                                            <h:outputText value="Catégorie :" />
-                                            <h:outputText value="#{project.projectCategory.categoryName}" style="font-weight: bold"/>
-                                            <h:outputText value="Libellé :" />
-                                            <h:outputText value="#{project.projectTitle}" style="font-weight: bold"/>
-                                            <h:outputText value="Description :" />
-                                            <h:outputText value="#{project.projectDescription}" style="font-weight: bold"/>
-                                            <h:outputText value="Montant (en euros):" />
+                                                        <p:button icon="ui-icon-pencil" value="Modifier"
+                                                                  outcome="/faces/form_updateproject.xhtml">
+                                                            <f:param name="idProject"
+                                                                     value="#{project.projectId}"></f:param>
+                                                        </p:button>
 
-                                </h:panelGrid>
+                                                        <p:button icon="ui-icon-trash" value="Supprimer"
+                                                                  outcome="/faces/form_deleteproject.xhtml">
+                                                            <f:param name="idProject"
+                                                                     value="#{project.projectId}"></f:param>
+                                                        </p:button>
 
-                            </p:fieldset>
-                        </div>
-                                    </p:outputPanel>
+                                                    </h:panelGrid>
 
-                            </p:dataScroller>
-                        </p:tab>
-                    </p:tabView>
+                                                </p:fieldset>
+                                            </div>
+                                        </p:outputPanel>
+                                    </p:dataScroller>-->
+                                </p:tab>
+                                <p:tab title="Mes investissements">
+                                    #{memberBean.getAllMemberBackedProject()}
+                                    <p:dataScroller value="#{memberBean.investedProjectList}" var="project"
+                                                    chunkSize="10">
+                                        <p:outputPanel>
+                                            <div id="shareModal2" class="modal hide fade">
+                                                <p:fieldset legend="#{project.projectTitle}">
+                                                    <h:panelGrid columns="2" cellpadding="5">
+                                                        <h:outputText value="IdProject :"/>
+                                                        <h:outputText value="#{project.projectId}"
+                                                                      style="font-weight: bold"/>
+                                                        <h:outputText value="Catégorie :"/>
+                                                        <h:outputText value="#{project.projectCategory.categoryName}"
+                                                                      style="font-weight: bold"/>
+                                                        <h:outputText value="Libellé :"/>
+                                                        <h:outputText value="#{project.projectTitle}"
+                                                                      style="font-weight: bold"/>
+                                                        <h:outputText value="Description :"/>
+                                                        <h:outputText value="#{project.projectDescription}"
+                                                                      style="font-weight: bold"/>
+                                                        <h:outputText value="Montant (en euros):"/>
 
-        </h:panelGroup>
-            </h:panelGroup>
-            </h:form>
+                                                    </h:panelGrid>
 
-        </ui:define>
-    </ui:composition>
-</h:body>
+                                                </p:fieldset>
+                                            </div>
+                                        </p:outputPanel>
+
+                                    </p:dataScroller>
+                                </p:tab>
+                            </p:tabView>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </f:view>
 </html>

@@ -72,9 +72,6 @@
                         </h:panelGrid>
                         <div class="form-actions">
                             <h:commandButton action="#{memberBean.updateAccount()}" value="Modifier" class="btn btn-danger" />
-                            <p:commandButton value="Supprimer le compte" actionListener="#{memberBean.deleteAccount()}">
-                                <p:confirm header="Confirmation : Ceci supprimera votre compte" message=" Votre compte sera supprimé  après cette opération" icon="ui-icon-alert" />
-                            </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                 <p:commandButton   value="Valider" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                                 <p:commandButton value="Annuler" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
@@ -82,6 +79,12 @@
                         </div>
                         </p:fieldset>
                     </div>
+                </h:form>
+                <h:form>
+                    <p:commandButton value="Supprimer le compte" actionListener="#{memberBean.deleteAccount()}">
+                        <p:confirm header="Confirmation : Ceci supprimera votre compte" message=" Votre compte sera supprimé  après cette opération" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton action="update_password" value="Modifier mot de passe" icon="ui-icon-key"/>
                 </h:form>
             </ui:define>
         </ui:composition>
