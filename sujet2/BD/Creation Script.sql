@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `sujet2`.`Member` (
   `memberFirstname` VARCHAR(45) NOT NULL,
   `memberBirthday` DATE NOT NULL,
   `memberNationality` VARCHAR(45) NOT NULL,
+  `memberAddress` VARCHAR(255) NULL,
   `memberSex` VARCHAR(45) NULL,
   `memberProfession` VARCHAR(45) NULL,
   `memberIsSuppressed` TINYINT(1) NULL,
@@ -65,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `sujet2`.`Project` (
   `projectDescription` VARCHAR(2000) NOT NULL,
   `projectCategory` INT(11) NOT NULL,
   `projectIsSuppressed` TINYINT(1) NULL,
+  `projectIsClosed` TINYINT(1) NULL,
   PRIMARY KEY (`projectId`),
   INDEX `fk_Project_ProjectCategory1_idx` (`projectCategory` ASC),
   CONSTRAINT `fk_Project_ProjectCategory1`
@@ -105,10 +107,10 @@ CREATE TABLE IF NOT EXISTS `sujet2`.`Reward` (
   `rewardId` INT(11) NOT NULL AUTO_INCREMENT,
   `rewardName` VARCHAR(45) NOT NULL,
   `rewardDescription` VARCHAR(45) NOT NULL,
-  `rewardMinPrice` VARCHAR(45) NULL,
+  `rewardMinPrice` INT(11) NULL,
   `Project_projectId` INT(11) NULL,
   PRIMARY KEY (`rewardId`),
-  INDEX `fk_Reward_Project1_idx`  (`Project_projectId` ASC),
+  INDEX `fk_Reward_Project1_idx` (`Project_projectId` ASC),
   CONSTRAINT `fk_Reward_Project1`
     FOREIGN KEY (`Project_projectId`)
     REFERENCES `sujet2`.`Project` (`projectId`)
