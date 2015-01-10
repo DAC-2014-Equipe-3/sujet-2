@@ -399,6 +399,7 @@ public class MemberBean {
         setLoggedIn(Utilities.getSessionMemberLoggedIn());
 
         if (! isLoggedIn()) {
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour, Utilisateur non connecté");
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
@@ -451,6 +452,7 @@ public class MemberBean {
         setLoggedIn(Utilities.getSessionMemberLoggedIn());
 
         if (!isLoggedIn()) {
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour, Utilisateur non connecté");
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
@@ -505,6 +507,7 @@ public class MemberBean {
         setId(Utilities.getSessionMemberId());
         setLoggedIn(Utilities.getSessionMemberLoggedIn());
         if (!isLoggedIn()) {
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour, Utilisateur non connecté");
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance()

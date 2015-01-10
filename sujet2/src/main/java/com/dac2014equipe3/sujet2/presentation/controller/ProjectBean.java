@@ -193,7 +193,7 @@ public class ProjectBean {
             projectFacade.addProject(projectVo);
         }else {
             // aucun reward, on l'oblige a ajouter un reward joker
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "  Veuillez ajouter un reward au minimum. Merci"));
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Veuillez ajouter un reward au minimum. Merci");
             return "failure";
         }
 
@@ -230,7 +230,7 @@ public class ProjectBean {
         RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();
         rewardFacade.addRewardList(rewardList);
 
-
+        Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet ajouté avec succés.");
         return "success";
     }
 
@@ -279,26 +279,26 @@ public class ProjectBean {
                         projectFacade = FacadeFactory.getInstance().getProjectFacade();
                         projectVo.setProjectIsSuppressed(true);
                         if(projectFacade.updateProject(projectVo)){
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Projet supprimé avec succés."));
+                            Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet supprimé avec succés.");
                             return "success";
                         }else{
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé, problème à l'execution de la requête. "));
+                            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé, problème à l'execution de la requête. ");
                             return "failure";
                         }
                     } else {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé, projet a déjà des invesstisseurs ou date de fin n'est pas encore arrivée "));
+                        Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé, projet a déjà des invesstisseurs ou date de fin n'est pas encore arrivée ");
                         return "failure";
                     }
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé, soit vous ne possedez pas le projet soit vous n'êtes pas Administrateur."));
+                    Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé, soit vous ne possedez pas le projet soit vous n'êtes pas Administrateur.");
                     return "failure";
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé, vous n'avez pas le droit de supprimer ce projet."));
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé, vous n'avez pas le droit de supprimer ce projet.");
                 return "failure";
             }
         }else{
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Projet non supprimé, utilisateur non connecté"));
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé, utilisateur non connecté");
             return "failure";
         }
 
@@ -405,12 +405,12 @@ public class ProjectBean {
         RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();
         rewardFacade.addRewardList(rewardList);
 
-
+        Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet mis à jour avec succés.");
         return "success";
     }
 
     public String endedProject(){
-        String ret = "failure";
+
         //todo correction de la base de donnees ajoutee l'attribut ProjectIsclosed
        /* ProjectVo projectVo = new ProjectVo();
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
@@ -425,6 +425,7 @@ public class ProjectBean {
 
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
         projectFacade.updateProject(projectVo);*/
-        return ret;
+        Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Echec de la fermeture du projet");
+        return "failure";
     }
 }
