@@ -33,6 +33,17 @@ public class ProjectBean {
     private String rewardDescription;
     private String rewardMinPrice;
     private List<RewardVo> rewardList;
+    private Integer sumPledge;
+
+    public Integer getSumPledge() {
+        return sumPledge;
+    }
+
+    public void setSumPledge(Integer sumPledge) {
+        this.sumPledge = sumPledge;
+    }
+
+
 
     public ProjectBean() {
         rewardList = new ArrayList<RewardVo>();

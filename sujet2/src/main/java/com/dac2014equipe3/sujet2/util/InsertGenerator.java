@@ -59,7 +59,8 @@ public class InsertGenerator {
         high = 20;
         for (int i = 0; i <= 30; i++) {
             nbRandom = r.nextInt(high-low) + low;
-            query += "INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward "+i+"','Description du reward "+i+"',"+(i+1)*10+","+nbRandom+");\n";
+            query += "INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) " +
+                    " VALUES ('Reward "+i+"','Description du reward "+i+"',"+(i+1)*10+","+(i%20+1)+");\n";
         }
 
         query+="\n/**CREATION DES MEDIAS**/\n\n";
