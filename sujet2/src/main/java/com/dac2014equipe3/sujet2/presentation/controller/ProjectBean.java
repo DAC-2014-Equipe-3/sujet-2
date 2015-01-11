@@ -23,10 +23,8 @@ public class ProjectBean {
     private Date creationDate;
     private Date endDate;
     private String description;
-    private ProjectCategory category;
     private boolean isSuppressed;
     private boolean isClosed;
-    //TODO pk categoryVo + category ?
     private ProjectCategoryVo categoryVo;
     private Integer rewardId;
     private String rewardName;
@@ -140,14 +138,6 @@ public class ProjectBean {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public ProjectCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(ProjectCategory category) {
-        this.category = category;
     }
 
     public boolean isSuppressed() {
@@ -341,7 +331,7 @@ public class ProjectBean {
             setCreationDate(projectVo.getProjectCreationDate());
             setEndDate(projectVo.getProjectEndDate());
             setDescription(projectVo.getProjectDescription());
-            setCategory(projectVo.getProjectCategory());
+            setCategoryVo(new ProjectCategoryVo(projectVo.getProjectCategory()));
         }
 
     }
@@ -360,7 +350,7 @@ public class ProjectBean {
             setCreationDate(projectVo.getProjectCreationDate());
             setEndDate(projectVo.getProjectEndDate());
             setDescription(projectVo.getProjectDescription());
-            setCategory(projectVo.getProjectCategory());
+            setCategoryVo(new ProjectCategoryVo(projectVo.getProjectCategory()));
     }
 
     /**
