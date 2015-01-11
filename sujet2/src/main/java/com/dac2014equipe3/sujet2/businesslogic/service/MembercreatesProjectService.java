@@ -65,6 +65,7 @@ public class MembercreatesProjectService implements IService<MembercreatesProjec
         project.setProjectFundingGoal(membercreatesProjectVo.getProject().getProjectFundingGoal());
         project.setProjectId(membercreatesProjectVo.getProject().getProjectId());
         project.setProjectIsSuppressed(membercreatesProjectVo.getProject().getProjectIsSuppressed());
+        project.setProjectIsClosed(membercreatesProjectVo.getProject().isProjectIsClosed());
         project.setProjectTitle(membercreatesProjectVo.getProject().getProjectTitle());
         project.setReward(rewardList);
 

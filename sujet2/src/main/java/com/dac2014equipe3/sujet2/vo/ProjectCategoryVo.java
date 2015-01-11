@@ -1,6 +1,7 @@
 package com.dac2014equipe3.sujet2.vo;
 
 import com.dac2014equipe3.sujet2.model.entity.Project;
+import com.dac2014equipe3.sujet2.model.entity.ProjectCategory;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,15 @@ public class ProjectCategoryVo implements IValueObject{
     private String categoryName;
     private String categoryDescription;
     private List<Project> projectList;
+
+    public ProjectCategoryVo() {}
+
+    public ProjectCategoryVo(ProjectCategory projectCategory) {
+        this.categoryId = projectCategory.getCategoryId();
+        this.categoryName = projectCategory.getCategoryName();
+        this.categoryDescription = projectCategory.getCategoryDescription();
+        this.projectList = projectCategory.getProjectList();
+    }
 
     public Integer getCategoryId() {
         return categoryId;

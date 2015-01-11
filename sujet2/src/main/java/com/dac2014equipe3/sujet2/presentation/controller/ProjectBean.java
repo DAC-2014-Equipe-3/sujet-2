@@ -23,10 +23,8 @@ public class ProjectBean {
     private Date creationDate;
     private Date endDate;
     private String description;
-    private ProjectCategory category;
     private boolean isSuppressed;
     private boolean isClosed;
-    //TODO pk categoryVo + category ?
     private ProjectCategoryVo categoryVo;
     private Integer rewardId;
     private String rewardName;
@@ -153,14 +151,6 @@ public class ProjectBean {
         this.description = description;
     }
 
-    public ProjectCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(ProjectCategory category) {
-        this.category = category;
-    }
-
     public boolean isSuppressed() {
         return isSuppressed;
     }
@@ -196,6 +186,12 @@ public class ProjectBean {
     public String addProject() {
         //TODO Vérification que l'utilisateur est loggé
 
+        if(!Utilities.getSessionMemberLoggedIn()){
+           return "failure";
+        }
+
+
+
         ProjectVo projectVo = new ProjectVo();
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
 
@@ -206,6 +202,7 @@ public class ProjectBean {
         projectVo.setProjectEndDate(getEndDate());
         projectVo.setProjectDescription(getDescription());
         projectVo.setProjectIsSuppressed(false);
+        projectVo.setProjectIsClosed(false);
         projectVo.setMemberList(null);
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
         projectVo.setMediaList(null); //TODO
@@ -221,15 +218,12 @@ public class ProjectBean {
             return "failure";
         }
 
-        //Get the new project id
-        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
-                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
-                        MemberBean.class);
-
         //Register the project creator
         MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().
                 getMembercreatesProjectFacade();
-        MemberVo memberVo = controller.getMemberVo();
+
+        MemberVo memberVo = Utilities.getSessionMember();
+
         MembercreatesProjectPK membercreatesProjectPK = new MembercreatesProjectPK(
                 memberVo.getMemberId(), projectVo.getProjectId());
         MembercreatesProjectVo membercreatesProjectVo = new MembercreatesProjectVo(
@@ -348,7 +342,7 @@ public class ProjectBean {
             setCreationDate(projectVo.getProjectCreationDate());
             setEndDate(projectVo.getProjectEndDate());
             setDescription(projectVo.getProjectDescription());
-            setCategory(projectVo.getProjectCategory());
+            setCategoryVo(new ProjectCategoryVo(projectVo.getProjectCategory()));
         }
 
     }
@@ -367,7 +361,7 @@ public class ProjectBean {
             setCreationDate(projectVo.getProjectCreationDate());
             setEndDate(projectVo.getProjectEndDate());
             setDescription(projectVo.getProjectDescription());
-            setCategory(projectVo.getProjectCategory());
+            setCategoryVo(new ProjectCategoryVo(projectVo.getProjectCategory()));
     }
 
     /**
