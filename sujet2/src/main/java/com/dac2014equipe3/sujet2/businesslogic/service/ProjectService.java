@@ -44,7 +44,7 @@ public class ProjectService implements IService<ProjectVo>{
         entity.setProjectEndDate(vo.getProjectEndDate());
         entity.setProjectFundingGoal(vo.getProjectFundingGoal());
         entity.setProjectId(vo.getProjectId());
-        entity.setProjectIsClosed(vo.isProjectIsClosed());
+        entity.setProjectIsClosed(vo.getProjectIsClosed());
         entity.setProjectIsSuppressed(vo.getProjectIsSuppressed());
         entity.setProjectTitle(vo.getProjectTitle());
         entity.setReward(rewardList);
