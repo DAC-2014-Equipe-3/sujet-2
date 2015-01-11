@@ -26,6 +26,7 @@ public class ProjectBean {
     private boolean isSuppressed;
     private boolean isClosed;
     private ProjectCategoryVo categoryVo;
+    //TODO la liste des rewards devrait suffire ? ou sinon faire un rewardBean pour gerer juste les rewards
     private Integer rewardId;
     private String rewardName;
     private String rewardDescription;
@@ -34,62 +35,6 @@ public class ProjectBean {
 
     public ProjectBean() {
         rewardList = new ArrayList<RewardVo>();
-    }
-
-    public String getRewardMinPrice() {
-        return rewardMinPrice;
-    }
-
-    public void setRewardMinPrice(String rewardMinPrice) {
-        this.rewardMinPrice = rewardMinPrice;
-    }
-
-    public Integer getRewardId() {
-        return rewardId;
-    }
-
-    public void setRewardId(Integer rewardId) {
-        this.rewardId = rewardId;
-    }
-
-    public String getRewardName() {
-        return rewardName;
-    }
-
-    public void setRewardName(String rewardName) {
-        this.rewardName = rewardName;
-    }
-
-    public String getRewardDescription() {
-        return rewardDescription;
-    }
-
-    public void setRewardDescription(String rewardDescription) {
-        this.rewardDescription = rewardDescription;
-    }
-
-    public void addReward(){
-        this.rewardList.add(new RewardVo(
-                0,
-                this.rewardName,
-                this.rewardDescription,
-                this.rewardMinPrice));
-
-        this.rewardName = "";
-        this.rewardDescription = "";
-        this.rewardMinPrice = "";
-    }
-
-    public void removeReward(RewardVo rewardVo){
-        this.rewardList.remove(rewardVo);
-    }
-
-    public List<RewardVo> getRewardList() {
-        return rewardList;
-    }
-
-    public void setRewardList(List<RewardVo> rewardList) {
-        this.rewardList = rewardList;
     }
 
     public Date getEndDate() {
@@ -164,6 +109,61 @@ public class ProjectBean {
         this.isClosed = isClosed;
     }
 
+    public String getRewardMinPrice() {
+        return rewardMinPrice;
+    }
+
+    public void setRewardMinPrice(String rewardMinPrice) {
+        this.rewardMinPrice = rewardMinPrice;
+    }
+
+    public Integer getRewardId() {
+        return rewardId;
+    }
+
+    public void setRewardId(Integer rewardId) {
+        this.rewardId = rewardId;
+    }
+
+    public String getRewardName() {
+        return rewardName;
+    }
+
+    public void setRewardName(String rewardName) {
+        this.rewardName = rewardName;
+    }
+
+    public String getRewardDescription() {
+        return rewardDescription;
+    }
+
+    public void setRewardDescription(String rewardDescription) {
+        this.rewardDescription = rewardDescription;
+    }
+
+    public void addReward() {
+        this.rewardList.add(new RewardVo(
+                0,
+                this.rewardName,
+                this.rewardDescription,
+                this.rewardMinPrice));
+
+        this.rewardName = "";
+        this.rewardDescription = "";
+        this.rewardMinPrice = "";
+    }
+
+    public void removeReward(RewardVo rewardVo) {
+        this.rewardList.remove(rewardVo);
+    }
+
+    public List<RewardVo> getRewardList() {
+        return rewardList;
+    }
+
+    public void setRewardList(List<RewardVo> rewardList) {
+        this.rewardList = rewardList;
+    }
 
     /***********************************METHODES AJOUTEES*********************************/
 
@@ -173,14 +173,10 @@ public class ProjectBean {
      * @return
      */
     public String addProject() {
-        //TODO Vérification que l'utilisateur est loggé
 
-        if(!Utilities.getSessionMemberLoggedIn()){
-           return "failure";
+        if (!Utilities.getSessionMemberLoggedIn()) {
+            return "failure";
         }
-
-
-
         ProjectVo projectVo = new ProjectVo();
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
 
@@ -198,9 +194,9 @@ public class ProjectBean {
         projectVo.setMemberbacksProjectList(null);
         projectVo.setListReward(getRewardList());
 
-        if (getRewardList().size() > 0 ) {
+        if (getRewardList().size() > 0) {
             projectFacade.addProject(projectVo);
-        }else {
+        } else {
             // aucun reward, on l'oblige a ajouter un reward joker
             Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR,
                     "Veuillez ajouter un reward au minimum. Merci");
@@ -210,25 +206,22 @@ public class ProjectBean {
         //Register the project creator
         MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().
                 getMembercreatesProjectFacade();
-
         MemberVo memberVo = Utilities.getSessionMember();
-
         MembercreatesProjectPK membercreatesProjectPK = new MembercreatesProjectPK(
                 memberVo.getMemberId(), projectVo.getProjectId());
         MembercreatesProjectVo membercreatesProjectVo = new MembercreatesProjectVo(
                 membercreatesProjectPK, memberVo, projectVo);
         membercreatesProjectFacade.addMembercreatesProject(membercreatesProjectVo);
 
-
         List<Reward> rewards = new ArrayList<Reward>();
-        int i=0;
-        for(RewardVo reward : rewardList){
+        int i = 0;
+        for (RewardVo reward : rewardList) {
             rewards.add(new Reward(projectVo.getListReward().get(i++)));
         }
 
         Project project = new Project(projectVo);
         project.setReward(rewards);
-        for(RewardVo r : rewardList){
+        for (RewardVo r : rewardList) {
             r.setProject(project);
         }
 
@@ -250,7 +243,7 @@ public class ProjectBean {
                 .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
                         MemberBean.class);
 
-        if(controller.isLoggedIn()){
+        if (controller.isLoggedIn()) {
             int idUser = controller.getId();
             boolean isProjectCreator = false;
 
@@ -283,10 +276,10 @@ public class ProjectBean {
                     if (listProjectBacks.isEmpty() && currentDate.compareTo(projectVo.getProjectEndDate()) != 1) {
                         projectFacade = FacadeFactory.getInstance().getProjectFacade();
                         projectVo.setProjectIsSuppressed(true);
-                        if(projectFacade.updateProject(projectVo)){
+                        if (projectFacade.updateProject(projectVo)) {
                             Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet supprimé avec succés.");
                             return "success";
-                        }else{
+                        } else {
                             Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé, problème à l'execution de la requête. ");
                             return "failure";
                         }
@@ -302,7 +295,7 @@ public class ProjectBean {
                 Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé, vous n'avez pas le droit de supprimer ce projet.");
                 return "failure";
             }
-        }else{
+        } else {
             Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé, utilisateur non connecté");
             return "failure";
         }
@@ -332,6 +325,8 @@ public class ProjectBean {
             setEndDate(projectVo.getProjectEndDate());
             setDescription(projectVo.getProjectDescription());
             setCategoryVo(new ProjectCategoryVo(projectVo.getProjectCategory()));
+            setClosed(projectVo.getProjectIsClosed());
+            setSuppressed(projectVo.getProjectIsSuppressed());
         }
 
     }
@@ -340,33 +335,39 @@ public class ProjectBean {
      * Recuperation des infos d'un projet
      */
     public void getDataProject() {
-            ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
-            setId(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject")));
+        ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
+        setId(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject")));
 
-            ProjectVo projectVo = projectFacade.find(getId());
-            setId(projectVo.getProjectId());
-            setTitle(projectVo.getProjectTitle());
-            setFundingGoal(projectVo.getProjectFundingGoal());
-            setCreationDate(projectVo.getProjectCreationDate());
-            setEndDate(projectVo.getProjectEndDate());
-            setDescription(projectVo.getProjectDescription());
-            setCategoryVo(new ProjectCategoryVo(projectVo.getProjectCategory()));
+        ProjectVo projectVo = projectFacade.find(getId());
+        setId(projectVo.getProjectId());
+        setTitle(projectVo.getProjectTitle());
+        setFundingGoal(projectVo.getProjectFundingGoal());
+        setCreationDate(projectVo.getProjectCreationDate());
+        setEndDate(projectVo.getProjectEndDate());
+        setDescription(projectVo.getProjectDescription());
+        setCategoryVo(new ProjectCategoryVo(projectVo.getProjectCategory()));
+        setClosed(projectVo.getProjectIsClosed());
+        setSuppressed(projectVo.getProjectIsSuppressed());
     }
 
     /**
      * Mettre a jour id du projet selectionné pour la modification ou la suppression
+     *
      * @param idProject
      */
-    public void setCurrentSelectedProject(Integer idProject){
+    public void setCurrentSelectedProject(Integer idProject) {
         setId(idProject);
     }
 
     /**
      * Mettre a jour le projet
+     *
      * @return
      */
     public String updateProject() {
-        //TODO Vérification que l'utilisateur est loggé
+        if (!Utilities.getSessionMemberLoggedIn()) {
+            return "failure";
+        }
 
         ProjectVo projectVo = new ProjectVo();
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
@@ -382,31 +383,26 @@ public class ProjectBean {
         projectFacade.updateProject(projectVo);
 
         //Get the new project id
-
-        //TODO A finir (penser à lier le projet avec le créateur)
         MemberBean controller = FacesContext.getCurrentInstance().getApplication()
                 .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
                         MemberBean.class);
 
         //Register the project creator
         MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
-
         MemberVo memberVo = controller.getMemberVo();
         MembercreatesProjectPK membercreatesProjectPK = new MembercreatesProjectPK(memberVo.getMemberId(), projectVo.getProjectId());
         MembercreatesProjectVo membercreatesProjectVo = new MembercreatesProjectVo(membercreatesProjectPK, memberVo, projectVo);
-
         membercreatesProjectFacade.addMembercreatesProject(membercreatesProjectVo);
 
-
         List<Reward> rewards = new ArrayList<Reward>();
-        int i=0;
-        for(RewardVo reward : rewardList){
+        int i = 0;
+        for (RewardVo reward : rewardList) {
             rewards.add(new Reward(projectVo.getListReward().get(i++)));
         }
 
         Project project = new Project(projectVo);
         project.setReward(rewards);
-        for(RewardVo r : rewardList){
+        for (RewardVo r : rewardList) {
             r.setProject(project);
         }
         //Register the rewards
@@ -418,13 +414,15 @@ public class ProjectBean {
     }
 
     /**
-     *
      * @return
      */
-    public String endedProject(){
+    public String endedProject() {
 
-        //todo correction de la base de donnees ajoutee l'attribut ProjectIsclosed
-       /* ProjectVo projectVo = new ProjectVo();
+        if (!Utilities.getSessionMemberLoggedIn()) {
+            return "failure";
+        }
+
+        ProjectVo projectVo = new ProjectVo();
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
 
         projectVo.setProjectId(getId());
@@ -436,8 +434,12 @@ public class ProjectBean {
         projectVo.setProjectIsSuppressed(false);
 
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
-        projectFacade.updateProject(projectVo);*/
-        Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Echec de la fermeture du projet");
-        return "failure";
+        if(!projectFacade.updateProject(projectVo)){
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Echec de la fermeture du projet");
+            return "failure";
+        }
+
+        Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet clôturé!");
+        return "success";
     }
 }

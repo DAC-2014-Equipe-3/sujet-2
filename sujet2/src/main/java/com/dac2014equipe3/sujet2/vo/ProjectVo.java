@@ -196,14 +196,13 @@ public class ProjectVo implements IValueObject{
         this.memberbacksProjectList = memberbacksProjectList;
     }
 
-    public boolean isProjectIsClosed() {
+    public boolean getProjectIsClosed() {
         return projectIsClosed;
     }
 
     public void setProjectIsClosed(boolean projectIsClosed) {
         this.projectIsClosed = projectIsClosed;
     }
-
 
     public List<RewardVo> getListReward() {
         return listReward;

@@ -21,10 +21,8 @@ public class ProjectsBean {
     private List<ProjectVo> listProjects = new ArrayList<ProjectVo>();
     private List<ProjectVo> listProjectsDeleted = new ArrayList<ProjectVo>();
     private List<ProjectVo> listProjectsClosed = new ArrayList<ProjectVo>();
-    private List<ProjectVo> listProjectsNotDeleted = new ArrayList<ProjectVo>();
-    //private List<ProjectVo> listProjectsNotClosed = new ArrayList<ProjectVo>();
     private List<ProjectVo> listProjectsNotDeletedNotClosed = new ArrayList<ProjectVo>();
-
+    private List<ProjectVo> listProjectsNotDeleted = new ArrayList<ProjectVo>();
     public List<ProjectVo> getListProjects() {
         return listProjects;
     }
