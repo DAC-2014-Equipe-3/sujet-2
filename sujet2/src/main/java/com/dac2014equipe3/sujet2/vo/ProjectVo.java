@@ -19,6 +19,18 @@ public class ProjectVo implements IValueObject{
     private List<Media> mediaList;
     private List<MemberbacksProject> memberbacksProjectList;
     private List<RewardVo> listReward;
+    private Integer sumPledge;
+
+
+
+    public Integer getSumPledge() {
+        return sumPledge;
+    }
+
+    public void setSumPledge(Integer sumPledge) {
+        this.sumPledge = sumPledge;
+    }
+
 
     /**
      *
@@ -194,6 +206,10 @@ public class ProjectVo implements IValueObject{
      */
     public void setMemberbacksProjectList(List<MemberbacksProject> memberbacksProjectList) {
         this.memberbacksProjectList = memberbacksProjectList;
+        setSumPledge(0);
+        for (int i = 0, size = memberbacksProjectList.size(); i < size; i++) {
+            sumPledge = sumPledge + memberbacksProjectList.get(i).getPledgedEuros();
+        }
     }
 
     public boolean getProjectIsClosed() {

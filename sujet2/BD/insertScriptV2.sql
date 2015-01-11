@@ -70,22 +70,25 @@ INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_
 INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 13','Description du reward 13',140,1);
 INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 14','Description du reward 14',150,2);
 INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 15','Description du reward 15',160,3);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 16','Description du reward 16',170,9);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 17','Description du reward 17',180,10);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 18','Description du reward 18',190,16);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 19','Description du reward 19',200,17);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 16','Description du reward 16',170,4);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 17','Description du reward 17',180,5);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 18','Description du reward 18',190,6);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 19','Description du reward 19',200,7);
 INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 20','Description du reward 20',210,9);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 21','Description du reward 21',220,11);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 21','Description du reward 21',220,10);
 INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 22','Description du reward 22',230,8);
 INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 23','Description du reward 23',240,7);
 INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 24','Description du reward 24',250,2);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 25','Description du reward 25',260,19);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 26','Description du reward 26',270,8);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 27','Description du reward 27',280,5);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 28','Description du reward 28',290,15);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 29','Description du reward 29',300,11);
-INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 30','Description du reward 30',310,11);
-
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 25','Description du reward 25',260,11);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 26','Description du reward 26',270,12);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 27','Description du reward 27',280,13);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 28','Description du reward 28',290,14);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 29','Description du reward 29',300,15);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 30','Description du reward 30',310,16);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 27','Description du reward 27',280,17);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 28','Description du reward 28',290,18);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 29','Description du reward 29',300,19);
+INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId) VALUES ('Reward 30','Description du reward 30',310,5);
 /**CREATION DES MEDIAS**/
 
 INSERT INTO `sujet2`.`Media` (`mediaId`, `mediaURL`, `mediaName`, `mediaDescription`, `Project_projectId`) VALUES ('1', 'www.google.fr', 'Nom du media', 'Description du media', '9');
