@@ -42,7 +42,8 @@ import javax.validation.constraints.Size;
 @Table(name = "Project", catalog = "sujet2", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
-    @NamedQuery(name = "Project.findByProjectId", query = "SELECT p FROM Project p WHERE p.projectId = :projectId"),
+    @NamedQuery(name = "Project.findByProjectId", query = "SELECT p FROM Project p " +
+            "WHERE p.projectId = :projectId"),
     @NamedQuery(name = "Project.findByProjectTitle", query = "SELECT p FROM Project p " +
             "WHERE p.projectTitle = :projectTitle"),
     @NamedQuery(name = "Project.findByProjectFundingGoal", query = "SELECT p FROM Project p " +
@@ -54,7 +55,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Project.findByProjectDescription", query = "SELECT p FROM Project p " +
             "WHERE p.projectDescription = :projectDescription"),
     @NamedQuery(name = "Project.findByProjectIsSuppressed", query = "SELECT p FROM Project p " +
-            "WHERE p.projectIsSuppressed = :projectIsSuppressed")})
+            "WHERE p.projectIsSuppressed = :projectIsSuppressed"),
+    @NamedQuery(name = "Project.findByProjectIsClosed", query = "SELECT p FROM Project p " +
+        "WHERE p.projectIsClosed = :projectIsClosed")})
 
 public class Project implements Serializable, IEntity<ProjectVo> {
     private static final long serialVersionUID = 1L;
@@ -89,6 +92,8 @@ public class Project implements Serializable, IEntity<ProjectVo> {
     private String projectDescription;
     @Column(name = "projectIsSuppressed")
     private Boolean projectIsSuppressed;
+    @Column(name = "projectIsClosed")
+    private Boolean projectIsClosed;
     @ManyToMany(mappedBy = "projectList")
     private List<Member> memberList;
     @JoinColumn(name = "projectCategory", referencedColumnName = "categoryId")
@@ -235,6 +240,15 @@ public class Project implements Serializable, IEntity<ProjectVo> {
         this.reward = reward;
     }
 
+    public Boolean getProjectIsClosed() {
+        return projectIsClosed;
+    }
+
+    public void setProjectIsClosed(Boolean projectIsClosed) {
+        this.projectIsClosed = projectIsClosed;
+    }
+
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -283,6 +297,7 @@ public class Project implements Serializable, IEntity<ProjectVo> {
         vo.setProjectFundingGoal(projectFundingGoal);
         vo.setProjectId(projectId);
         vo.setProjectIsSuppressed(projectIsSuppressed);
+        vo.setProjectIsClosed(projectIsClosed);
         vo.setProjectTitle(projectTitle);
         vo.setListReward(rewardList);
 

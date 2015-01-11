@@ -22,20 +22,20 @@ VALUES ('mobile','Trés utilisé aujourdhui');
 
 /**CREATION DE PROJETS**/
 INSERT INTO sujet2.Project(projectTitle,projectFundingGoal,projectCreationDate,
-projectEndDate,projectDescription,projectCategory,projectIsSuppressed)
-VALUES ('TitreExemple',10,'2014-10-09','2015-05-14','descriptionExemple',1,0);
+projectEndDate,projectDescription,projectCategory,projectIsSuppressed,projectIsClosed)
+VALUES ('TitreExemple',10,'2014-10-09','2015-05-14','descriptionExemple',1,0,1);
 INSERT INTO sujet2.Project(projectTitle,projectFundingGoal,projectCreationDate,
-projectEndDate,projectDescription,projectCategory,projectIsSuppressed)
-VALUES ('TitreExemple2',10,'2014-08-09','2015-06-07','descriptionExemple2',2,0);
+projectEndDate,projectDescription,projectCategory,projectIsSuppressed,projectIsClosed)
+VALUES ('TitreExemple2',10,'2014-08-09','2015-06-07','descriptionExemple2',2,1,0);
 INSERT INTO sujet2.Project(projectTitle,projectFundingGoal,projectCreationDate,
-projectEndDate,projectDescription,projectCategory,projectIsSuppressed)
-VALUES ('TitreExemple3',10,'2014-05-14','2015-11-29','descriptionExemple3',3,0);
+projectEndDate,projectDescription,projectCategory,projectIsSuppressed,projectIsClosed)
+VALUES ('TitreExemple3',10,'2014-05-14','2015-11-29','descriptionExemple3',3,0,0);
 INSERT INTO sujet2. Project(projectTitle,projectFundingGoal,projectCreationDate,
-projectEndDate,projectDescription,projectCategory,projectIsSuppressed)
-VALUES ('TitreExemple4',10,'2014-01-19','2015-03-04','descriptionExemple4',4,0);
+projectEndDate,projectDescription,projectCategory,projectIsSuppressed,projectIsClosed)
+VALUES ('TitreExemple4',10,'2014-01-19','2015-03-04','descriptionExemple4',4,0,0);
 INSERT INTO sujet2.Project(projectTitle,projectFundingGoal,projectCreationDate,
-                            projectEndDate,projectDescription,projectCategory,projectIsSuppressed)
-VALUES ('Compilateur',10,'2013-01-19','2015-06-04','langage c++ avec architecture ...',1,1);
+projectEndDate,projectDescription,projectCategory,projectIsSuppressed,projectIsClosed)
+VALUES ('Compilateur',10,'2013-01-19','2015-06-04','langage c++ avec architecture ...',1,1,0);
 
 /**CREATION DE REWARDS**/
 INSERT INTO sujet2.Reward(rewardName, rewardDescription, rewardMinPrice,project_ProjectId)
@@ -57,7 +57,7 @@ INSERT INTO sujet2.Member_creates_Project(creatorId,projectId) VALUES (1,1);
 INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId)
 VALUES (2,1,387,'2013-11-12',1 );
 
-INSERT INTO sujet2.Member_creates_Project(creatorId,projectId) VALUES (3,2);
+INSERT INTO sujet2.Member_creates_Project(creatorId,projectId) VALUES (1,2);
 INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId)
 VALUES (4,2,455,'2015-12-25',2);
 

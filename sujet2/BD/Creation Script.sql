@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS `sujet2`.`Project` (
   `projectEndDate` DATE NOT NULL,
   `projectDescription` VARCHAR(2000) NOT NULL,
   `projectCategory` INT(11) NOT NULL,
-  `projectIsSuppressed` TINYINT(1) NULL,
-  `projectIsClosed` TINYINT(1) NULL,
+  `projectIsSuppressed` TINYINT(1) NOT NULL,
+  `projectIsClosed` TINYINT(1) NOT NULL,
   PRIMARY KEY (`projectId`),
   INDEX `fk_Project_ProjectCategory1_idx` (`projectCategory` ASC),
   CONSTRAINT `fk_Project_ProjectCategory1`

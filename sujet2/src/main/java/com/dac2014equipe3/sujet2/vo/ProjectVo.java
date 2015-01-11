@@ -12,7 +12,8 @@ public class ProjectVo implements IValueObject{
     private Date projectCreationDate;
     private Date projectEndDate;
     private String projectDescription;
-    private Boolean projectIsSuppressed;
+    private boolean projectIsSuppressed;
+    private boolean projectIsClosed;
     private List<Member> memberList;
     private ProjectCategory projectCategory;
     private List<Media> mediaList;
@@ -194,6 +195,15 @@ public class ProjectVo implements IValueObject{
     public void setMemberbacksProjectList(List<MemberbacksProject> memberbacksProjectList) {
         this.memberbacksProjectList = memberbacksProjectList;
     }
+
+    public boolean isProjectIsClosed() {
+        return projectIsClosed;
+    }
+
+    public void setProjectIsClosed(boolean projectIsClosed) {
+        this.projectIsClosed = projectIsClosed;
+    }
+
 
     public List<RewardVo> getListReward() {
         return listReward;

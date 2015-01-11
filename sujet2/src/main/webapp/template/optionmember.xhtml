@@ -7,13 +7,13 @@
         <h:form>
         <div class="modal-header">
             <div class="ui-grid-row">
-            <div class="ui-grid-col-2">
-                <img alt="icon_member" class="iconMember" src="./img/icon_member.png"/>
+                <div class="ui-grid-col-2">
+                    <img alt="icon_member" class="iconMember" src="./img/icon_member.png"/>
+                </div>
+                <div class="ui-grid-col-10">
+                    <h:outputText value="#{memberBean.firstName} #{memberBean.lastName}"/>
+                </div>
             </div>
-            <div class="ui-grid-col-10">
-                <h3>#{memberBean.firstName} #{memberBean.lastName}</h3>
-            </div>
-        </div>
             <p:menu styleClass="optionMember">
                     <p:submenu label="Projet">
                         <p:menuitem value="Ajouter" icon="ui-icon-plus" outcome="/faces/form_newproject.xhtml"/>

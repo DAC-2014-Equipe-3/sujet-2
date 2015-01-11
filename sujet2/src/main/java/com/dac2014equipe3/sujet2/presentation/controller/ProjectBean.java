@@ -25,6 +25,7 @@ public class ProjectBean {
     private String description;
     private ProjectCategory category;
     private boolean isSuppressed;
+    private boolean isClosed;
     //TODO pk categoryVo + category ?
     private ProjectCategoryVo categoryVo;
     private Integer rewardId;
@@ -164,6 +165,15 @@ public class ProjectBean {
     public void setCategoryVo(ProjectCategoryVo categoryVo) {
         this.categoryVo = categoryVo;
     }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(boolean isClosed) {
+        this.isClosed = isClosed;
+    }
+
 
     /***********************************METHODES AJOUTEES*********************************/
 

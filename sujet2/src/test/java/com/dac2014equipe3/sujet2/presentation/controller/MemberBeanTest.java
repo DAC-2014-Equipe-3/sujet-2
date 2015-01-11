@@ -105,7 +105,7 @@ public class MemberBeanTest {
 
     @Test
     public void testAddNewMember(){
-    //Condition = login inexistant
+    //Condition a tester = login inexistant
         String login = "testlogin";
         String password = "123456";
         String email = "test@gmail.com";

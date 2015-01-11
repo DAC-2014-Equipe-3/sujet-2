@@ -18,10 +18,12 @@ public class MembercreatesProjectDAO implements IDAO<MembercreatesProject> {
 
     private static MembercreatesProjectDAO instance;
     private static final String JPQL_SELECT_BY_CREATEDID_PROJECT  = " SELECT p FROM Project p , MembercreatesProject m " +
-                    " WHERE ( p.projectIsSuppressed = :projectIsSuppressed ) " +
-                    " AND (m.membercreatesProjectPK.creatorId = :creatorId AND m.membercreatesProjectPK.projectId = p.projectId ) " ;
+                    " WHERE "+
+                    //"( p.projectIsSuppressed = :projectIsSuppressed ) AND" +
+                    " (m.membercreatesProjectPK.creatorId = :creatorId AND m.membercreatesProjectPK.projectId = p.projectId ) " ;
 
     private static final String PARAM_PROJECTSUPPRESSED = "projectIsSuppressed";
+    private static final String PARAM_PROJECTCLOSED = "projectIsClosed";
     private static final String PARAM_CREATEDID = "creatorId";
 
 
@@ -77,10 +79,10 @@ public class MembercreatesProjectDAO implements IDAO<MembercreatesProject> {
      * @return
      */
     public List<Project> getListCreatorProject(Integer memberId, EntityManager em) {
-        List<Project> project =null;
+        List<Project> project = null;
         Query q = em.createQuery(JPQL_SELECT_BY_CREATEDID_PROJECT);
         q.setParameter(PARAM_CREATEDID, (Integer)memberId);
-        q.setParameter(PARAM_PROJECTSUPPRESSED, false);
+        //q.setParameter(PARAM_PROJECTSUPPRESSED, false);
 
         try {
             project = (List<Project>) q.getResultList();

@@ -25,10 +25,6 @@
                                     #{memberBean.getAllMemberProject()}
 
                                     <p:dataTable value="#{memberBean.createdProjectList}" var="project">
-                                        <!--<p:column headerText="IdProject:">
-                                            <h:outputText value="#{project.projectId}"
-                                                          style="font-weight: bold"/>
-                                        </p:column>-->
                                         <p:column headerText="Titre">
                                             <h:outputText value="#{project.projectTitle}"
                                                           style="font-weight: bold"/>
@@ -52,7 +48,7 @@
                                                          value="#{project.projectId}"></f:param>
                                             </p:button>
                                             <p:button icon="ui-icon-locked" value="Clôturer"
-                                                      outcome="/faces/form_updateproject.xhtml">
+                                                      outcome="/faces/form_updateproject.xhtml" rendered="#{project.projectIsClosed == false}">
                                                 <f:param name="idProject"
                                                          value="#{project.projectId}"></f:param>
                                             </p:button>
@@ -62,7 +58,7 @@
                                                          value="#{project.projectId}"></f:param>
                                             </p:button>
                                             <p:button icon="ui-icon-trash" value="Supprimer"
-                                                      outcome="/faces/form_deleteproject.xhtml">
+                                                      outcome="/faces/form_deleteproject.xhtml" rendered="#{project.projectIsSuppressed == false}">
                                                 <f:param name="idProject"
                                                          value="#{project.projectId}"></f:param>
                                             </p:button>
