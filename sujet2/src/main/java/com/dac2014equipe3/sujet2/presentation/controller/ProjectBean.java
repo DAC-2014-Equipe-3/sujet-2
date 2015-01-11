@@ -185,6 +185,12 @@ public class ProjectBean {
     public String addProject() {
         //TODO Vérification que l'utilisateur est loggé
 
+        if(!Utilities.getSessionMemberLoggedIn()){
+           return "failure";
+        }
+
+
+
         ProjectVo projectVo = new ProjectVo();
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
 
@@ -195,6 +201,7 @@ public class ProjectBean {
         projectVo.setProjectEndDate(getEndDate());
         projectVo.setProjectDescription(getDescription());
         projectVo.setProjectIsSuppressed(false);
+        projectVo.setProjectIsClosed(false);
         projectVo.setMemberList(null);
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
         projectVo.setMediaList(null); //TODO
@@ -210,15 +217,12 @@ public class ProjectBean {
             return "failure";
         }
 
-        //Get the new project id
-        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
-                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
-                        MemberBean.class);
-
         //Register the project creator
         MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().
                 getMembercreatesProjectFacade();
-        MemberVo memberVo = controller.getMemberVo();
+
+        MemberVo memberVo = Utilities.getSessionMember();
+
         MembercreatesProjectPK membercreatesProjectPK = new MembercreatesProjectPK(
                 memberVo.getMemberId(), projectVo.getProjectId());
         MembercreatesProjectVo membercreatesProjectVo = new MembercreatesProjectVo(
