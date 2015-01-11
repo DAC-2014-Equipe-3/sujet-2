@@ -16,11 +16,11 @@
         </div>
             <p:menu styleClass="optionMember">
                     <p:submenu label="Projet">
-                        <p:menuitem value="Ajouter" icon="ui-icon-plus" action="addproject" url="/faces/form_newproject.xhtml"/>
+                        <p:menuitem value="Ajouter" icon="ui-icon-plus" outcome="/faces/form_newproject.xhtml"/>
                         <p:menuitem value="Rechercher" icon="ui-icon-search"/>
                     </p:submenu>
                     <p:submenu label="Membre">
-                        <p:menuitem  url="/faces/form_updatemember.xhtml" value="Modifier compte" icon="ui-icon-pencil"/>
+                        <p:menuitem value="Modifier compte" icon="ui-icon-pencil" url="/faces/form_updatemember.xhtml" />
                         <p:menuitem value="Me déconnecter" icon="ui-icon-power" action="#{memberBean.disconnect()}" />
                     </p:submenu>
                 </p:menu>

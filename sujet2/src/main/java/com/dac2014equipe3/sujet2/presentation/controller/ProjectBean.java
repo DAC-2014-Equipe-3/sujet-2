@@ -25,6 +25,7 @@ public class ProjectBean {
     private String description;
     private ProjectCategory category;
     private boolean isSuppressed;
+    //TODO pk categoryVo + category ?
     private ProjectCategoryVo categoryVo;
     private Integer rewardId;
     private String rewardName;
@@ -184,33 +185,34 @@ public class ProjectBean {
         projectVo.setProjectEndDate(getEndDate());
         projectVo.setProjectDescription(getDescription());
         projectVo.setProjectIsSuppressed(false);
-        projectVo.setMemberList(null); //TODO
+        projectVo.setMemberList(null);
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
         projectVo.setMediaList(null); //TODO
-        projectVo.setMemberbacksProjectList(null); //TODO
-        projectVo.setListReward(getRewardList());//TODO
+        projectVo.setMemberbacksProjectList(null);
+        projectVo.setListReward(getRewardList());
+
         if (getRewardList().size() > 0 ) {
             projectFacade.addProject(projectVo);
         }else {
             // aucun reward, on l'oblige a ajouter un reward joker
-            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Veuillez ajouter un reward au minimum. Merci");
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR,
+                    "Veuillez ajouter un reward au minimum. Merci");
             return "failure";
         }
 
         //Get the new project id
-
-        //TODO A finir (penser à lier le projet avec le créateur)
         MemberBean controller = FacesContext.getCurrentInstance().getApplication()
                 .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
                         MemberBean.class);
 
         //Register the project creator
-        MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
-
+        MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().
+                getMembercreatesProjectFacade();
         MemberVo memberVo = controller.getMemberVo();
-        MembercreatesProjectPK membercreatesProjectPK = new MembercreatesProjectPK(memberVo.getMemberId(), projectVo.getProjectId());
-        MembercreatesProjectVo membercreatesProjectVo = new MembercreatesProjectVo(membercreatesProjectPK, memberVo, projectVo);
-
+        MembercreatesProjectPK membercreatesProjectPK = new MembercreatesProjectPK(
+                memberVo.getMemberId(), projectVo.getProjectId());
+        MembercreatesProjectVo membercreatesProjectVo = new MembercreatesProjectVo(
+                membercreatesProjectPK, memberVo, projectVo);
         membercreatesProjectFacade.addMembercreatesProject(membercreatesProjectVo);
 
 
@@ -229,7 +231,6 @@ public class ProjectBean {
         //Register the rewards
         RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();
         rewardFacade.addRewardList(rewardList);
-
         Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet ajouté avec succés.");
         return "success";
     }
@@ -301,8 +302,6 @@ public class ProjectBean {
             Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet non supprimé, utilisateur non connecté");
             return "failure";
         }
-
-
     }
 
     /**
@@ -357,6 +356,11 @@ public class ProjectBean {
     public void setCurrentSelectedProject(Integer idProject){
         setId(idProject);
     }
+
+    /**
+     * Mettre a jour le projet
+     * @return
+     */
     public String updateProject() {
         //TODO Vérification que l'utilisateur est loggé
 
@@ -409,6 +413,10 @@ public class ProjectBean {
         return "success";
     }
 
+    /**
+     *
+     * @return
+     */
     public String endedProject(){
 
         //todo correction de la base de donnees ajoutee l'attribut ProjectIsclosed

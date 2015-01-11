@@ -12,7 +12,7 @@
             <ui:define name="content">
                 <h:form>
                     <h2>This is index content</h2>
-                    <h:panelGroup>
+                    <h:panelGroup rendered="true">
                         <h:panelGroup rendered="#{memberBean.loggedIn == false}">
                             <h2>ICI pas connecté</h2>
                         </h:panelGroup>
@@ -68,81 +68,35 @@
                                             </p:button>
                                         </p:column>
                                     </p:dataTable>
-                                    <!--<p:dataScroller value="#{memberBean.createdProjectList}" var="project"
-                                                    chunkSize="10">
-                                        <p:outputPanel>
-                                            <div id="shareModal" class="modal hide fade">
-                                                <p:fieldset legend="#{project.projectTitle}">
-                                                    <h:panelGrid columns="2" cellpadding="5">
-
-                                                        <h:outputText value="IdProject:"/>
-                                                        <h:outputText value="#{project.projectId}"
-                                                                      style="font-weight: bold"/>
-                                                        <h:outputText value="Catégorie :"/>
-                                                        <h:outputText value="#{project.projectCategory.categoryName}"
-                                                                      style="font-weight: bold"/>
-                                                        <h:outputText value="Libellé:"/>
-                                                        <h:outputText value="#{project.projectTitle}"
-                                                                      style="font-weight: bold"/>
-                                                        <h:outputText value="Description:"/>
-                                                        <h:outputText value="#{project.projectDescription}"
-                                                                      style="font-weight: bold"/>
-                                                    </h:panelGrid>
-                                                    <h:panelGrid columns="3">
-                                                        <p:button icon="ui-icon-locked" value="Clôturer"
-                                                                  outcome="/faces/form_updateproject.xhtml">
-                                                            <f:param name="idProject"
-                                                                     value="#{project.projectId}"></f:param>
-                                                        </p:button>
-
-                                                        <p:button icon="ui-icon-pencil" value="Modifier"
-                                                                  outcome="/faces/form_updateproject.xhtml">
-                                                            <f:param name="idProject"
-                                                                     value="#{project.projectId}"></f:param>
-                                                        </p:button>
-
-                                                        <p:button icon="ui-icon-trash" value="Supprimer"
-                                                                  outcome="/faces/form_deleteproject.xhtml">
-                                                            <f:param name="idProject"
-                                                                     value="#{project.projectId}"></f:param>
-                                                        </p:button>
-
-                                                    </h:panelGrid>
-
-                                                </p:fieldset>
-                                            </div>
-                                        </p:outputPanel>
-                                    </p:dataScroller>-->
                                 </p:tab>
                                 <p:tab title="Mes investissements">
                                     #{memberBean.getAllMemberBackedProject()}
-                                    <p:dataScroller value="#{memberBean.investedProjectList}" var="project"
-                                                    chunkSize="10">
-                                        <p:outputPanel>
-                                            <div id="shareModal2" class="modal hide fade">
-                                                <p:fieldset legend="#{project.projectTitle}">
-                                                    <h:panelGrid columns="2" cellpadding="5">
-                                                        <h:outputText value="IdProject :"/>
-                                                        <h:outputText value="#{project.projectId}"
-                                                                      style="font-weight: bold"/>
-                                                        <h:outputText value="Catégorie :"/>
-                                                        <h:outputText value="#{project.projectCategory.categoryName}"
-                                                                      style="font-weight: bold"/>
-                                                        <h:outputText value="Libellé :"/>
-                                                        <h:outputText value="#{project.projectTitle}"
-                                                                      style="font-weight: bold"/>
-                                                        <h:outputText value="Description :"/>
-                                                        <h:outputText value="#{project.projectDescription}"
-                                                                      style="font-weight: bold"/>
-                                                        <h:outputText value="Montant (en euros):"/>
 
-                                                    </h:panelGrid>
-
-                                                </p:fieldset>
-                                            </div>
-                                        </p:outputPanel>
-
-                                    </p:dataScroller>
+                                    <p:dataTable value="#{memberBean.investedProjectList}" var="project">
+                                        <p:column headerText="Titre">
+                                            <h:outputText value="#{project.projectTitle}"
+                                                          style="font-weight: bold"/>
+                                        </p:column>
+                                        <p:column headerText="Catégorie">
+                                            <h:outputText value="#{project.projectCategory.categoryName}"/>
+                                        </p:column>
+                                        <p:column headerText="Date de création">
+                                            <h:outputText value="#{project.projectCreationDate}"/>
+                                        </p:column>
+                                        <p:column headerText="Date de fin">
+                                            <h:outputText value="#{project.projectEndDate}"/>
+                                        </p:column>
+                                        <p:column headerText="Montant déjà atteint">
+                                            <h:outputText value="TO DO (a calculer a chaque fois)"/>
+                                        </p:column>
+                                        <p:column headerText="Options">
+                                            <p:button icon="ui-icon-zoomin" value="Consulter"
+                                                      outcome="/faces/project.xhtml">
+                                                <f:param name="idProject"
+                                                         value="#{project.projectId}"></f:param>
+                                            </p:button>
+                                        </p:column>
+                                    </p:dataTable>
                                 </p:tab>
                             </p:tabView>
                         </h:panelGroup>
