@@ -101,9 +101,53 @@ public class ProjectService implements IService<ProjectVo>{
         return list;
     }
 
+    /**
+     * Recuperer tous les projets non supprimés
+     * @param em
+     * @return
+     */
     public List<ProjectVo> getProjectsNotDeleted(EntityManager em){
         List<ProjectVo> list = new ArrayList<ProjectVo>();
         for (Project project : DAOFactory.getInstance().getProjectDAO().getProjectsNotDeleted(em)) {
+            list.add((project).toVo());
+        }
+        return list;
+    }
+
+    /**
+     * Recuperer tous les projets non supprimés et non clôturés
+     * @param em
+     * @return
+     */
+    public List<ProjectVo> getProjectsNotDeletedNotClosed(EntityManager em){
+        List<ProjectVo> list = new ArrayList<ProjectVo>();
+        for (Project project : DAOFactory.getInstance().getProjectDAO().getProjectsNotDeletedNotClosed(em)) {
+            list.add((project).toVo());
+        }
+        return list;
+    }
+
+    /**
+     * Recuperer tous les projets supprimés
+     * @param em
+     * @return
+     */
+    public List<ProjectVo> getProjectsDeleted(EntityManager em){
+        List<ProjectVo> list = new ArrayList<ProjectVo>();
+        for (Project project : DAOFactory.getInstance().getProjectDAO().getProjectsDeleted(em)) {
+            list.add((project).toVo());
+        }
+        return list;
+    }
+
+    /**
+     * Recuperer tous les projets cloturés
+     * @param em
+     * @return
+     */
+    public List<ProjectVo> getProjectsClosed(EntityManager em){
+        List<ProjectVo> list = new ArrayList<ProjectVo>();
+        for (Project project : DAOFactory.getInstance().getProjectDAO().getProjectsClosed(em)) {
             list.add((project).toVo());
         }
         return list;

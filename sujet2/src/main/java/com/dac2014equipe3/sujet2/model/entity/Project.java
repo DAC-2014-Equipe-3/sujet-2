@@ -57,7 +57,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Project.findByProjectIsSuppressed", query = "SELECT p FROM Project p " +
             "WHERE p.projectIsSuppressed = :projectIsSuppressed"),
     @NamedQuery(name = "Project.findByProjectIsClosed", query = "SELECT p FROM Project p " +
-        "WHERE p.projectIsClosed = :projectIsClosed")})
+        "WHERE p.projectIsClosed = :projectIsClosed"),
+    @NamedQuery(name = "Project.findByProjectIsClosedAndIsSuppressed", query = "SELECT p FROM Project p " +
+        "WHERE p.projectIsClosed = :projectIsClosed and p.projectIsSuppressed = :projectIsSuppressed")})
 
 public class Project implements Serializable, IEntity<ProjectVo> {
     private static final long serialVersionUID = 1L;

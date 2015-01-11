@@ -10,8 +10,81 @@
         <ui:composition template="template/template.xhtml">
             <ui:define name="content">
                 <h:form>
-                    #{projectsBean.getAllProjectsNotDeleted()}
-                    <p:accordionPanel value="#{projectsBean.listProjects}" var="project">
+                    #{projectsBean.getAllProjectsNotDeletedNotClosed()}
+                    <h3>Projets en cours</h3>
+                    <p:accordionPanel value="#{projectsBean.listProjectsNotDeletedNotClosed}" var="project">
+                        <p:tab title="#{project.projectTitle} [Catégorie:#{project.projectCategory.categoryName}]">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Description:" />
+                                <h:outputText value="#{project.projectDescription}" />
+                                <p:separator/><p:separator/>
+                                <h:outputText value="Créé le:" />
+                                <h:outputText value="#{project.projectCreationDate}"/>
+                                <h:outputText value="Montant à atteindre:" />
+                                <h:outputText value="#{project.projectFundingGoal}" />
+                                <h:outputText value="Date de clôture:" />
+                                <h:outputText value="#{project.projectEndDate}" />
+
+                                <h:outputText value="Createur:" />
+                                <ui:repeat value="#{project.memberList}" var="creator">
+                                    <h:outputText value="#{creator.memberFirstname}" />
+                                    <h:outputText value=" " />
+                                    <h:outputText value="#{creator.memberLastname}" />
+                                    <h:outputText value=" | " />
+                                </ui:repeat>
+                                <h:outputText value="Investisseurs:" />
+                                <ui:repeat value="#{project.memberbacksProjectList}" var="inves">
+                                    <h:outputText value="#{inves.member1.memberFirstname}" />
+                                    <h:outputText value=" " />
+                                    <h:outputText value="#{inves.member1.memberLastname}" />
+                                    <h:outputText value=" | " />
+                                </ui:repeat>
+                                <p:button  icon="ui-icon-pencil" value="Investir"  outcome="/faces/form_backproject.xhtml"  >
+                                    <f:param  name="idProject" value="#{project.projectId}"></f:param>
+                                </p:button>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+                    <p:separator></p:separator>
+                    #{projectsBean.getAllProjectsClosed()}
+                    <h3>Projets clôturés</h3>
+                    <p:accordionPanel value="#{projectsBean.listProjectsClosed}" var="project">
+                        <p:tab title="#{project.projectTitle} [Catégorie:#{project.projectCategory.categoryName}]">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Description:" />
+                                <h:outputText value="#{project.projectDescription}" />
+                                <p:separator/><p:separator/>
+                                <h:outputText value="Créé le:" />
+                                <h:outputText value="#{project.projectCreationDate}"/>
+                                <h:outputText value="Montant à atteindre:" />
+                                <h:outputText value="#{project.projectFundingGoal}" />
+                                <h:outputText value="Date de clôture:" />
+                                <h:outputText value="#{project.projectEndDate}" />
+
+                                <h:outputText value="Createur:" />
+                                <ui:repeat value="#{project.memberList}" var="creator">
+                                    <h:outputText value="#{creator.memberFirstname}" />
+                                    <h:outputText value=" " />
+                                    <h:outputText value="#{creator.memberLastname}" />
+                                    <h:outputText value=" | " />
+                                </ui:repeat>
+                                <h:outputText value="Investisseurs:" />
+                                <ui:repeat value="#{project.memberbacksProjectList}" var="inves">
+                                    <h:outputText value="#{inves.member1.memberFirstname}" />
+                                    <h:outputText value=" " />
+                                    <h:outputText value="#{inves.member1.memberLastname}" />
+                                    <h:outputText value=" | " />
+                                </ui:repeat>
+                                <p:button  icon="ui-icon-pencil" value="Investir"  outcome="/faces/form_backproject.xhtml"  >
+                                    <f:param  name="idProject" value="#{project.projectId}"></f:param>
+                                </p:button>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+                    <p:separator></p:separator>
+                    #{projectsBean.getAllProjectsDeleted()}
+                    <h3>Projets supprimés</h3>
+                    <p:accordionPanel value="#{projectsBean.listProjectsDeleted}" var="project">
                         <p:tab title="#{project.projectTitle} [Catégorie:#{project.projectCategory.categoryName}]">
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputText value="Description:" />

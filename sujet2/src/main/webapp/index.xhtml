@@ -53,7 +53,7 @@
                                                          value="#{project.projectId}"></f:param>
                                             </p:button>
                                             <p:button icon="ui-icon-pencil" value="Modifier"
-                                                      outcome="/faces/form_updateproject.xhtml">
+                                                      outcome="/faces/form_updateproject.xhtml" rendered="#{project.projectIsClosed == false and project.projectIsSuppressed == false}">
                                                 <f:param name="idProject"
                                                          value="#{project.projectId}"></f:param>
                                             </p:button>

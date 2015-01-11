@@ -50,9 +50,51 @@ public class ProjectDAO implements IDAO<Project>  {
         return listProjects;
     }
 
+    /**
+     * Recuperer tous les projets non supprimés
+     * @param em
+     * @return
+     */
     public List<Project> getProjectsNotDeleted(EntityManager em){
         Query query = em.createNamedQuery("Project.findByProjectIsSuppressed");
         query.setParameter("projectIsSuppressed",false);
+        List<Project> listProjects = query.getResultList();
+        return listProjects;
+    }
+
+    /**
+     * Recuperer tous les projets non supprimés et non cloturés
+     * @param em
+     * @return
+     */
+    public List<Project> getProjectsNotDeletedNotClosed(EntityManager em){
+        Query query = em.createNamedQuery("Project.findByProjectIsClosedAndIsSuppressed");
+        query.setParameter("projectIsSuppressed",false);
+        query.setParameter("projectIsClosed",false);
+        List<Project> listProjects = query.getResultList();
+        return listProjects;
+    }
+
+    /**
+     * Recuperer tous les projets supprimés
+     * @param em
+     * @return
+     */
+    public List<Project> getProjectsDeleted(EntityManager em){
+        Query query = em.createNamedQuery("Project.findByProjectIsSuppressed");
+        query.setParameter("projectIsSuppressed",true);
+        List<Project> listProjects = query.getResultList();
+        return listProjects;
+    }
+
+    /**
+     * Recuperer tous les projets cloturés
+     * @param em
+     * @return
+     */
+    public List<Project> getProjectsClosed(EntityManager em){
+        Query query = em.createNamedQuery("Project.findByProjectIsClosed");
+        query.setParameter("projectIsClosed",true);
         List<Project> listProjects = query.getResultList();
         return listProjects;
     }

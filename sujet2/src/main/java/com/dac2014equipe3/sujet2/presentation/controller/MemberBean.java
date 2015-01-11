@@ -568,47 +568,6 @@ public class MemberBean {
         return vo;
     }
 
-    /**
-     * Recuperer les projets créés par le membre
-     */
-    public void allProjectsCreated() {
-        /*if (isLoggedIn()) {
-            MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
-            List<MembercreatesProjectVo> projectsCreated = membercreatesProjectFacade.getListForCreator(getId());
-            ListIterator<MembercreatesProjectVo> iter = projectsCreated.listIterator();
-            Project proj = new Project();
-            ProjectVo projTmp;
-
-            while (iter.hasNext()) {
-                projTmp = iter.next().getProject();
-                proj.setProjectTitle(projTmp.getProjectTitle());
-                proj.setProjectCategory(projTmp.getProjectCategory());
-                proj.setProjectDescription(projTmp.getProjectDescription());
-                createdProjectList.add(proj);
-            }
-        }*/
-    }
-
-    /**
-     * Recuperer les projets créés par le membre
-     */
-    public void allProjectsInvested() {
-        /*if (isLoggedIn()) {
-            MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance().getMemberbacksProjectFacade();
-            List<MemberbacksProjectVo> projectsInvested = memberbacksProjectFacade.getListForProject(getId());
-            ListIterator<MemberbacksProjectVo> iter = projectsInvested.listIterator();
-            Project proj = new Project();
-            ProjectVo projTmp;
-
-            while (iter.hasNext()) {
-                projTmp = iter.next().getProject();
-                proj.setProjectTitle(projTmp.getProjectTitle());
-                proj.setProjectCategory(projTmp.getProjectCategory());
-                proj.setProjectDescription(projTmp.getProjectDescription());
-                investedProjectList.add(proj);
-            }
-        }*/
-    }
     public void getAllMemberProject(){
         MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance()
                 .getMembercreatesProjectFacade();

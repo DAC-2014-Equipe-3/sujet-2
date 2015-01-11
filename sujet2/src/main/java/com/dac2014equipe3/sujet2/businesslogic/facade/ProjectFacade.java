@@ -62,4 +62,52 @@ public class ProjectFacade extends Facade<ProjectVo> {
             }
         }
     }
+
+    /**
+     * Recuperer les projets non supprimés et non cloturés
+     * @return
+     */
+    public List<ProjectVo> getProjectsNotDeletedNotClosed(){
+        try {
+            em = emf.createEntityManager();
+            return ((ProjectService) service).getProjectsNotDeletedNotClosed(em);
+        } finally {
+            if (em != null) {
+                em.clear();
+                em.close();
+            }
+        }
+    }
+
+    /**
+     * Recuperer les projets supprimés
+     * @return
+     */
+    public List<ProjectVo> getProjectsDeleted(){
+        try {
+            em = emf.createEntityManager();
+            return ((ProjectService) service).getProjectsDeleted(em);
+        } finally {
+            if (em != null) {
+                em.clear();
+                em.close();
+            }
+        }
+    }
+
+    /**
+     * Recuperer les projets cloturés
+     * @return
+     */
+    public List<ProjectVo> getProjectsClosed(){
+        try {
+            em = emf.createEntityManager();
+            return ((ProjectService) service).getProjectsClosed(em);
+        } finally {
+            if (em != null) {
+                em.clear();
+                em.close();
+            }
+        }
+    }
 }

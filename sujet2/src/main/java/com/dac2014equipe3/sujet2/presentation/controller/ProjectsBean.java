@@ -19,22 +19,50 @@ import java.util.List;
 public class ProjectsBean {
 
     private List<ProjectVo> listProjects = new ArrayList<ProjectVo>();
+    private List<ProjectVo> listProjectsDeleted = new ArrayList<ProjectVo>();
+    private List<ProjectVo> listProjectsClosed = new ArrayList<ProjectVo>();
+    private List<ProjectVo> listProjectsNotDeleted = new ArrayList<ProjectVo>();
+    //private List<ProjectVo> listProjectsNotClosed = new ArrayList<ProjectVo>();
+    private List<ProjectVo> listProjectsNotDeletedNotClosed = new ArrayList<ProjectVo>();
 
-    public ProjectsBean() {
-    }
-
-    /**
-     * @return
-     */
     public List<ProjectVo> getListProjects() {
         return listProjects;
     }
 
-    /**
-     * @param listProjects
-     */
-    public void setListProjects(ArrayList<ProjectVo> listProjects) {
+    public void setListProjects(List<ProjectVo> listProjects) {
         this.listProjects = listProjects;
+    }
+
+    public List<ProjectVo> getListProjectsDeleted() {
+        return listProjectsDeleted;
+    }
+
+    public void setListProjectsDeleted(List<ProjectVo> listProjectsDeleted) {
+        this.listProjectsDeleted = listProjectsDeleted;
+    }
+
+    public List<ProjectVo> getListProjectsClosed() {
+        return listProjectsClosed;
+    }
+
+    public void setListProjectsClosed(List<ProjectVo> listProjectsClosed) {
+        this.listProjectsClosed = listProjectsClosed;
+    }
+
+    public List<ProjectVo> getListProjectsNotDeleted() {
+        return listProjectsNotDeleted;
+    }
+
+    public void setListProjectsNotDeleted(List<ProjectVo> listProjectsNotDeleted) {
+        this.listProjectsNotDeleted = listProjectsNotDeleted;
+    }
+
+    public List<ProjectVo> getListProjectsNotDeletedNotClosed() {
+        return listProjectsNotDeletedNotClosed;
+    }
+
+    public void setListProjectsNotDeletedNotClosed(List<ProjectVo> listProjectsNotDeletedNotClosed) {
+        this.listProjectsNotDeletedNotClosed = listProjectsNotDeletedNotClosed;
     }
 
     /**
@@ -42,7 +70,15 @@ public class ProjectsBean {
      */
     public void getAllProjectsNotDeleted() {
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
-        listProjects.addAll(projectFacade.getProjectsNotDeleted());
+        listProjectsNotDeleted.addAll(projectFacade.getProjectsNotDeleted());
+    }
+
+    /**
+     * Recupere tous les projets non supprimés
+     */
+    public void getAllProjectsNotDeletedNotClosed() {
+        ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
+        listProjectsNotDeletedNotClosed.addAll(projectFacade.getProjectsNotDeletedNotClosed());
     }
 
     /**
@@ -51,6 +87,22 @@ public class ProjectsBean {
     public void getAllProjects() {
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
         listProjects.addAll(projectFacade.getAllProjects());
+    }
+
+    /**
+     * Recupere tous les projets supprimés
+     */
+    public void getAllProjectsDeleted() {
+        ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
+        listProjectsDeleted.addAll(projectFacade.getProjectsDeleted());
+    }
+
+    /**
+     * Recupere tous les projets clôturés
+     */
+    public void getAllProjectsClosed() {
+        ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
+        listProjectsClosed.addAll(projectFacade.getProjectsClosed());
     }
 
 }
