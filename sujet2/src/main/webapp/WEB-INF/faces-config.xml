@@ -130,4 +130,9 @@
             <to-view-id>/form_backproject.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <to-view-id>/paypal.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
