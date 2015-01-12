@@ -7,11 +7,9 @@
       xmlns:p="http://primefaces.org/ui">
 <f:view contentType="text/html">
     <h:body>
-
         <ui:composition template="./template/template.xhtml">
             <ui:define name="content">
                 <h:form>
-                    <h2>This is index content</h2>
                     <h:panelGroup rendered="true">
                         <h:panelGroup rendered="#{memberBean.loggedIn == false}">
                             <h2>ICI pas connecté</h2>

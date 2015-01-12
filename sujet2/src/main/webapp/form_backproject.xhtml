@@ -8,45 +8,44 @@
     <h:body>
         <ui:composition template="template/template.xhtml">
             <ui:define name="content">
-                <p:tooltip />
-                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                <p:tooltip/>
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
                 <h:form>
                     #{backProjectBean.getAllProjectReward()}
                     #{backProjectBean.getDataForBackingProject()}
+                    <!--//TODO Revoir utilisation méthode : pk ne pas utiliser param simplement?-->
                     <div id="shareModal" class="modal hide fade">
-                        <div class="modal-header">
-                            <h2>Investir dans un projet : </h2>
-                        </div>
+                        <p:fieldset legend="Investir dans un projet">
+                            <h:panelGrid columns="2" styleClass="form" cellpadding="5">
+                                <p:outputLabel for="projecttitle" value="Projet : "/>
+                                <h:outputText id="projecttitle" value="#{backProjectBean.project.projectTitle}"/>
 
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <p:outputLabel for="projecttitle" value="Projet : "/>
-                            <h:outputText id="projecttitle" value="#{backProjectBean.project.projectTitle}" />
+                                <p:outputLabel for="projectdescription" value="Description du projet : "/>
+                                <h:outputText id="projectdescription"
+                                              value="#{backProjectBean.project.projectDescription}"/>
 
-                            <p:outputLabel for="projectdescription" value="Description du projet : "/>
-                            <h:outputText id="projectdescription"  value="#{backProjectBean.project.projectDescription}"/>
-
-                            <p:outputLabel for="enddate" value="Date de clôture : "/>
-                            <h:outputText id="enddate"  value="#{backProjectBean.project.projectEndDate}" />
+                                <p:outputLabel for="enddate" value="Date de clôture : "/>
+                                <h:outputText id="enddate" value="#{backProjectBean.project.projectEndDate}"/>
 
 
-                            <p:outputLabel for="pledge" value="Montant de contribution (en Euros) : "/>
-                            <p:inputText id="pledge" required="true" value="#{backProjectBean.pledgedEuros}"
-                                         requiredMessage="Veuillez compléter le champ">
-                                <f:validateLongRange minimum="0" maximum="10000000" for="pledge"/>
-                            </p:inputText>
-                            <p:outputLabel for="reward" value="Récompense: "/>
-                            <p:selectOneMenu id="reward"  value="#{backProjectBean.rewardId}" >
+                                <p:outputLabel for="pledge" value="Montant de contribution (en Euros) : "/>
+                                <p:inputText id="pledge" required="true" value="#{backProjectBean.pledgedEuros}"
+                                             requiredMessage="Veuillez compléter le champ">
+                                    <f:validateLongRange minimum="0" maximum="10000000" for="pledge"/>
+                                </p:inputText>
+                                <p:outputLabel for="reward" value="Récompense: "/>
+                                <p:selectOneMenu id="reward" value="#{backProjectBean.rewardId}">
+                                    <f:selectItems value="#{backProjectBean.rewardVoList}" var="reward"
+                                                   itemLabel="#{reward.rewardName }" itemValue="#{reward.rewardId}"/>
+                                </p:selectOneMenu>
+                                <p:message for="reward" value="oui"/>
 
-                                <f:selectItems value="#{backProjectBean.rewardVoList}" var="reward"
-                                               itemLabel="#{reward.rewardName }" itemValue="#{reward.rewardId}"/>
-                            </p:selectOneMenu>
-                            <p:message for="reward" value="oui"/>
-
-                            <h:commandButton action="#{backProjectBean.addMemberBacksProject()}" icon="ui-icon-star" value="Investir"   >
-                                <f:param  name="idProject" value="#{backProjectBean.project.projectId}"></f:param>
-                            </h:commandButton>
-
-                        </h:panelGrid>
+                                <h:commandButton action="#{backProjectBean.addMemberBacksProject()}" icon="ui-icon-star"
+                                                 value="Investir">
+                                    <f:param name="idProject" value="#{backProjectBean.project.projectId}"></f:param>
+                                </h:commandButton>
+                            </h:panelGrid>
+                        </p:fieldset>
                     </div>
                 </h:form>
             </ui:define>

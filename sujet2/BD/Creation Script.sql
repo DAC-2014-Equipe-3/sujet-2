@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS `sujet2`.`Member` (
   `memberFirstname` VARCHAR(45) NOT NULL,
   `memberBirthday` DATE NOT NULL,
   `memberNationality` VARCHAR(45) NOT NULL,
-  `memberAddress` VARCHAR(255) NULL,
   `memberSex` VARCHAR(45) NULL,
   `memberProfession` VARCHAR(45) NULL,
   `memberIsSuppressed` TINYINT(1) NULL,
