@@ -63,6 +63,20 @@
     </navigation-rule>
 
     <navigation-rule>
+        <from-view-id>/form_updateproject.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{projectBean.updateProject()}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{projectBean.updateProject()}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/template/error.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
         <from-view-id>/form_updatemember.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{memberBean.updateAccount()}</from-action>

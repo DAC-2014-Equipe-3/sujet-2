@@ -82,6 +82,7 @@ public class ProjectService implements IService<ProjectVo>{
         entity.setProjectId(vo.getProjectId());
         entity.setProjectIsSuppressed(vo.getProjectIsSuppressed());
         entity.setProjectTitle(vo.getProjectTitle());
+        entity.setProjectIsClosed(vo.getProjectIsClosed());
         entity.setReward(rewardList);
 
         dao.update(entity, em);
