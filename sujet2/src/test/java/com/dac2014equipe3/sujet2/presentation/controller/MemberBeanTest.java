@@ -103,8 +103,6 @@ public class MemberBeanTest {
         assertEquals(expResult, result);
     }
 
-
-
     @Test
     public void testDeleteAccount(){
     //Conditions = Aucun projet créé et investi

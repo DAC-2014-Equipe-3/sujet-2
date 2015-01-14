@@ -29,7 +29,9 @@ public class ProjectBean {
     private int sumPledge;
     private int nbMemberBacksProject;
 
-    /******************************* GETTER / SETTER ***********************************/
+    /**
+     * **************************** GETTER / SETTER **********************************
+     */
 
     public Date getEndDate() {
         return endDate;
@@ -124,7 +126,7 @@ public class ProjectBean {
     /**
      *
      */
-    public void clearInfos(){
+    public void clearInfos() {
         this.title = "";
         this.fundingGoal = 0;
         this.endDate = null;
@@ -145,7 +147,7 @@ public class ProjectBean {
         ProjectVo projectVo = new ProjectVo();
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
 
-        projectVo.setProjectId(getId());
+        //projectVo.setProjectId(getId());
         projectVo.setProjectTitle(getTitle());
         projectVo.setProjectFundingGoal(getFundingGoal());
         projectVo.setProjectCreationDate(new Date());
@@ -156,7 +158,7 @@ public class ProjectBean {
         projectVo.setMemberList(null);
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
         projectVo.setMediaList(null); //TODO
-        projectVo.setMemberbacksProjectList(new ArrayList<MemberbacksProject>());
+        //projectVo.setMemberbacksProjectList(new ArrayList<MemberbacksProject>());
 
         if (!Utilities.isRewardListEmpty()) {
             projectFacade.addProject(projectVo);
@@ -178,7 +180,7 @@ public class ProjectBean {
         membercreatesProjectFacade.addMembercreatesProject(membercreatesProjectVo);
 
         //Register the rewards
-        if(Utilities.persistRewardList(projectVo).contentEquals("success")){
+        if (Utilities.persistRewardList(projectVo).contentEquals("success")) {
             Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet ajouté avec succés.");
             return "success";
         }
@@ -293,8 +295,7 @@ public class ProjectBean {
      */
     public void getDataProject() {
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
-        setId(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().
-                getRequestParameterMap().get("idProject")));
+        setId(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject")));
 
         ProjectVo projectVo = projectFacade.find(getId());
         setId(projectVo.getProjectId());
@@ -343,7 +344,6 @@ public class ProjectBean {
         projectVo.setProjectIsClosed(false);
         projectFacade.updateProject(projectVo);
 
-
         //TODO Problèmes avec la mise à jour de la catégorie -> il retourne toujours la catégoire 1 de la base
         /*List<Reward> rewards = new ArrayList<Reward>();
         int i = 0;
@@ -386,7 +386,7 @@ public class ProjectBean {
         projectVo.setProjectIsSuppressed(false);
 
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
-        if(!projectFacade.updateProject(projectVo)){
+        if (!projectFacade.updateProject(projectVo)) {
             Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Echec de la fermeture du projet");
             return "failure";
         }

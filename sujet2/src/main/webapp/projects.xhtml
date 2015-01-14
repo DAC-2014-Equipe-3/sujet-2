@@ -72,7 +72,7 @@
                                     <h:outputText value="#{project.nbMemberBacksProject}" />
 
                                     <p:button rendered="#{memberBean.loggedIn == true}"  icon="ui-icon-pencil" value="Investir"  outcome="/faces/form_backproject.xhtml"  >
-                                        <f:param name="idProject" value="#{project.projectId}"></f:param>
+                                        <f:param  name="idProject" value="#{project.projectId}"></f:param>
                                     </p:button>
                                 </h:panelGrid>
                             </p:tab>
