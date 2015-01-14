@@ -162,7 +162,7 @@ public class ProjectBean {
             // aucun reward, on l'oblige a ajouter un reward joker
             Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR,
                     "Veuillez ajouter un reward au minimum. Merci");
-            return "failure";
+            return "";
         }
 
         //Register the project creator

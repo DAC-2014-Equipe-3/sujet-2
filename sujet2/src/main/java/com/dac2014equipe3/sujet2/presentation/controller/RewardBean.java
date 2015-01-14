@@ -72,7 +72,9 @@ public class RewardBean {
     }
 
     public boolean isListEmpty(){
-        return rewardList.isEmpty();
+        if(this.rewardList == null || this.rewardList.isEmpty())
+            return true;
+        return false;
     }
 
     public void addReward() {
