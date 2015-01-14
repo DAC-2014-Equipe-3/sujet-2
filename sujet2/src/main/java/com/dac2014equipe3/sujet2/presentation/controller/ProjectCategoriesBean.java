@@ -18,6 +18,8 @@ public class ProjectCategoriesBean {
 
     private List<ProjectCategoryVo> listProjectCategories = new ArrayList<ProjectCategoryVo>();
 
+    /******************************* GETTER / SETTER ***********************************/
+
     public ProjectCategoriesBean() {
     }
 
@@ -29,6 +31,8 @@ public class ProjectCategoriesBean {
         this.listProjectCategories = listProjectCategories;
     }
 
+    /******************************* METHODES AJOUTEES ***********************************/
+
     /**
      * Recupere tous les categories
      */
@@ -39,6 +43,11 @@ public class ProjectCategoriesBean {
         listProjectCategories.addAll(projectCategoryFacade.getAllProjectCategories());
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public ProjectCategoryVo findCountryById(String id) {
         for (ProjectCategoryVo object : listProjectCategories) {
             if (object.getCategoryId() == Integer.valueOf(id).intValue()) {

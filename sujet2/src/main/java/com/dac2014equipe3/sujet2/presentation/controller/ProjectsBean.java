@@ -23,6 +23,9 @@ public class ProjectsBean {
     private List<ProjectVo> listProjectsClosed = new ArrayList<ProjectVo>();
     private List<ProjectVo> listProjectsNotDeletedNotClosed = new ArrayList<ProjectVo>();
     private List<ProjectVo> listProjectsNotDeleted = new ArrayList<ProjectVo>();
+
+    /******************************* GETTER / SETTER ***********************************/
+
     public List<ProjectVo> getListProjects() {
         return listProjects;
     }
@@ -62,6 +65,8 @@ public class ProjectsBean {
     public void setListProjectsNotDeletedNotClosed(List<ProjectVo> listProjectsNotDeletedNotClosed) {
         this.listProjectsNotDeletedNotClosed = listProjectsNotDeletedNotClosed;
     }
+
+    /******************************* METHODES AJOUTEES ***********************************/
 
     /**
      * Recupere tous les projets non supprimés

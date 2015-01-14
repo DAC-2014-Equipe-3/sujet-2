@@ -17,11 +17,11 @@ import static org.junit.Assert.*;
  *
  * @author juanmanuelmartinezromero
  */
-public class LoginBeanITest {
+public class LoginBeanTest {
 
     private static LoginBean instance;
 
-    public LoginBeanITest() {
+    public LoginBeanTest() {
     }
 
     @BeforeClass

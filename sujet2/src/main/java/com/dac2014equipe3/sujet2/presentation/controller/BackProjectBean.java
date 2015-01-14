@@ -39,6 +39,8 @@ public class BackProjectBean {
     private List<RewardVo> rewardVoList;
     private MemberbacksProjectPK memberbacksProjectPK;
 
+    /******************************* GETTER / SETTER ***********************************/
+
     public Integer getRewardId() {
         return rewardId;
     }
@@ -104,9 +106,12 @@ public class BackProjectBean {
     }
 
 
-    /******************************* AJOUTEES ***********************************/
+    /******************************* METHODES AJOUTEES ***********************************/
 
-
+    /**
+     *
+     * @return
+     */
     public String addMemberBacksProject(){
         MemberVo memberVo = Utilities.getSessionMember();
 
@@ -132,7 +137,8 @@ public class BackProjectBean {
             //Todo correction d'erreur dans la base de données
           //  if(verifyRewardMinPledge(getRewardId(),getPledgedEuros())) {
                 memberbacksProjectFacade.addMemberBacksProject(memberbacksProjectVo);
-                Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, " Félicitation,Vous venez de financer le projet : "+ getProject().getProjectTitle() + "  Merci.");
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO,
+                        "Félicitations,Vous venez de financer le projet : "+ getProject().getProjectTitle() + "  Merci.");
                 return "success" ;
          //   }
           //  return "failure" ;
@@ -143,12 +149,19 @@ public class BackProjectBean {
         }
 
     }
+
+    /**
+     *
+     */
     public void getAllProjectReward(){
         RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();
         List<RewardVo> reward = rewardFacade.getListProjectReward(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject")));
         setRewardVoList(reward);
     }
 
+    /**
+     *
+     */
     public void getDataForBackingProject(){
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
 
@@ -158,6 +171,12 @@ public class BackProjectBean {
         setProject(projectVo);
     }
 
+    /**
+     *
+     * @param rewardId
+     * @param bakingPrice
+     * @return
+     */
     public boolean verifyRewardMinPledge(Integer rewardId, int bakingPrice){
         boolean verify =false;
         RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();

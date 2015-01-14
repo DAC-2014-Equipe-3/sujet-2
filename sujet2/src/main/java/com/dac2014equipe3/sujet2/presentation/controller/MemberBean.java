@@ -41,15 +41,17 @@ public class MemberBean {
     private String password;
     private String oldPassword;
     private String passwordBis;
-    private Date joiningDate;
     private String lastName;
     private String firstName;
-    private Date birthday;
     private String nationality;
     private String sex;
     private String profession;
+    private Date birthday;
+    private Date joiningDate;
     private List<ProjectVo> createdProjectList;
     private List<ProjectVo> investedProjectList;
+
+    /**********************REGEX FORMULAIRE**********************************************/
     private static String LOGIN_PATTERN = "^[a-z0-9_-]{3,16}$";
     private static String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private static String PASSWORD_PATTERN = "^[a-z0-9_-]{6,18}$";
@@ -57,6 +59,7 @@ public class MemberBean {
     private static String LASTNAME_PATTERN = "^[a-z]+([ '-][a-zA-Z]+)*";
     private static String PROFESSION_PATTERN = "^[a-zA-z]+([ '-][a-zA-Z]+)*";
 
+    /******************************* GETTER / SETTER ***********************************/
 
     /**
      * @return the id
@@ -313,53 +316,6 @@ public class MemberBean {
 
 /**************************************METHODES AJOUTEES******************************/
 
-    /**
-     * Cree un nouveau membre
-     */
-    public String addNewMember() {
-        //TODO Ouvrir session membre
-
-        MemberVo memberVo = new MemberVo();
-        MemberFacade memberFacade = FacadeFactory.getInstance()
-                .getMemberFacade();
-        Date datenow = new Date();
-
-        if(!getLogin().matches(LOGIN_PATTERN) ||
-            !getEmail().matches(EMAIL_PATTERN) ||
-            !getPassword().matches(PASSWORD_PATTERN) ||
-            !getSex().contentEquals("F") ||
-            !getSex().contentEquals("M") ||
-            !getFirstName().matches(FIRSTNAME_PATTERN) ||
-            !getLastName().matches(LASTNAME_PATTERN) ||
-            !getBirthday().after(datenow) ||
-            !getProfession().matches(PROFESSION_PATTERN)) {
-            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec d'inscription (validation des champs");
-            return "failure";
-        }
-        //Verifie si le login est inexistant
-        if (memberFacade.findMemberByLogin(memberVo.getMemberLogin())) {
-            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec d'inscription : login existant");
-            return "failure";
-        }
-
-        //TODO Nationalité à checker
-        memberVo.setMemberLogin(getLogin());
-        memberVo.setMemberPassword(getPassword());
-        memberVo.setMemberEmail(getEmail().toLowerCase());
-        memberVo.setMemberSex(getSex());
-        memberVo.setMemberFirstname(StringUtils.capitalize(getFirstName()));
-        memberVo.setMemberLastname(StringUtils.capitalize(getLastName()));
-        memberVo.setMemberBirthday(getBirthday());
-        memberVo.setMemberProfession(StringUtils.capitalize(getProfession()));
-        memberVo.setMemberNationality(getNationality());
-        //Par défaut
-        memberVo.setMemberJoiningDate(new Date());
-        memberVo.setMemberIsAdmin(false);
-        memberVo.setMemberIsSuppressed(false);
-        //Ajout en base
-        memberFacade.addMember(memberVo);
-        return "success";
-    }
 
     /**
      * Recuperer les infos personnelles du membre connecté
@@ -367,7 +323,6 @@ public class MemberBean {
     public boolean getDataMember() {
         setId(Utilities.getSessionMemberId());
         setLoggedIn(Utilities.getSessionMemberLoggedIn());
-        //TODO recuperer session membre pour recuperer l'utilisateur courant
 
         if (isLoggedIn()) {
             MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
@@ -399,7 +354,8 @@ public class MemberBean {
         setLoggedIn(Utilities.getSessionMemberLoggedIn());
 
         if (! isLoggedIn()) {
-            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour, Utilisateur non connecté");
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR,
+                    "Echec de mise à jour, Utilisateur non connecté");
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
@@ -416,7 +372,8 @@ public class MemberBean {
                     !getLastName().matches(LASTNAME_PATTERN) ||
                     !getBirthday().after(datenow) ||
                     !getProfession().matches(PROFESSION_PATTERN)) {
-                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour (validation des champs)");
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR,
+                        "Echec de mise à jour (validation des champs)");
                 return "failure";
             }
 
@@ -452,7 +409,8 @@ public class MemberBean {
         setLoggedIn(Utilities.getSessionMemberLoggedIn());
 
         if (!isLoggedIn()) {
-            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour, Utilisateur non connecté");
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR,
+                    "Echec de mise à jour, Utilisateur non connecté");
             return "failure";
         } else {
             MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
@@ -462,13 +420,16 @@ public class MemberBean {
                 memberVo.setMemberPassword(getPassword());
                 memberFacade = FacadeFactory.getInstance().getMemberFacade();
                 if (memberFacade.updateMember(memberVo)) {
-                    Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, " Mot de passe mis à jour effectué avec succès ") ;
+                    Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO,
+                            "Mot de passe mis à jour effectué avec succès ") ;
                     return "success";
                 }
-                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mis à jour du mot de passe ") ;
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR,
+                        "Echec de mis à jour du mot de passe ") ;
                 return "failure";
             } else {
-                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mis à jour du mot de passe ") ;
+                Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR,
+                        "Echec de mis à jour du mot de passe ") ;
                 return "failure";
             }
         }
@@ -498,6 +459,7 @@ public class MemberBean {
         }
         return false;
     }
+
     /**
      * Supprimer compte membre
      *
@@ -507,13 +469,12 @@ public class MemberBean {
         setId(Utilities.getSessionMemberId());
         setLoggedIn(Utilities.getSessionMemberLoggedIn());
         if (!isLoggedIn()) {
-            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, " Echec de mise à jour, Utilisateur non connecté");
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR,
+                    "Echec de mise à jour, Utilisateur non connecté");
             return "failure";
         } else {
-            MemberFacade memberFacade = FacadeFactory.getInstance()
-                    .getMemberFacade();
+            MemberFacade memberFacade = FacadeFactory.getInstance().getMemberFacade();
             MemberVo memberVo = memberFacade.find(getId());
-
             MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance()
                     .getMembercreatesProjectFacade();
 
@@ -532,6 +493,7 @@ public class MemberBean {
             return "success";
         }
     }
+
     /**
      * Deconnecter membre
      *
@@ -568,6 +530,9 @@ public class MemberBean {
         return vo;
     }
 
+    /**
+     *
+     */
     public void getAllMemberProject(){
         MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance()
                 .getMembercreatesProjectFacade();
@@ -575,6 +540,9 @@ public class MemberBean {
         setCreatedProjectList(listMemberProjects);
     }
 
+    /**
+     *
+     */
     public void getAllMemberBackedProject(){
         MemberbacksProjectFacade memberbacksProjectFacade = FacadeFactory.getInstance()
                 .getMemberbacksProjectFacade();

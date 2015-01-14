@@ -49,6 +49,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Member.findByMemberSex", query = "SELECT m FROM Member m WHERE m.memberSex = :memberSex"),
     @NamedQuery(name = "Member.findByMemberProfession", query = "SELECT m FROM Member m WHERE m.memberProfession = :memberProfession"),
     @NamedQuery(name = "Member.findByMemberIsSuppressed", query = "SELECT m FROM Member m WHERE m.memberIsSuppressed = :memberIsSuppressed")})
+
 public class Member implements Serializable, IEntity<MemberVo> {
 
     private static final long serialVersionUID = 1L;

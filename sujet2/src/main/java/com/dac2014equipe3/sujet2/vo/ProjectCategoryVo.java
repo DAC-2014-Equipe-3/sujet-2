@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ProjectCategoryVo implements IValueObject{
 
-    private Integer categoryId;
+    private int categoryId;
     private String categoryName;
     private String categoryDescription;
     private List<Project> projectList;
@@ -27,7 +27,7 @@ public class ProjectCategoryVo implements IValueObject{
         this.projectList = projectCategory.getProjectList();
     }
 
-    public Integer getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
@@ -59,7 +59,4 @@ public class ProjectCategoryVo implements IValueObject{
         this.projectList = projectList;
     }
 
-    public String toString(){
-        return this.categoryId.toString();
-    }
 }

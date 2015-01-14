@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ProjectVo implements IValueObject{
 
-    private Integer projectId;
+    private int projectId;
     private String projectTitle;
     private int projectFundingGoal;
     private Date projectCreationDate;
@@ -19,24 +19,14 @@ public class ProjectVo implements IValueObject{
     private List<Media> mediaList;
     private List<MemberbacksProject> memberbacksProjectList;
     private List<RewardVo> listReward;
-    private Integer sumPledge;
-
-
-
-    public Integer getSumPledge() {
-        return sumPledge;
-    }
-
-    public void setSumPledge(Integer sumPledge) {
-        this.sumPledge = sumPledge;
-    }
-
+    private int sumPledge;
+    private int nbMemberBacksProject;
 
     /**
      *
      * @return projectId
      */
-    public Integer getProjectId() {
+    public int getProjectId() {
         return projectId;
     }
 
@@ -132,7 +122,7 @@ public class ProjectVo implements IValueObject{
      *
      * @return projectIsSuppressed
      */
-    public Boolean getProjectIsSuppressed() {
+    public boolean getProjectIsSuppressed() {
         return projectIsSuppressed;
     }
 
@@ -206,10 +196,11 @@ public class ProjectVo implements IValueObject{
      */
     public void setMemberbacksProjectList(List<MemberbacksProject> memberbacksProjectList) {
         this.memberbacksProjectList = memberbacksProjectList;
-        setSumPledge(0);
+        this.setSumPledge(0);
         for (int i = 0, size = memberbacksProjectList.size(); i < size; i++) {
             sumPledge = sumPledge + memberbacksProjectList.get(i).getPledgedEuros();
         }
+        this.setNbMemberBacksProject(memberbacksProjectList.size());
     }
 
     public boolean getProjectIsClosed() {
@@ -220,6 +211,14 @@ public class ProjectVo implements IValueObject{
         this.projectIsClosed = projectIsClosed;
     }
 
+    public int getSumPledge() {
+        return sumPledge;
+    }
+
+    public void setSumPledge(Integer sumPledge) {
+        this.sumPledge = sumPledge;
+    }
+
     public List<RewardVo> getListReward() {
         return listReward;
     }
@@ -227,4 +226,15 @@ public class ProjectVo implements IValueObject{
     public void setListReward(List<RewardVo> listReward) {
         this.listReward = listReward;
     }
+
+    public int getNbMemberBacksProject() {
+        return nbMemberBacksProject;
+    }
+
+    public void setNbMemberBacksProject(int nbMemberBacksProject) {
+        this.nbMemberBacksProject = nbMemberBacksProject;
+    }
+
+
+
 }

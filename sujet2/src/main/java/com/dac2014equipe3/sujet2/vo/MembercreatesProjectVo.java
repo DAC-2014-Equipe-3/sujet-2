@@ -1,8 +1,6 @@
 package com.dac2014equipe3.sujet2.vo;
 
-import com.dac2014equipe3.sujet2.model.entity.Member;
 import com.dac2014equipe3.sujet2.model.entity.MembercreatesProjectPK;
-import com.dac2014equipe3.sujet2.model.entity.Project;
 
 
 /**
@@ -11,12 +9,12 @@ import com.dac2014equipe3.sujet2.model.entity.Project;
 public class MembercreatesProjectVo implements IValueObject {
 
     protected MembercreatesProjectPK membercreatesProjectPK;
-    private MemberVo member1;
+    private MemberVo member;
     private ProjectVo project;
 
-    public MembercreatesProjectVo(MembercreatesProjectPK membercreatesProjectPK, MemberVo member1, ProjectVo project) {
+    public MembercreatesProjectVo(MembercreatesProjectPK membercreatesProjectPK, MemberVo member, ProjectVo project) {
         this.membercreatesProjectPK = membercreatesProjectPK;
-        this.member1 = member1;
+        this.member = member;
         this.project = project;
     }
 
@@ -36,11 +34,11 @@ public class MembercreatesProjectVo implements IValueObject {
         this.membercreatesProjectPK = membercreatesProjectPK;
     }
 
-    public MemberVo getMember1() {
-        return member1;
+    public MemberVo getMember() {
+        return member;
     }
 
-    public void setMember1(MemberVo member1) {
-        this.member1 = member1;
+    public void setMember(MemberVo member) {
+        this.member = member;
     }
 }

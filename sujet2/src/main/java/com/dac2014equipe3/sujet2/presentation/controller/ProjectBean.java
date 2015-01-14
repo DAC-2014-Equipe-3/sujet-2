@@ -19,30 +19,23 @@ public class ProjectBean {
 
     private int id;
     private String title;
+    private String description;
     private int fundingGoal;
     private Date creationDate;
     private Date endDate;
-    private String description;
     private boolean isSuppressed;
     private boolean isClosed;
     private ProjectCategoryVo categoryVo;
     //TODO la liste des rewards devrait suffire ? ou sinon faire un rewardBean pour gerer juste les rewards
-    private Integer rewardId;
+    private int rewardId;
     private String rewardName;
     private String rewardDescription;
     private String rewardMinPrice;
     private List<RewardVo> rewardList;
-    private Integer sumPledge;
+    private int sumPledge;
+    private int nbMemberBacksProject;
 
-    public Integer getSumPledge() {
-        return sumPledge;
-    }
-
-    public void setSumPledge(Integer sumPledge) {
-        this.sumPledge = sumPledge;
-    }
-
-
+    /******************************* GETTER / SETTER ***********************************/
 
     public ProjectBean() {
         rewardList = new ArrayList<RewardVo>();
@@ -128,7 +121,7 @@ public class ProjectBean {
         this.rewardMinPrice = rewardMinPrice;
     }
 
-    public Integer getRewardId() {
+    public int getRewardId() {
         return rewardId;
     }
 
@@ -174,6 +167,22 @@ public class ProjectBean {
 
     public void setRewardList(List<RewardVo> rewardList) {
         this.rewardList = rewardList;
+    }
+
+    public int getSumPledge() {
+        return sumPledge;
+    }
+
+    public void setSumPledge(int sumPledge) {
+        this.sumPledge = sumPledge;
+    }
+
+    public int getNbMemberBacksProject() {
+        return nbMemberBacksProject;
+    }
+
+    public void setNbMemberBacksProject(int nbMemberBacksProject) {
+        this.nbMemberBacksProject = nbMemberBacksProject;
     }
 
     /***********************************METHODES AJOUTEES*********************************/
@@ -338,6 +347,8 @@ public class ProjectBean {
             setCategoryVo(new ProjectCategoryVo(projectVo.getProjectCategory()));
             setClosed(projectVo.getProjectIsClosed());
             setSuppressed(projectVo.getProjectIsSuppressed());
+            setSumPledge(projectVo.getSumPledge());
+            setNbMemberBacksProject(projectVo.getNbMemberBacksProject());
         }
 
     }
@@ -347,7 +358,8 @@ public class ProjectBean {
      */
     public void getDataProject() {
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
-        setId(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idProject")));
+        setId(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().
+                getRequestParameterMap().get("idProject")));
 
         ProjectVo projectVo = projectFacade.find(getId());
         setId(projectVo.getProjectId());
@@ -359,6 +371,8 @@ public class ProjectBean {
         setCategoryVo(new ProjectCategoryVo(projectVo.getProjectCategory()));
         setClosed(projectVo.getProjectIsClosed());
         setSuppressed(projectVo.getProjectIsSuppressed());
+        setSumPledge(projectVo.getSumPledge());
+        setNbMemberBacksProject(projectVo.getNbMemberBacksProject());
     }
 
     /**

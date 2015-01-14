@@ -7,12 +7,15 @@ import java.util.List;
 
 public class RewardVo implements IValueObject {
 
-    private Integer rewardId;
+    private int rewardId;
     private String rewardName;
     private String rewardDescription;
     private String rewardMinPrice;
     private List<MemberbacksProject> memberbacksProjectList;
     private Project project;
+
+    public RewardVo() {
+    }
 
     public RewardVo(Integer rewardId, String rewardName, String rewardDescription, String rewardMinPrice) {
         this.rewardId = rewardId;
@@ -20,9 +23,6 @@ public class RewardVo implements IValueObject {
         this.rewardDescription = rewardDescription;
         this.rewardMinPrice = rewardMinPrice;
         this.memberbacksProjectList = null;
-    }
-
-    public RewardVo() {
     }
 
     public Integer getRewardId() {
