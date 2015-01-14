@@ -15,6 +15,7 @@
                             <h:panelGrid columns="3" cellpadding="5">
                                 #{projectBean.getDataProject()}
                                 #{projectCategoriesBean.getAllProjectCategories()}
+                                #{rewardBean.clearList()}
                                 <p:outputLabel for="title" value="Titre : "/>
                                 <p:inputText id="title" required="true" value="#{projectBean.title}"
                                              requiredMessage="Veuillez compléter le champ"/>
@@ -47,7 +48,7 @@
                                 <p:message for="category" value="Category"/>
                             </h:panelGrid>
 
-                            <p:dataTable id="table" paginator="true" var="rewardObj" value="#{projectBean.rewardList}">
+                            <p:dataTable id="table" paginator="true" var="rewardObj" value="#{rewardBean.rewardList}">
                                 <f:facet name="header">
                                     Liste de Rewards ajoutés
                                 </f:facet>
@@ -66,7 +67,7 @@
                                         <h:outputText value="Montant à atteindre: " />
                                         <h:outputText value="#{rewardObj.rewardMinPrice}" />
                                     </p:panelGrid>
-                                    <h:commandButton value="supprimer" action="#{projectBean.removeReward(rewardObj)}">
+                                    <h:commandButton value="supprimer" action="#{rewardBean.removeReward(rewardObj)}">
                                         <f:ajax partialSubmit="true" render="table"/>
                                     </h:commandButton>
                                 </p:rowExpansion>
@@ -77,7 +78,7 @@
 
                                     <h:panelGrid columns="3" cellpadding="5">
                                         <p:outputLabel for="nameReward" value="Name : "/>
-                                        <p:inputText  id="nameReward" required="false" value="#{projectBean.rewardName}"
+                                        <p:inputText  id="nameReward" required="false" value="#{rewardBean.rewardName}"
                                                       requiredMessage="Veuillez compléter le champ">
                                             <f:ajax update="nameReward" event="keyup" />
                                         </p:inputText>
@@ -85,22 +86,22 @@
 
 
                                         <p:outputLabel for="descriptionReward" value="Description : "/>
-                                        <p:inputTextarea id="descriptionReward" required="false" value="#{projectBean.rewardDescription}"
+                                        <p:inputTextarea id="descriptionReward" required="false" value="#{rewardBean.rewardDescription}"
                                                          requiredMessage="Veuillez compléter le champ">
                                             <f:ajax event="keyup" update="descriptionReward" />
                                         </p:inputTextarea>
                                         <p:message for="descriptionReward" value="Description"/>
 
                                         <p:outputLabel for="goalReward" value="Montant à atteindre : "/>
-                                        <p:inputText id="goalReward" required="false" value="#{projectBean.rewardMinPrice}"
+                                        <p:inputText id="goalReward" required="false" value="#{rewardBean.rewardMinPrice}"
                                                      requiredMessage="Veuillez compléter le champ">
                                             <f:ajax event="keyup" update="goalReward" />
                                             <f:validateLongRange minimum="0" maximum="1000000" for="goalReward"/>
                                         </p:inputText>
                                         <p:message for="goalReward" value="Goal"/>
 
-                                        <h:commandLink value="Add"  action="#{projectBean.addReward()}">
-                                            <f:ajax partialSubmit="true" render="nameReward descriptionReward goalReward table"/>
+                                        <h:commandLink value="Add"  action="#{rewardBean.addReward()}">
+                                            <f:ajax partialSubmit="false" render="nameReward descriptionReward goalReward table"/>
                                         </h:commandLink>
                                     </h:panelGrid>
                                 </p:fieldset>
@@ -111,9 +112,9 @@
                             </h:message>
 
                             <div class="form-actions">
-                                <p:button  icon="ui-icon-pencil" value="Modifier"  action = "#{projectBean.updateProject()}" >
+                                <p:commandButton  icon="ui-icon-pencil" value="Modifier"  action = "#{projectBean.updateProject()}" >
                                     <f:param  name="idProject" value="#{project.projectId}"></f:param>
-                                </p:button>
+                                </p:commandButton>
                             </div>
                         </p:fieldset>
                     </div>

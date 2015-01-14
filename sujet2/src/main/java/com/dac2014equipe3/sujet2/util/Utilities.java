@@ -1,7 +1,9 @@
 package com.dac2014equipe3.sujet2.util;
 
 import com.dac2014equipe3.sujet2.presentation.controller.MemberBean;
+import com.dac2014equipe3.sujet2.presentation.controller.RewardBean;
 import com.dac2014equipe3.sujet2.vo.MemberVo;
+import com.dac2014equipe3.sujet2.vo.ProjectVo;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -65,4 +67,25 @@ public class Utilities {
                         MemberBean.class).setLoggedIn(logout);
     }
 
+    /**
+     * Check if the reward list is empty
+     * @return
+     */
+    public static boolean isRewardListEmpty(){
+        RewardBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{rewardBean}",
+                        RewardBean.class);
+        return controller.isListEmpty();
+    }
+
+    /**
+     * Persist the reward list saved in the user session
+     * @return
+     */
+    public static String persistRewardList(ProjectVo projectVo){
+        RewardBean controller = FacesContext.getCurrentInstance().getApplication()
+                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{rewardBean}",
+                        RewardBean.class);
+        return controller.addListReward(projectVo);
+    }
 }

@@ -26,20 +26,10 @@ public class ProjectBean {
     private boolean isSuppressed;
     private boolean isClosed;
     private ProjectCategoryVo categoryVo;
-    //TODO la liste des rewards devrait suffire ? ou sinon faire un rewardBean pour gerer juste les rewards
-    private int rewardId;
-    private String rewardName;
-    private String rewardDescription;
-    private String rewardMinPrice;
-    private List<RewardVo> rewardList;
     private int sumPledge;
     private int nbMemberBacksProject;
 
     /******************************* GETTER / SETTER ***********************************/
-
-    public ProjectBean() {
-        rewardList = new ArrayList<RewardVo>();
-    }
 
     public Date getEndDate() {
         return endDate;
@@ -113,62 +103,6 @@ public class ProjectBean {
         this.isClosed = isClosed;
     }
 
-    public String getRewardMinPrice() {
-        return rewardMinPrice;
-    }
-
-    public void setRewardMinPrice(String rewardMinPrice) {
-        this.rewardMinPrice = rewardMinPrice;
-    }
-
-    public int getRewardId() {
-        return rewardId;
-    }
-
-    public void setRewardId(Integer rewardId) {
-        this.rewardId = rewardId;
-    }
-
-    public String getRewardName() {
-        return rewardName;
-    }
-
-    public void setRewardName(String rewardName) {
-        this.rewardName = rewardName;
-    }
-
-    public String getRewardDescription() {
-        return rewardDescription;
-    }
-
-    public void setRewardDescription(String rewardDescription) {
-        this.rewardDescription = rewardDescription;
-    }
-
-    public void addReward() {
-        this.rewardList.add(new RewardVo(
-                0,
-                this.rewardName,
-                this.rewardDescription,
-                this.rewardMinPrice));
-
-        this.rewardName = "";
-        this.rewardDescription = "";
-        this.rewardMinPrice = "";
-    }
-
-    public void removeReward(RewardVo rewardVo) {
-        this.rewardList.remove(rewardVo);
-    }
-
-    public List<RewardVo> getRewardList() {
-        return rewardList;
-    }
-
-    public void setRewardList(List<RewardVo> rewardList) {
-        this.rewardList = rewardList;
-    }
-
     public int getSumPledge() {
         return sumPledge;
     }
@@ -186,6 +120,17 @@ public class ProjectBean {
     }
 
     /***********************************METHODES AJOUTEES*********************************/
+
+    /**
+     *
+     */
+    public void clearInfos(){
+        this.title = "";
+        this.fundingGoal = 0;
+        this.endDate = null;
+        this.description = "";
+        this.sumPledge = 0;
+    }
 
     /**
      * Cree un nouveau projet
@@ -211,10 +156,9 @@ public class ProjectBean {
         projectVo.setMemberList(null);
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
         projectVo.setMediaList(null); //TODO
-        projectVo.setMemberbacksProjectList(null);
-        projectVo.setListReward(getRewardList());
+        projectVo.setMemberbacksProjectList(new ArrayList<MemberbacksProject>());
 
-        if (getRewardList().size() > 0) {
+        if (!Utilities.isRewardListEmpty()) {
             projectFacade.addProject(projectVo);
         } else {
             // aucun reward, on l'oblige a ajouter un reward joker
@@ -233,23 +177,14 @@ public class ProjectBean {
                 membercreatesProjectPK, memberVo, projectVo);
         membercreatesProjectFacade.addMembercreatesProject(membercreatesProjectVo);
 
-        List<Reward> rewards = new ArrayList<Reward>();
-        int i = 0;
-        for (RewardVo reward : rewardList) {
-            rewards.add(new Reward(projectVo.getListReward().get(i++)));
-        }
-
-        Project project = new Project(projectVo);
-        project.setReward(rewards);
-        for (RewardVo r : rewardList) {
-            r.setProject(project);
-        }
-
         //Register the rewards
-        RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();
-        rewardFacade.addRewardList(rewardList);
-        Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet ajouté avec succés.");
-        return "success";
+        if(Utilities.persistRewardList(projectVo).contentEquals("success")){
+            Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet ajouté avec succés.");
+            return "success";
+        }
+        Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Problème avec l'ajout des Reward");
+        //TODO Rollback d'ajout de projet?
+        return "failure";
     }
 
     /**
@@ -405,21 +340,12 @@ public class ProjectBean {
         projectVo.setProjectDescription(getDescription());
         projectVo.setProjectIsSuppressed(false);
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
+        projectVo.setProjectIsClosed(false);
         projectFacade.updateProject(projectVo);
 
-        //Get the new project id
-        MemberBean controller = FacesContext.getCurrentInstance().getApplication()
-                .evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{memberBean}",
-                        MemberBean.class);
 
-        //Register the project creator
-        MembercreatesProjectFacade membercreatesProjectFacade = FacadeFactory.getInstance().getMembercreatesProjectFacade();
-        MemberVo memberVo = controller.getMemberVo();
-        MembercreatesProjectPK membercreatesProjectPK = new MembercreatesProjectPK(memberVo.getMemberId(), projectVo.getProjectId());
-        MembercreatesProjectVo membercreatesProjectVo = new MembercreatesProjectVo(membercreatesProjectPK, memberVo, projectVo);
-        membercreatesProjectFacade.addMembercreatesProject(membercreatesProjectVo);
-
-        List<Reward> rewards = new ArrayList<Reward>();
+        //TODO Problèmes avec la mise à jour de la catégorie -> il retourne toujours la catégoire 1 de la base
+        /*List<Reward> rewards = new ArrayList<Reward>();
         int i = 0;
         for (RewardVo reward : rewardList) {
             rewards.add(new Reward(projectVo.getListReward().get(i++)));
@@ -429,10 +355,11 @@ public class ProjectBean {
         project.setReward(rewards);
         for (RewardVo r : rewardList) {
             r.setProject(project);
-        }
+        }*/
+
         //Register the rewards
-        RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();
-        rewardFacade.addRewardList(rewardList);
+        //RewardFacade rewardFacade = FacadeFactory.getInstance().getRewardFacade();
+        //rewardFacade.addRewardList(rewardList);
 
         Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet mis à jour avec succés.");
         return "success";
@@ -467,4 +394,5 @@ public class ProjectBean {
         Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet clôturé!");
         return "success";
     }
+
 }
