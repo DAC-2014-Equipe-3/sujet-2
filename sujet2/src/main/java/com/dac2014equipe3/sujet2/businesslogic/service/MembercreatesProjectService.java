@@ -33,19 +33,19 @@ public class MembercreatesProjectService implements IService<MembercreatesProjec
 
         //Verify if all the fields are needed
         Member member = new Member();
-        member.setMemberId(membercreatesProjectVo.getMember1().getMemberId());
-        member.setMemberEmail(membercreatesProjectVo.getMember1().getMemberEmail());
-        member.setMemberLogin(membercreatesProjectVo.getMember1().getMemberLogin());
-        member.setMemberPassword(membercreatesProjectVo.getMember1().getMemberPassword());
-        member.setMemberIsAdmin(membercreatesProjectVo.getMember1().getMemberIsAdmin());
-        member.setMemberJoiningDate(membercreatesProjectVo.getMember1().getMemberJoiningDate());
-        member.setMemberBirthday(membercreatesProjectVo.getMember1().getMemberBirthday());
-        member.setMemberFirstname(membercreatesProjectVo.getMember1().getMemberFirstname());
-        member.setMemberLastname(membercreatesProjectVo.getMember1().getMemberLastname());
-        member.setMemberNationality(membercreatesProjectVo.getMember1().getMemberNationality());
-        member.setMemberSex(membercreatesProjectVo.getMember1().getMemberSex());
-        member.setMemberProfession(membercreatesProjectVo.getMember1().getMemberProfession());
-        member.setMemberIsSuppressed(membercreatesProjectVo.getMember1().getMemberIsSuppressed());
+        member.setMemberId(membercreatesProjectVo.getMember().getMemberId());
+        member.setMemberEmail(membercreatesProjectVo.getMember().getMemberEmail());
+        member.setMemberLogin(membercreatesProjectVo.getMember().getMemberLogin());
+        member.setMemberPassword(membercreatesProjectVo.getMember().getMemberPassword());
+        member.setMemberIsAdmin(membercreatesProjectVo.getMember().getMemberIsAdmin());
+        member.setMemberJoiningDate(membercreatesProjectVo.getMember().getMemberJoiningDate());
+        member.setMemberBirthday(membercreatesProjectVo.getMember().getMemberBirthday());
+        member.setMemberFirstname(membercreatesProjectVo.getMember().getMemberFirstname());
+        member.setMemberLastname(membercreatesProjectVo.getMember().getMemberLastname());
+        member.setMemberNationality(membercreatesProjectVo.getMember().getMemberNationality());
+        member.setMemberSex(membercreatesProjectVo.getMember().getMemberSex());
+        member.setMemberProfession(membercreatesProjectVo.getMember().getMemberProfession());
+        member.setMemberIsSuppressed(membercreatesProjectVo.getMember().getMemberIsSuppressed());
 
         //Verify if all the fields are needed
         Project project = new Project();

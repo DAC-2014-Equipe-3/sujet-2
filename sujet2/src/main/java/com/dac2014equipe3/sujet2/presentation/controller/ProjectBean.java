@@ -17,36 +17,21 @@ import java.util.*;
 @SessionScoped
 public class ProjectBean {
 
-    private int id;
+    private Integer id;
     private String title;
-    private int fundingGoal;
+    private String description;
+    private Integer fundingGoal;
     private Date creationDate;
     private Date endDate;
-    private String description;
     private boolean isSuppressed;
     private boolean isClosed;
     private ProjectCategoryVo categoryVo;
-    //TODO la liste des rewards devrait suffire ? ou sinon faire un rewardBean pour gerer juste les rewards
-    /*private Integer rewardId;
-    private String rewardName;
-    private String rewardDescription;
-    private String rewardMinPrice;
-    private List<RewardVo> rewardList;*/
-    private Integer sumPledge;
+    private int sumPledge;
+    private int nbMemberBacksProject;
 
-    public Integer getSumPledge() {
-        return sumPledge;
-    }
-
-    public void setSumPledge(Integer sumPledge) {
-        this.sumPledge = sumPledge;
-    }
-
-
-
-    public ProjectBean() {
-        //rewardList = new ArrayList<RewardVo>();
-    }
+    /**
+     * **************************** GETTER / SETTER **********************************
+     */
 
     public Date getEndDate() {
         return endDate;
@@ -64,11 +49,11 @@ public class ProjectBean {
         this.creationDate = creationDate;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -120,9 +105,28 @@ public class ProjectBean {
         this.isClosed = isClosed;
     }
 
+    public int getSumPledge() {
+        return sumPledge;
+    }
+
+    public void setSumPledge(int sumPledge) {
+        this.sumPledge = sumPledge;
+    }
+
+    public int getNbMemberBacksProject() {
+        return nbMemberBacksProject;
+    }
+
+    public void setNbMemberBacksProject(int nbMemberBacksProject) {
+        this.nbMemberBacksProject = nbMemberBacksProject;
+    }
+
     /***********************************METHODES AJOUTEES*********************************/
 
-    public void clearInfos(){
+    /**
+     *
+     */
+    public void clearInfos() {
         this.title = "";
         this.fundingGoal = 0;
         this.endDate = null;
@@ -143,7 +147,7 @@ public class ProjectBean {
         ProjectVo projectVo = new ProjectVo();
         ProjectFacade projectFacade = FacadeFactory.getInstance().getProjectFacade();
 
-        projectVo.setProjectId(getId());
+        //projectVo.setProjectId(getId());
         projectVo.setProjectTitle(getTitle());
         projectVo.setProjectFundingGoal(getFundingGoal());
         projectVo.setProjectCreationDate(new Date());
@@ -154,7 +158,7 @@ public class ProjectBean {
         projectVo.setMemberList(null);
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
         projectVo.setMediaList(null); //TODO
-        projectVo.setMemberbacksProjectList(new ArrayList<MemberbacksProject>());
+        //projectVo.setMemberbacksProjectList(new ArrayList<MemberbacksProject>());
 
         if (!Utilities.isRewardListEmpty()) {
             projectFacade.addProject(projectVo);
@@ -176,7 +180,7 @@ public class ProjectBean {
         membercreatesProjectFacade.addMembercreatesProject(membercreatesProjectVo);
 
         //Register the rewards
-        if(Utilities.persistRewardList(projectVo).contentEquals("success")){
+        if (Utilities.persistRewardList(projectVo).contentEquals("success")) {
             Utilities.addMessageToContext(FacesMessage.SEVERITY_INFO, "Projet ajouté avec succés.");
             return "success";
         }
@@ -280,6 +284,8 @@ public class ProjectBean {
             setCategoryVo(new ProjectCategoryVo(projectVo.getProjectCategory()));
             setClosed(projectVo.getProjectIsClosed());
             setSuppressed(projectVo.getProjectIsSuppressed());
+            setSumPledge(projectVo.getSumPledge());
+            setNbMemberBacksProject(projectVo.getNbMemberBacksProject());
         }
 
     }
@@ -301,6 +307,8 @@ public class ProjectBean {
         setCategoryVo(new ProjectCategoryVo(projectVo.getProjectCategory()));
         setClosed(projectVo.getProjectIsClosed());
         setSuppressed(projectVo.getProjectIsSuppressed());
+        setSumPledge(projectVo.getSumPledge());
+        setNbMemberBacksProject(projectVo.getNbMemberBacksProject());
     }
 
     /**
@@ -335,7 +343,6 @@ public class ProjectBean {
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
         projectVo.setProjectIsClosed(false);
         projectFacade.updateProject(projectVo);
-
 
         //TODO Problèmes avec la mise à jour de la catégorie -> il retourne toujours la catégoire 1 de la base
         /*List<Reward> rewards = new ArrayList<Reward>();
@@ -379,7 +386,7 @@ public class ProjectBean {
         projectVo.setProjectIsSuppressed(false);
 
         projectVo.setProjectCategory(new ProjectCategory(getCategoryVo()));
-        if(!projectFacade.updateProject(projectVo)){
+        if (!projectFacade.updateProject(projectVo)) {
             Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Echec de la fermeture du projet");
             return "failure";
         }
@@ -387,4 +394,5 @@ public class ProjectBean {
         Utilities.addMessageToContext(FacesMessage.SEVERITY_ERROR, "Projet clôturé!");
         return "success";
     }
+
 }

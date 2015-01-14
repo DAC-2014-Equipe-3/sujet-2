@@ -15,7 +15,7 @@
                     <p:fieldset legend="S'inscrire et devenir membre">
                     <h:panelGrid columns="3" styleClass="form" cellpadding="5">
                                 <p:outputLabel for="login" value="Login : "/>
-                                <p:inputText id="login" required="true" value="#{memberBean.login}"
+                                <p:inputText id="login" required="true" value="#{inscriptionBean.login}"
                                              requiredMessage="Veuillez compléter le champ">
                                     <f:validateRegex pattern="^[a-z0-9_-]{3,16}$" />
                                 </p:inputText>
@@ -25,40 +25,40 @@
                                 <p:inputText id="mail" required="true" label="email" size="30" maxlength="40"
                                              requiredMessage="Veuillez compléter le champ"
                                              validatorMessage="Format de l'email invalide"
-                                             value="#{memberBean.email}">
+                                             value="#{inscriptionBean.email}">
                                     <f:validateRegex
                                     pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                 </p:inputText>
                                 <p:message for="mail"/>
 
                                 <p:outputLabel for="password" value="Mot de passe : "/>
-                                <p:password id="password" required="true" value="#{memberBean.password}"
+                                <p:password id="password" required="true" value="#{inscriptionBean.password}"
                                             requiredMessage="Veuillez compléter le champ">
                                     <f:validateRegex pattern="^[a-z0-9_-]{6,18}$" />
                                 </p:password>
                                 <p:message for="password" value="Mot de passe"/>
 
                                 <p:outputLabel for="fname" value="Prénom : "/>
-                                <p:inputText id="fname" required="true" value="#{memberBean.firstName}"
+                                <p:inputText id="fname" required="true" value="#{inscriptionBean.firstName}"
                                              requiredMessage="Veuillez compléter le champ">
                                     <f:validateRegex pattern="^[a-z]+([-][a-zA-Z]+)*" />
                                 </p:inputText>
                                 <p:message for="fname" value="First name"/>
 
                                 <p:outputLabel for="lname" value="Nom : "/>
-                                <p:inputText id="lname" required="true" value="#{memberBean.lastName}"
+                                <p:inputText id="lname" required="true" value="#{inscriptionBean.lastName}"
                                              requiredMessage="Veuillez compléter le champ">
                                     <f:validateRegex pattern="^[a-z]+([ '-][a-zA-Z]+)*" />
                                 </p:inputText>
                                 <p:message for="lname" value="Last name"/>
 
                                 <p:outputLabel for="birthdate" value="Date de naissance : "/>
-                                <p:calendar id="birthdate" required="true" value="#{memberBean.birthday}"
+                                <p:calendar id="birthdate" required="true" value="#{inscriptionBean.birthday}"
                                             requiredMessage="Veuillez compléter le champ"/>
                                 <p:message for="birthdate" value="Date of birth"/>
 
                                 <p:outputLabel for="nationality" value="Nationalité : "/>
-                                <p:selectOneMenu id="nationality" required="true" value="#{memberBean.nationality}"
+                                <p:selectOneMenu id="nationality" required="true" value="#{inscriptionBean.nationality}"
                                                  requiredMessage="Veuillez sélectionner votre nationalité">
                                     <f:selectItem itemLabel="----" itemValue="" />
                                     <f:selectItem itemLabel="France" itemValue="France" />
@@ -68,7 +68,7 @@
                                 <p:message for="nationality" value="Nationality"/>
 
                                 <p:outputLabel for="gender" value="Sexe : "/>
-                                <p:selectOneRadio id="gender" required="true" value="#{memberBean.sex}"
+                                <p:selectOneRadio id="gender" required="true" value="#{inscriptionBean.sex}"
                                                   requiredMessage="Veuillez compléter le champ">
                                     <f:selectItem itemValue="M" itemLabel="Male"/>
                                     <f:selectItem itemValue="F" itemLabel="Female"/>
@@ -76,14 +76,14 @@
                                 <p:message for="gender" value="Gender"/>
 
                                 <p:outputLabel for="profession" value="Profession : "/>
-                                <p:inputText id="profession" required="true" value="#{memberBean.profession}"
+                                <p:inputText id="profession" required="true" value="#{inscriptionBean.profession}"
                                              requiredMessage="Veuillez compléter le champ">
                                     <f:validateRegex pattern="^[a-zA-z]+([ '-][a-zA-Z]+)*" />
                                 </p:inputText>
                                 <p:message for="profession" value="Profession"/>
                     </h:panelGrid>
                     <div class="form-actions">
-                        <h:commandButton action="#{memberBean.addNewMember()}" value="Valider" class="btn btn-danger"/>
+                        <h:commandButton action="#{inscriptionBean.addNewMember()}" value="Valider" class="btn btn-danger"/>
                     </div>
                     </p:fieldset>
                 </div>

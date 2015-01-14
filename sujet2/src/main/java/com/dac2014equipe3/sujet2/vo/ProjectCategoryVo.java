@@ -59,7 +59,4 @@ public class ProjectCategoryVo implements IValueObject{
         this.projectList = projectList;
     }
 
-    public String toString(){
-        return this.categoryId.toString();
-    }
 }

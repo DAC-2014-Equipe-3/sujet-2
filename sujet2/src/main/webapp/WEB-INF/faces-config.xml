@@ -37,12 +37,12 @@
     <navigation-rule>
         <from-view-id>/form_newmember.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{memberBean.addNewMember()}</from-action>
+            <from-action>#{inscriptionBean.addNewMember()}</from-action>
             <from-outcome>success</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-action>#{memberBean.addNewMember()}</from-action>
+            <from-action>#{inscriptionBean.addNewMember()}</from-action>
             <from-outcome>failure</from-outcome>
             <to-view-id>/form_newmember.xhtml</to-view-id>
         </navigation-case>
@@ -58,7 +58,7 @@
         <navigation-case>
             <from-action>#{projectBean.addProject()}</from-action>
             <from-outcome>failure</from-outcome>
-            <to-view-id>/template/error.xhtml</to-view-id>
+            <to-view-id>/form_newproject.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

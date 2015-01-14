@@ -22,6 +22,8 @@
                                     <h:outputText value="#{project.projectCreationDate}"/>
                                     <h:outputText value="Montant à atteindre:" />
                                     <h:outputText value="#{project.projectFundingGoal}" />
+                                    <h:outputText value="Montant déjà atteint:" />
+                                    <h:outputText value="#{project.sumPledge}" />
                                     <h:outputText value="Date de clôture:" />
                                     <h:outputText value="#{project.projectEndDate}" />
 
@@ -30,16 +32,12 @@
                                         <h:outputText value="#{creator.memberFirstname}" />
                                         <h:outputText value=" " />
                                         <h:outputText value="#{creator.memberLastname}" />
-                                        <h:outputText value=" | " />
                                     </ui:repeat>
-                                    <h:outputText value="Investisseurs:" />
-                                    <ui:repeat value="#{project.memberbacksProjectList}" var="inves">
-                                        <h:outputText value="#{inves.member1.memberFirstname}" />
-                                        <h:outputText value=" " />
-                                        <h:outputText value="#{inves.member1.memberLastname}" />
-                                        <h:outputText value=" | " />
-                                    </ui:repeat>
-                                    <p:button  icon="ui-icon-pencil" value="Investir"  outcome="/faces/form_backproject.xhtml"  >
+
+                                    <h:outputText value="Nombre d'investisseurs: " />
+                                    <h:outputText value="#{project.nbMemberBacksProject}" />
+
+                                    <p:button rendered="#{memberBean.loggedIn == true}"  icon="ui-icon-pencil" value="Investir"  outcome="/faces/form_backproject.xhtml"  >
                                         <f:param  name="idProject" value="#{project.projectId}"></f:param>
                                     </p:button>
                                 </h:panelGrid>
@@ -58,6 +56,8 @@
                                     <h:outputText value="#{project.projectCreationDate}"/>
                                     <h:outputText value="Montant à atteindre:" />
                                     <h:outputText value="#{project.projectFundingGoal}" />
+                                    <h:outputText value="Montant déjà atteint:" />
+                                    <h:outputText value="#{project.sumPledge}" />
                                     <h:outputText value="Date de clôture:" />
                                     <h:outputText value="#{project.projectEndDate}" />
 
@@ -66,16 +66,12 @@
                                         <h:outputText value="#{creator.memberFirstname}" />
                                         <h:outputText value=" " />
                                         <h:outputText value="#{creator.memberLastname}" />
-                                        <h:outputText value=" | " />
                                     </ui:repeat>
-                                    <h:outputText value="Investisseurs:" />
-                                    <ui:repeat value="#{project.memberbacksProjectList}" var="inves">
-                                        <h:outputText value="#{inves.member1.memberFirstname}" />
-                                        <h:outputText value=" " />
-                                        <h:outputText value="#{inves.member1.memberLastname}" />
-                                        <h:outputText value=" | " />
-                                    </ui:repeat>
-                                    <p:button  icon="ui-icon-pencil" value="Investir"  outcome="/faces/form_backproject.xhtml"  >
+
+                                    <h:outputText value="Nombre d'investisseurs: " />
+                                    <h:outputText value="#{project.nbMemberBacksProject}" />
+
+                                    <p:button rendered="#{memberBean.loggedIn == true}"  icon="ui-icon-pencil" value="Investir"  outcome="/faces/form_backproject.xhtml"  >
                                         <f:param  name="idProject" value="#{project.projectId}"></f:param>
                                     </p:button>
                                 </h:panelGrid>
@@ -102,17 +98,16 @@
                                         <h:outputText value="#{creator.memberFirstname}" />
                                         <h:outputText value=" " />
                                         <h:outputText value="#{creator.memberLastname}" />
-                                        <h:outputText value=" | " />
                                     </ui:repeat>
-                                    <h:outputText value="Investisseurs:" />
+                                    <!--<h:outputText value="Investisseurs:" />
                                     <ui:repeat value="#{project.memberbacksProjectList}" var="inves">
                                         <h:outputText value="#{inves.member1.memberFirstname}" />
                                         <h:outputText value=" " />
                                         <h:outputText value="#{inves.member1.memberLastname}" />
                                         <h:outputText value=" | " />
-                                    </ui:repeat>
-                                    <p:button  icon="ui-icon-pencil" value="Investir"  outcome="/faces/form_backproject.xhtml"  >
-                                        <f:param  name="idProject" value="#{project.projectId}"></f:param>
+                                    </ui:repeat>-->
+                                    <p:button rendered="#{memberBean.loggedIn == true}" icon="ui-icon-pencil" value="Investir" outcome="/faces/form_backproject.xhtml"  >
+                                        <f:param name="idProject" value="#{project.projectId}"></f:param>
                                     </p:button>
                                 </h:panelGrid>
                             </p:tab>

@@ -92,7 +92,7 @@ public class MemberDAO implements IDAO<Member> {
      */
     public boolean findMemberByLogin(String login, EntityManager em){
         Query query = em.createNamedQuery("Member.findByMemberLogin");
-        query.setParameter(PARAM_LOGIN,login);
+        query.setParameter("memberLogin",login);
         List<Member> listMembers = query.getResultList();
         return listMembers.size() != 0;
     }

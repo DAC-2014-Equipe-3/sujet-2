@@ -187,4 +187,13 @@ INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingD
 INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (19,18,190,'2015-02-01',18 );
 INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (20,19,200,'2015-02-01',19 );
 INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (20,20,210,'2015-02-01',20 );
-
+INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (16,11,120,'2015-02-01',9 );
+INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (16,12,130,'2015-02-01',10 );
+INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (17,13,140,'2015-02-01',11 );
+INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (17,14,150,'2015-02-01',12 );
+INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (18,15,160,'2015-02-01',13 );
+INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (18,16,170,'2015-02-01',14 );
+INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (19,17,180,'2015-02-01',15 );
+INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (19,18,190,'2015-02-01',16 );
+INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (20,19,200,'2015-02-01',17 );
+INSERT INTO sujet2.Member_backs_Project(backerId,projectId,pledgedEuros,backingDate,Reward_rewardId) VALUES (20,20,210,'2015-02-01',18 );

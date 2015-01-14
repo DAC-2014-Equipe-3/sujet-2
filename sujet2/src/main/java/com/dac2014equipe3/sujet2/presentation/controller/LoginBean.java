@@ -25,7 +25,8 @@ public class LoginBean {
     private MemberBean user = new MemberBean();
     private String username;
     private String password;
-    private MemberDAO memberDAO;
+
+    /******************************* GETTER / SETTER ***********************************/
 
     /**
      * Creates a new instance of LoginBean
@@ -50,22 +51,8 @@ public class LoginBean {
     /**
      * @return
      */
-    public MemberDAO getMemberDAO() {
-        return memberDAO;
-    }
-
-    /**
-     * @return
-     */
     public String getUsername() {
         return username;
-    }
-
-    /**
-     * @param memberDAO
-     */
-    public void setMemberDAO(MemberDAO memberDAO) {
-        this.memberDAO = memberDAO;
     }
 
     /**
@@ -95,6 +82,8 @@ public class LoginBean {
     public void setUser(MemberBean user) {
         this.user = user;
     }
+
+    /******************************* METHODES AJOUTEES ***********************************/
 
     private void openSession() {
         /*HttpSession session = request.getSession();
