@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 @SessionScoped
 public class MemberBean {
 
-    private int id;
+    private Integer id;
     private boolean loggedIn;
     private boolean isAdmin;
     private boolean isSuppressed;
@@ -64,7 +64,7 @@ public class MemberBean {
     /**
      * @return the id
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -85,7 +85,7 @@ public class MemberBean {
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

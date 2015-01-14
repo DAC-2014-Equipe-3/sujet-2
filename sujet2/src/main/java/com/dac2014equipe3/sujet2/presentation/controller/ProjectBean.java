@@ -17,10 +17,10 @@ import java.util.*;
 @SessionScoped
 public class ProjectBean {
 
-    private int id;
+    private Integer id;
     private String title;
     private String description;
-    private int fundingGoal;
+    private Integer fundingGoal;
     private Date creationDate;
     private Date endDate;
     private boolean isSuppressed;
@@ -49,11 +49,11 @@ public class ProjectBean {
         this.creationDate = creationDate;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
